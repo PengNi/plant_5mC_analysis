@@ -56,7 +56,8 @@ def cmp_detected_cytosines(args):
 
 def main():
     # python compare_detected_cytosines.py --bs_file ../stats_c_count/ninanjie-2.bs_3replicates.CG.main_genome.stat.txt --bs_file ../stats_c_count/ninanjie-2.bs_3replicates.CHG.main_genome.stat.txt --bs_file ../stats_c_count/ninanjie-2.bs_3replicates.CHH.main_genome.stat.txt --nano_file ../stats_c_count/ninanjie.nanopore50x.CG.main_genome.stat.txt --nano_file ../stats_c_count/ninanjie.nanopore50x.CHG.main_genome.stat.txt --nano_file ../stats_c_count/ninanjie.nanopore50x.CHH.main_genome.stat.txt --wfile ninanjie.c_count.bs_3reps_vs_nano.only_nanopore_detected_Cs.pos.txt > ninanjie.c_count.bs_3reps_vs_nano50x.log &
-    parser = argparse.ArgumentParser("must add bs_file/nano_file in the same order")
+    # python compare_detected_cytosines.py --bs_file ../stats_c_count/ninanjie-2.bs_3replicates.CG.main_genome.stat.txt --bs_file ../stats_c_count/ninanjie-2.bs_3replicates.CHG.main_genome.stat.txt --bs_file ../stats_c_count/ninanjie-2.bs_3replicates.CHH.main_genome.stat.txt --nano_file ../stats_c_count/athaliana.guppy.pass.part2.CG.dp2_p0.8_50x12345.main_genome.stat.txt --nano_file ../stats_c_count/athaliana.guppy.pass.part2.CHG.dp2_p0.8_50x12345.main_genome.stat.txt --nano_file ../stats_c_count/athaliana.guppy.pass.part2.CHH.dp2_p0.8_50x12345.main_genome.stat.txt --wfile ninanjie.c_count.bs_3reps_vs_nano50x_dp2_p0.8.only_nanopore_detected_Cs.pos.txt > ninanjie.c_count.bs_3reps_vs_nano50x_dp2_p0.8.log &
+    parser = argparse.ArgumentParser("must add bs_file/nano_file in the same order, from stats_c_count")
     parser.add_argument("--bs_file", type=str, action="append",
                         required=True, help="bs detected poses")
     parser.add_argument("--nano_file", type=str, action="append",

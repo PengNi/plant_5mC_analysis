@@ -57,19 +57,24 @@ pb <- ggplot(df_signalinfo_one_m, aes(x=variable, y=value)) +
             show.legend=FALSE, vjust=0, angle=0,
             fontface=text_face, 
             family="serif") +
-  ylab("signal") + 
-  xlab("position") + 
-  ggtitle(sprintf("denoise training samples (positive_kept: %d, positive_removed: %d, negative: %d)", 
+  ylab("Signal") + 
+  xlab("Position") + 
+  ggtitle(sprintf("Denoise training samples (positive_kept: %d, positive_removed: %d, negative: %d)", 
                   cnt_pos_kept, cnt_pos_removed, cnt_neg))
 pb
 
 ppi= 300
-jpeg("fig_pipeline_testing/effect_of_denoise.plot.jpg", 
-     width = 15, 
-     height = 7, units = "cm", res=ppi)
+png("fig_pipeline_testing/effect_of_denoise.plot.png", 
+     width = 16, 
+     height = 7.5, units = "cm", res=ppi) # 15/7
 pb
 dev.off()
 
+svg("fig_pipeline_testing/effect_of_denoise.plot.svg", 
+    width = 16/2.54, 
+    height = 7.5/2.54)
+pb
+dev.off()
 
 
 

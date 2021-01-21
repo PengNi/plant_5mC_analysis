@@ -8,6 +8,11 @@ library(reshape2)
 library(RColorBrewer)
 library(scales)
 
+############
+# arab, rice2-1; deepsignal2_p0.8
+############
+
+
 classify_one_type <- function(rmet, sranges){
   for(i in 2:(length(sranges))){
     if(rmet<=sranges[i]){return(i-1)}
@@ -73,6 +78,8 @@ plot_rmet_heatmap <- function(rmet_df_file, hunit=40,
   if(pearcor<=0){
     pearcor = cor(rmet_bis, rmet_nan, method='pearson')
   }
+  pearcor_fmt <- format(round(pearcor, 4), nsmall = 4)
+  
   p <- ggplot(rmet_df, aes(rmet_bis, rmet_nan)) + 
     geom_bin2d(bins=hunit) +
     theme_bw() + 
@@ -83,72 +90,68 @@ plot_rmet_heatmap <- function(rmet_df_file, hunit=40,
     scale_x_continuous(breaks = seq(0, 1, 0.2)) +
     scale_y_continuous(breaks = seq(0, 1, 0.2)) +
     theme(text=element_text(size=17, family = "serif"), 
-          axis.title = element_text(size = 15, family = "serif"), 
+          axis.title.x = element_text(size = 15, family = "serif"),
+          axis.title.y = element_text(size = 13, family = "serif"), 
           axis.text=element_text(size=15, family = "serif"), 
           legend.text = element_text(size=12, family = "serif"), 
           legend.title = element_text(size=15, family = "serif"), 
           plot.title = element_text(hjust = titlehjust)) +
     xlab(name_bs) + ylab(name_nano) + 
-    ggtitle(paste(paste(data_label, ',', 
-                        sep = ""),  
-                  paste("cor", "=", format(round(pearcor, 4), nsmall = 4), 
-                        sep = " "), 
-                  sep = '  '))
-  
+    ggtitle(bquote(paste(.(data_label), ",  ", italic("r"), " = ", .(pearcor_fmt))))
   return(p)
 }
 
-p_arab_cg <- plot_rmet_heatmap("stats_correlation_with_bisulfite/athaliana.guppy.pass.part2.CG.bn13_sn16.arabnrice2-1.balance.both_bilstm.50x_12345.freq.vs_bsrep123.rmet.tsv", 
+p_arab_cg <- plot_rmet_heatmap("stats_correlation_with_bisulfite/athaliana.guppy.pass.part2.CG.bn13_sn16.arabnrice2-1.balance.both_bilstm.50x_12345.p0.8.freq.vs_bsrep123.rmet.tsv", 
                                hunit = 50,
                                data_label = "CG", 
-                  name_bs = "Bisulfite Methylation Frequency", 
-                  name_nano = "Nanopore Methylation Frequency", 
+                  name_bs = "Bisulfite methylation frequency", 
+                  name_nano = "DeepSignal-plant methylation frequency", 
                   titlehjust = -0.0, 
-                  pearcor = 0.97717)
+                  pearcor = 0.98402)
 p_arab_cg
 
-p_arab_chg <- plot_rmet_heatmap("stats_correlation_with_bisulfite/athaliana.guppy.pass.part2.CHG.bn13_sn16.arabnrice2-1.denoise_signal_bilstm.both_bilstm.50x_12345.freq.vs_bsrep123.rmet.tsv", 
+p_arab_chg <- plot_rmet_heatmap("stats_correlation_with_bisulfite/athaliana.guppy.pass.part2.CHG.bn13_sn16.arabnrice2-1.denoise_signal_bilstm.both_bilstm.50x_12345.p0.8.freq.vs_bsrep123.rmet.tsv",
                                 hunit = 50,
-                                data_label = "CHG", 
-                                name_bs = "Bisulfite Methylation Frequency", 
-                                name_nano = "Nanopore Methylation Frequency", 
-                                titlehjust = -0.0, 
-                                pearcor = 0.96094)
+                                data_label = "CHG",
+                                name_bs = "Bisulfite methylation frequency",
+                                name_nano = "DeepSignal-plant methylation frequency",
+                                titlehjust = -0.0,
+                                pearcor = 0.96377)
 p_arab_chg
 
-p_arab_chh <- plot_rmet_heatmap("stats_correlation_with_bisulfite/athaliana.guppy.pass.part2.CHH.bn13_sn16.arabnrice2-1.denoise_signal_bilstm.both_bilstm.50x_12345.freq.vs_bsrep123.rmet.tsv", 
+p_arab_chh <- plot_rmet_heatmap("stats_correlation_with_bisulfite/athaliana.guppy.pass.part2.CHH.bn13_sn16.arabnrice2-1.denoise_signal_bilstm.both_bilstm.50x_12345.p0.8.freq.vs_bsrep123.rmet.tsv",
                                 hunit = 50,
-                                data_label = "CHH", 
-                                name_bs = "Bisulfite Methylation Frequency", 
-                                name_nano = "Nanopore Methylation Frequency", 
-                                titlehjust = -0.0, 
-                                pearcor = 0.88769)
+                                data_label = "CHH",
+                                name_bs = "Bisulfite methylation frequency",
+                                name_nano = "DeepSignal-plant methylation frequency",
+                                titlehjust = -0.0,
+                                pearcor = 0.8974509)
 p_arab_chh
 
-p_rice_cg <- plot_rmet_heatmap("stats_correlation_with_bisulfite/shuidao1-1.guppy.pass.part2.CG.bn13_sn16.arabnrice2-1.balance.both_bilstm.50x_12345.freq.vs_bs1-2.tsv", 
+p_rice_cg <- plot_rmet_heatmap("stats_correlation_with_bisulfite/shuidao2-1.guppy.pass.part2.CG.bn13_sn16.arabnrice2-1.balance.both_bilstm.50x_12345.p0.8.freq.vs_bs2-1.rmet.tsv",
                                hunit = 50,
-                               data_label = "CG", 
-                               name_bs = "Bisulfite Methylation Frequency", 
-                               name_nano = "Nanopore Methylation Frequency", 
-                               titlehjust = -0.0, 
+                               data_label = "CG",
+                               name_bs = "Bisulfite methylation frequency",
+                               name_nano = "DeepSignal-plant methylation frequency",
+                               titlehjust = -0.0,
                                pearcor = 0)
 p_rice_cg
 
-p_rice_chg <- plot_rmet_heatmap("stats_correlation_with_bisulfite/shuidao1-1.guppy.pass.part2.CHG.bn13_sn16.arabnrice2-1.denoise_signal_bilstm.both_bilstm.50x_12345.freq.vs_bs1-2.tsv", 
+p_rice_chg <- plot_rmet_heatmap("stats_correlation_with_bisulfite/shuidao2-1.guppy.pass.part2.CHG.bn13_sn16.arabnrice2-1.denoise_signal_bilstm.both_bilstm.50x_12345.p0.8.freq.vs_bs2-1.rmet.tsv",
                                 hunit = 50,
-                                data_label = "CHG", 
-                                name_bs = "Bisulfite Methylation Frequency", 
-                                name_nano = "Nanopore Methylation Frequency", 
-                                titlehjust = -0.0, 
+                                data_label = "CHG",
+                                name_bs = "Bisulfite methylation frequency",
+                                name_nano = "DeepSignal-plant methylation frequency",
+                                titlehjust = -0.0,
                                 pearcor = 0)
 p_rice_chg
 
-p_rice_chh <- plot_rmet_heatmap("stats_correlation_with_bisulfite/shuidao1-1.guppy.pass.part2.CHH.bn13_sn16.arabnrice2-1.denoise_signal_bilstm.both_bilstm.50x_12345.freq.vs_bs1-2.tsv", 
+p_rice_chh <- plot_rmet_heatmap("stats_correlation_with_bisulfite/shuidao2-1.guppy.pass.part2.CHH.bn13_sn16.arabnrice2-1.denoise_signal_bilstm.both_bilstm.50x_12345.p0.8.freq.vs_bs2-1.rmet.tsv",
                                 hunit = 50,
-                                data_label = "CHH", 
-                                name_bs = "Bisulfite Methylation Frequency", 
-                                name_nano = "Nanopore Methylation Frequency", 
-                                titlehjust = -0.0, 
+                                data_label = "CHH",
+                                name_bs = "Bisulfite methylation frequency",
+                                name_nano = "DeepSignal-plant methylation frequency",
+                                titlehjust = -0.0,
                                 pearcor = 0)
 p_rice_chh
 
@@ -182,24 +185,24 @@ p_rice_chh
 svg("stats_correlation_with_bisulfite/performance_corr_heatmap.raw.svg", 
      width = 44/2.54, 
      height = 23/2.54)
-grid.arrange(arrangeGrob(grid.rect(gp=gpar(col="white")), 
-                         nrow = 1), 
+grid.arrange(arrangeGrob(grid.rect(gp=gpar(col="white")),
+                         nrow = 1),
              arrangeGrob(p_arab_cg,
                          grid.rect(gp=gpar(col="white")),
                          p_arab_chg,
                          grid.rect(gp=gpar(col="white")),
                          p_arab_chh,
-                         nrow=1, 
-                         widths = c(12, 1, 12, 1, 12)), 
-             arrangeGrob(grid.rect(gp=gpar(col="white")), 
-                         nrow = 1), 
+                         nrow=1,
+                         widths = c(12, 1, 12, 1, 12)),
+             arrangeGrob(grid.rect(gp=gpar(col="white")),
+                         nrow = 1),
              arrangeGrob(p_rice_cg,
                          grid.rect(gp=gpar(col="white")),
                          p_rice_chg,
                          grid.rect(gp=gpar(col="white")),
                          p_rice_chh,
-                         nrow=1, 
-                         widths = c(12, 1, 12, 1, 12)), 
+                         nrow=1,
+                         widths = c(12, 1, 12, 1, 12)),
              heights = c(1, 12, 2, 12))
 dev.off()
 ppi= 300

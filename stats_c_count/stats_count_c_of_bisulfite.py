@@ -62,12 +62,11 @@ def write_union_poses(poses, wfile):
 
 
 def main():
-    # python stats_count_c_of_bisulfite.py --bs_file ~/data/nextomics/rice/bismark.out/shuidao1-2_D1904161A-QJ/
+    # python stats_count_c_of_bisulfite.py --bs_file ~/tools/data/rice/bs.result/
     # D1904161A-QJ_L2L4.cutadapt.R1_bismark_bt2_pe.sorted.mark_dup.sorted.CX_report.CG.txt
-    # --bs_file ~/data/nextomics/rice/bismark.out/shuidao3-2_D1904165A-QJ/
-    # D1904165A-QJ_L3L4.cutadapt.R1_bismark_bt2_pe.sorted.mark_dup.sorted.CX_report.CG.txt
-    # --cov_cf 5 --contig_names 1,2,3,4,5,6,7,8,9,10,11,12 --wfile shuidao.bs_rep1n3.CG.main_genome.stat.txt
-    # > shiudao.bs_rep1n3.CG.main_genome.stat.log &
+    # --bs_file ~/tools/data/rice/bs.result/shuidao2-1_1_bismark_bt2_pe.sorted.mark_dup.sorted.CX_report.CG.txt
+    # --cov_cf 5 --contig_names 1,2,3,4,5,6,7,8,9,10,11,12 --wfile shuidao.bs_rep2-1n1-2.CG.main_genome.stat.txt
+    # > shuidao.bs_rep2-1n1-2.CG.main_genome.stat.log &
 
     # python stats_count_c_of_bisulfite.py --bs_file ~/data/nextomics/athaliana/bismark.out/
     # ninanjie-2-1_D1902826A-ZJ/
@@ -87,6 +86,10 @@ def main():
     parser.add_argument("--wfile", type=str, required=True, default=None)
 
     args = parser.parse_args()
+    print("=============coverage cutoff: 1")
+    chrom2poses = union_poses_of_bsfiles(args.bs_file, 1)
+    poses = stat_poses(chrom2poses, args.contig_prefix, args.contig_names)
+    print("=============coverage cutoff: {}".format(args.cov_cf))
     chrom2poses = union_poses_of_bsfiles(args.bs_file, args.cov_cf)
     poses = stat_poses(chrom2poses, args.contig_prefix, args.contig_names)
     write_union_poses(poses, args.wfile)

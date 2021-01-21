@@ -22,29 +22,34 @@ pa <- ggplot(data = df.pre, aes(y=Pearson_Correlation, x=motif, fill = preproces
                                label=sprintf("%.4f", 
                                              round(Pearson_Correlation, digits = 4)))) + 
   geom_bar(stat="identity", position=position_dodge(), colour="black") + 
-  geom_text(size = 2, position=position_dodge(width=0.9), vjust=-0.5, # 2
+  geom_text(size = 4, position=position_dodge(width=0.9), # vjust=-0.5, # 2
+            angle=90, hjust=1.2,
             family="serif") +
   theme_bw() + 
   theme(legend.position = "bottom", 
         legend.title = element_blank(), 
-        text=element_text(size=12,  family="serif"), # 12
+        legend.text = element_text(size = 9, family="serif"),
+        text=element_text(size=14, family="serif"), # 12
         legend.key.size = unit(0.35, "cm"), 
         legend.margin=margin(-10, 0, 0, 0)) + 
   scale_fill_manual(values=cbPalettea) +
   coord_cartesian(ylim=c(0.2, 0.95)) +
   scale_y_continuous(breaks = seq(0.2, 0.95, 0.1)) + 
-  labs(x="", y="Pearson Correlation")
+  labs(x="", y="Pearson correlation")
 
 ppi= 300
-jpeg("fig_pipeline_testing/eval.preprocess.arab.10x_1.vs_bsrep123.plot.jpg", 
+png("fig_pipeline_testing/eval.preprocess.arab.10x_1.vs_bsrep123.plot.png", 
      width = 8, 
-     height = 14, units = "cm", res=ppi)
+     height = 14.5, units = "cm", res=ppi)  # 8/14.5
 pa
 dev.off()
 
 
 # cross species validation ===
-df.csv <- read.table("fig_pipeline_testing/eval.cross_species_validation.10x.arab_rep123.rice1-1_rep1-2.txt", 
+# df.csv <- read.table("fig_pipeline_testing/eval.cross_species_validation.10x.arab_rep123.rice1-1_rep1-2.txt", 
+#                      header = T, 
+#                      sep = "\t", stringsAsFactors = F)
+df.csv <- read.table("fig_pipeline_testing/eval.cross_species_validation.10x.arab_rep123.rice2-1_rep2-1.txt", 
                      header = T, 
                      sep = "\t", stringsAsFactors = F)
 df.csv <- ddply(df.csv, .(motif, model),
@@ -78,21 +83,22 @@ p1 <- ggplot() +
         panel.border = element_blank(), 
         axis.text.x  = element_text(angle=45, vjust=1, hjust = 1),
         text=element_text(size=30,  family="serif")) + 
-  labs(x="Model", y="Pearson Correlation")
+  labs(x="Model", y="Pearson correlation")
 
 pc <- ggplot() + 
   geom_bar(data = df.csv, aes(y=Pearson_Correlation, x=model, fill = data),
            colour="black", stat="identity", width = 1) + 
   geom_text(data=df.csv, aes(x = model, y = pos, 
                              label=sprintf("%.4f", 
-                                           round(Pearson_Correlation, digits = 4))), size=3.2, # 3.2
+                                           round(Pearson_Correlation, digits = 4))), size=4, # 3.2
             family="serif") +
   facet_grid(motif ~ .) + 
-  scale_x_discrete(limits=c("m_comb", "m_rice", "m_arab")) + 
+  scale_x_discrete(limits=c("m_comb", "m_rice", "m_arab"), 
+                   labels=c("m_comb", "m_rice", "m_arab")) + 
   scale_y_continuous(breaks = seq(0, 2, 0.2)) + 
   scale_fill_manual(values=cbPalettec, 
                     breaks=c("arab.20x", "rice.20x"), 
-                    labels=c("A. thaliana", "O. sativa")) +
+                    labels=c("A. thaliana   ", "O. sativa")) +
   theme_bw() + 
   theme(legend.position = "bottom", 
         legend.title = element_blank(), 
@@ -102,21 +108,22 @@ pc <- ggplot() +
         strip.background = element_rect(colour="white", fill="white", 
                                         size=1, linetype="solid"), # 1
         panel.border = element_blank(), 
-        text=element_text(size=12,  family="serif")) + # 12
-  labs(x="Model", y="Pearson Correlation") + 
+        text=element_text(size=12,  family="serif"), # 12
+        axis.text.y = element_text(size=12,  family="serif")) + 
+  labs(x="Model", y="Pearson correlation") + 
   coord_flip()
 
 ppi= 300
-jpeg("fig_pipeline_testing/eval.cross_species_validation.10x.arab_rep123.rice1-1_rep1-2.plot.jpg", 
-     width = 15, 
-     height = 7, units = "cm", res=ppi)
+png("fig_pipeline_testing/eval.cross_species_validation.10x.arab_rep123.rice2-1_rep2-1.plot.png", 
+     width = 16, 
+     height = 7.5, units = "cm", res=ppi)
 pc
 dev.off()
 
 
 
 # combine pa, pb, pc, svg/jpg
-svg("fig_pipeline_testing/fig_pipeline_testing.abc.ori.svg", 
+svg("fig_pipeline_testing/fig_pipeline_testing.abc.raw.svg", 
     width = 24/2.5, 
     height = 15/2.5)
 grid.arrange(arrangeGrob(grid.rect(gp=gpar(col="white")), pa,
@@ -133,7 +140,7 @@ grid.arrange(arrangeGrob(grid.rect(gp=gpar(col="white")), pa,
              widths=c(8, 1, 15))
 dev.off()
 ppi= 300
-png("fig_pipeline_testing/fig_pipeline_testing.abc.ori.png", 
+png("fig_pipeline_testing/fig_pipeline_testing.abc.raw.png", 
      width = 24, 
      height = 15, units = "cm", res=ppi)
 grid.arrange(arrangeGrob(grid.rect(gp=gpar(col="white")), pa,

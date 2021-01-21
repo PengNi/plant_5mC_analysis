@@ -8,18 +8,18 @@ library(gridExtra)
 
 
 # arab cytosine ==
-m_arab_c <- euler(c("bisulfite"= 134141, 
-                         "nanopore" = 654737,
-                         "bisulfite&nanopore"=41984585))
+m_arab_c <- euler(c("bisulfite"= 167689, 
+                    "Nanopore" = 644273,
+                    "bisulfite&Nanopore"=41951037))
 p_arab_c <- plot(m_arab_c, 
                  quantities = list(fontsize=16, fontfamily="serif", 
-                                   labels=c(134141, 
-                                            654737, 
-                                            41984585)), 
+                                   labels=c(167689, 
+                                            644273, 
+                                            41951037)), 
                  fills = list(fill=c('#fc8d62', '#66c2a5'), alpha=0.7),
                  edges =TRUE,
                  labels = list(font=2, fontsize=16, fontfamily="serif"), 
-                 main = list(label="a", 
+                 main = list(label="", 
                              fontsize=24,
                              font=2,
                              hjust=8,
@@ -28,24 +28,46 @@ p_arab_c <- plot(m_arab_c,
 # p_arab_c
 
 # rice cytosine =
-m_rice_c <- euler(c("bisulfite"= 652667, 
-                    "nanopore" = 6920145,
-                    "bisulfite&nanopore"=154696947))
+m_rice_c <- euler(c("bisulfite"= 796695, 
+                    "Nanopore" = 10446128,
+                    "bisulfite&Nanopore"=150936284))
 p_rice_c <- plot(m_rice_c, 
                  quantities = list(fontsize=16, fontfamily="serif", 
-                                   labels=c(652667, 
-                                            6920145, 
-                                            154696947)), 
+                                   labels=c(796695, 
+                                            10446128, 
+                                            150936284)), 
                  fills = list(fill=c('#fc8d62', '#66c2a5'), alpha=0.7),
                  edges =TRUE,
                  labels = list(font=2, fontsize=16, fontfamily="serif"), 
-                 main = list(label="b", 
+                 main = list(label="", 
                              fontsize=24,
                              font=2,
                              hjust=8,
                              vjust=1, 
                              fontfamily="serif"))
 # p_rice_c
+
+
+# rice cytosine rep2 =
+m_rice_c2 <- euler(c("bisulfite"= 810454, 
+                    "Nanopore" = 9432531,
+                    "bisulfite&Nanopore"=151935813))
+p_rice_c2 <- plot(m_rice_c2, 
+                 quantities = list(fontsize=16, fontfamily="serif", 
+                                   labels=c(810454, 
+                                            9432531, 
+                                            151935813)), 
+                 fills = list(fill=c('#fc8d62', '#66c2a5'), alpha=0.7),
+                 edges =TRUE,
+                 labels = list(font=2, fontsize=16, fontfamily="serif"), 
+                 main = list(label="", 
+                             fontsize=24,
+                             font=2,
+                             hjust=8,
+                             vjust=1, 
+                             fontfamily="serif"))
+# p_rice_c2
+
 
 # ppi= 300
 # png("stats_nanopore_only_cytosines_profiling/compare_detected_cytosines.venn.arab_rice.c.png", 
@@ -58,51 +80,51 @@ p_rice_c <- plot(m_rice_c,
 
 
 # arab cg, chg, chh
-m_arab_cg <- euler(c("bisulfite"= 17464, 
-                    "nanopore" = 87720,
-                    "bisulfite&nanopore"=5451532))
+m_arab_cg <- euler(c("bisulfite"= 32636, 
+                     "Nanopore" = 84684,
+                     "bisulfite&Nanopore"=5436360))
 p_arab_cg <- plot(m_arab_cg, 
-                 quantities = list(fontsize=16, fontfamily="serif", 
-                                   labels=c(17464, 
-                                            87720, 
-                                            5451532)), 
-                 fills = list(fill=c('#fc8d62', '#66c2a5'), alpha=0.7),
-                 edges =TRUE,
-                 labels = list(font=2, fontsize=16, fontfamily="serif"), 
-                 main = list(label="a", 
-                             fontsize=24,
-                             font=2,
-                             hjust=8,
-                             vjust=1, 
-                             fontfamily="serif"))
-
-m_arab_chg <- euler(c("bisulfite"= 15548, 
-                     "nanopore" = 86732,
-                     "bisulfite&nanopore"=5980782))
-p_arab_chg <- plot(m_arab_chg, 
                   quantities = list(fontsize=16, fontfamily="serif", 
-                                    labels=c(15548, 
-                                             86732, 
-                                             5980782)), 
+                                    labels=c(32636, 
+                                             84684, 
+                                             5436360)), 
                   fills = list(fill=c('#fc8d62', '#66c2a5'), alpha=0.7),
                   edges =TRUE,
                   labels = list(font=2, fontsize=16, fontfamily="serif"), 
-                  main = list(label="b", 
+                  main = list(label="a", 
                               fontsize=24,
                               font=2,
                               hjust=8,
                               vjust=1, 
                               fontfamily="serif"))
 
+m_arab_chg <- euler(c("bisulfite"= 18891, 
+                      "Nanopore" = 85575,
+                      "bisulfite&Nanopore"=5977439))
+p_arab_chg <- plot(m_arab_chg, 
+                   quantities = list(fontsize=16, fontfamily="serif", 
+                                     labels=c(18891, 
+                                              85575, 
+                                              5977439)), 
+                   fills = list(fill=c('#fc8d62', '#66c2a5'), alpha=0.7),
+                   edges =TRUE,
+                   labels = list(font=2, fontsize=16, fontfamily="serif"), 
+                   main = list(label="b", 
+                               fontsize=24,
+                               font=2,
+                               hjust=8,
+                               vjust=1, 
+                               fontfamily="serif"))
 
-m_arab_chh <- euler(c("bisulfite"= 101129, 
-                      "nanopore" = 480285,
-                      "bisulfite&nanopore"=30552271))
+
+m_arab_chh <- euler(c("bisulfite"= 116162, 
+                      "Nanopore" = 474014,
+                      "bisulfite&Nanopore"=30537238))
 p_arab_chh <- plot(m_arab_chh, 
                    quantities = list(fontsize=16, fontfamily="serif", 
-                                     labels=c(101129, 
-                                              480285, 
-                                              30552271)), 
+                                     labels=c(116162, 
+                                              474014, 
+                                              30537238)), 
                    fills = list(fill=c('#fc8d62', '#66c2a5'), alpha=0.7),
                    edges =TRUE,
                    labels = list(font=2, fontsize=16, fontfamily="serif"), 
@@ -115,14 +137,14 @@ p_arab_chh <- plot(m_arab_chh,
 
 
 # rice cg, chg, chh
-m_rice_cg <- euler(c("bisulfite"= 141448, 
-                     "nanopore" = 1515588,
-                     "bisulfite&nanopore"=29098689))
+m_rice_cg <- euler(c("bisulfite"= 224432, 
+                     "Nanopore" = 2010752,
+                     "bisulfite&Nanopore"=28488226))
 p_rice_cg <- plot(m_rice_cg, 
                   quantities = list(fontsize=16, fontfamily="serif", 
-                                    labels=c(141448, 
-                                             1515588, 
-                                             29098689)), 
+                                    labels=c(224432, 
+                                             2010752, 
+                                             28488226)), 
                   fills = list(fill=c('#fc8d62', '#66c2a5'), alpha=0.7),
                   edges =TRUE,
                   labels = list(font=2, fontsize=16, fontfamily="serif"), 
@@ -133,46 +155,105 @@ p_rice_cg <- plot(m_rice_cg,
                               vjust=1, 
                               fontfamily="serif"))
 
-m_rice_chg <- euler(c("bisulfite"= 105322, 
-                     "nanopore" = 1158737,
-                     "bisulfite&nanopore"=26068103))
+m_rice_chg <- euler(c("bisulfite"= 122935, 
+                      "Nanopore" = 1552407,
+                      "bisulfite&Nanopore"=25644528))
 p_rice_chg <- plot(m_rice_chg, 
-                  quantities = list(fontsize=16, fontfamily="serif", 
-                                    labels=c(105322, 
-                                             1158737, 
-                                             26068103)), 
-                  fills = list(fill=c('#fc8d62', '#66c2a5'), alpha=0.7),
-                  edges =TRUE,
-                  labels = list(font=2, fontsize=16, fontfamily="serif"), 
-                  main = list(label="e", 
-                              fontsize=24,
-                              font=2,
-                              hjust=10,
-                              vjust=1, 
-                              fontfamily="serif"))
+                   quantities = list(fontsize=16, fontfamily="serif", 
+                                     labels=c(122935, 
+                                              1552407, 
+                                              25644528)), 
+                   fills = list(fill=c('#fc8d62', '#66c2a5'), alpha=0.7),
+                   edges =TRUE,
+                   labels = list(font=2, fontsize=16, fontfamily="serif"), 
+                   main = list(label="e", 
+                               fontsize=24,
+                               font=2,
+                               hjust=9.5,
+                               vjust=1, 
+                               fontfamily="serif"))
 
-m_rice_chh <- euler(c("bisulfite"= 405897, 
-                      "nanopore" = 4245820,
-                      "bisulfite&nanopore"=99530155))
+m_rice_chh <- euler(c("bisulfite"= 449328, 
+                      "Nanopore" = 6882969,
+                      "bisulfite&Nanopore"=96803530))
 p_rice_chh <- plot(m_rice_chh, 
                    quantities = list(fontsize=16, fontfamily="serif", 
-                                     labels=c(405897, 
-                                              4245820, 
-                                              99530155)), 
+                                     labels=c(449328, 
+                                              6882969, 
+                                              96803530)), 
                    fills = list(fill=c('#fc8d62', '#66c2a5'), alpha=0.7),
                    edges =TRUE,
                    labels = list(font=2, fontsize=16, fontfamily="serif"), 
                    main = list(label="f", 
                                fontsize=24,
                                font=2,
-                               hjust=10.5,
+                               hjust=10.3,
                                vjust=1, 
                                fontfamily="serif"))
 
+
+# rice rep2, cg, chg, chh
+m_rice_cg2 <- euler(c("bisulfite"= 233818, 
+                     "Nanopore" = 2177632,
+                     "bisulfite&Nanopore"=28308883))
+p_rice_cg2 <- plot(m_rice_cg2, 
+                  quantities = list(fontsize=16, fontfamily="serif", 
+                                    labels=c(233818, 
+                                             2177632, 
+                                             28308883)), 
+                  fills = list(fill=c('#fc8d62', '#66c2a5'), alpha=0.7),
+                  edges =TRUE,
+                  labels = list(font=2, fontsize=16, fontfamily="serif"), 
+                  main = list(label="g", 
+                              fontsize=24,
+                              font=2,
+                              hjust=7.6,
+                              vjust=1, 
+                              fontfamily="serif"))
+
+m_rice_chg2 <- euler(c("bisulfite"= 121819, 
+                      "Nanopore" = 1595249,
+                      "bisulfite&Nanopore"=25600473))
+p_rice_chg2 <- plot(m_rice_chg2, 
+                   quantities = list(fontsize=16, fontfamily="serif", 
+                                     labels=c(121819, 
+                                              1595249, 
+                                              25600473)), 
+                   fills = list(fill=c('#fc8d62', '#66c2a5'), alpha=0.7),
+                   edges =TRUE,
+                   labels = list(font=2, fontsize=16, fontfamily="serif"), 
+                   main = list(label="h", 
+                               fontsize=24,
+                               font=2,
+                               hjust=7.5,
+                               vjust=1, 
+                               fontfamily="serif"))
+
+m_rice_chh2 <- euler(c("bisulfite"= 454817, 
+                      "Nanopore" = 5659650,
+                      "bisulfite&Nanopore"=98026457))
+p_rice_chh2 <- plot(m_rice_chh2, 
+                   quantities = list(fontsize=16, fontfamily="serif", 
+                                     labels=c(454817, 
+                                              5659650, 
+                                              98026457)), 
+                   fills = list(fill=c('#fc8d62', '#66c2a5'), alpha=0.7),
+                   edges =TRUE,
+                   labels = list(font=2, fontsize=16, fontfamily="serif"), 
+                   main = list(label="i", 
+                               fontsize=24,
+                               font=2,
+                               hjust=11.5,
+                               vjust=1, 
+                               fontfamily="serif"))
+
+
+
+
 ppi= 300
 png("stats_nanopore_only_cytosines_profiling/compare_detected_cytosines.venn.arab_rice.cg_chg_chh.png", 
-     width = 36, 
-     height = 20, units = "cm", res=ppi)
+    width = 36, 
+    height = 30, units = "cm", res=ppi)
 grid.arrange(arrangeGrob(p_arab_cg,
                          p_arab_chg,
                          p_arab_chh,
@@ -183,11 +264,16 @@ grid.arrange(arrangeGrob(p_arab_cg,
                          p_rice_chh,
                          nrow=1, 
                          widths = c(12, 12, 12)),
-             heights = c(10, 10))
+             arrangeGrob(p_rice_cg2,
+                         p_rice_chg2,
+                         p_rice_chh2,
+                         nrow=1, 
+                         widths = c(12, 12, 12)),
+             heights = c(10, 10, 10))
 dev.off()
 svg("stats_nanopore_only_cytosines_profiling/compare_detected_cytosines.venn.arab_rice.cg_chg_chh.svg", 
     width = 36/2.54, 
-    height = 20/2.54)
+    height = 30/2.54)
 grid.arrange(arrangeGrob(p_arab_cg,
                          p_arab_chg,
                          p_arab_chh,
@@ -198,7 +284,18 @@ grid.arrange(arrangeGrob(p_arab_cg,
                          p_rice_chh,
                          nrow=1, 
                          widths = c(12, 12, 12)),
-             heights = c(10, 10))
+             arrangeGrob(p_rice_cg2,
+                         p_rice_chg2,
+                         p_rice_chh2,
+                         nrow=1, 
+                         widths = c(12, 12, 12)),
+             heights = c(10, 10, 10))
 dev.off()
+
+
+
+
+
+
 
 

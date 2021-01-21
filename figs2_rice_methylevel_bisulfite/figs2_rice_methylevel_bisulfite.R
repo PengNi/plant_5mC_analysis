@@ -55,10 +55,12 @@ pa <- ggplot(data=s1a, aes(x=motif, y=methylevel, fill=replicate)) +
         legend.key.size = unit(0.35, "cm"), 
         legend.margin=margin(-3, 0, 0, 0),
         text = element_text(size = 12, family="serif"), 
-        plot.title = element_text(size = 20, hjust = -0.1, face = "bold"), 
+        plot.title = element_text(size = 20, hjust = -0.13, vjust=-0.13, face = "bold"), 
         axis.title.y = element_text(size=10)) + 
   scale_y_continuous(limits = c(0, 64), breaks = seq(0, 64, 10)) +
-  scale_fill_manual(values=cbPalette) + 
+  scale_fill_manual(values=cbPalette, 
+                    breaks = c("replicate1", "replicate2"), 
+                    labels = c("rep1   ", "rep2")) + 
   labs(x="", y="Average methylation level (%)", title="a")
 pa
 
@@ -79,9 +81,11 @@ pb <- ggplot(data=s1b, aes(x=ranges, y=ratio, fill=replicate)) +
         legend.margin=margin(-3, 0, 0, 0),
         text = element_text(size = 12, family="serif"), 
         axis.text.x = element_text(size=7),
-        plot.title = element_text(size = 20, hjust = -0.1, face = "bold")) + 
+        plot.title = element_text(size = 20, hjust = -0.13, vjust=-0.13, face = "bold")) + 
   scale_y_continuous(limits = c(0, 50), breaks = seq(0, 50, 10)) +
-  scale_fill_manual(values=cbPalette) + 
+  scale_fill_manual(values=cbPalette, 
+                    breaks = c("replicate1", "replicate2"), 
+                    labels = c("rep1   ", "rep2")) + 
   labs(x="Methylation frequency", y="Percent of counts (%)", title="b")
 pb
 
@@ -102,9 +106,11 @@ pc <- ggplot(data=s1c, aes(x=ranges, y=ratio, fill=replicate)) +
         legend.margin=margin(-3, 0, 0, 0),
         text = element_text(size = 12, family="serif"), 
         axis.text.x = element_text(size = 7),
-        plot.title = element_text(size = 20, hjust = -0.1, face = "bold")) + 
+        plot.title = element_text(size = 20, hjust = -0.13, vjust=-0.13, face = "bold")) + 
   scale_y_continuous(limits = c(0, 60), breaks = seq(0, 60, 10)) +
-  scale_fill_manual(values=cbPalette) + 
+  scale_fill_manual(values=cbPalette, 
+                    breaks = c("replicate1", "replicate2"), 
+                    labels = c("rep1   ", "rep2")) + 
   labs(x="Methylation frequency", y="Percent of counts (%)", title="c")
 pc
 
@@ -125,9 +131,11 @@ pd <- ggplot(data=s1d, aes(x=ranges, y=ratio, fill=replicate)) +
         legend.margin=margin(-3, 0, 0, 0),
         text = element_text(size = 12, family="serif"), 
         axis.text.x = element_text(size = 7),
-        plot.title = element_text(size = 20, hjust = -0.1, face = "bold")) + 
+        plot.title = element_text(size = 20, hjust = -0.13, vjust=-0.13, face = "bold")) + 
   scale_y_continuous(limits = c(0, 91), breaks = seq(0, 91, 10)) +
-  scale_fill_manual(values=cbPalette) + 
+  scale_fill_manual(values=cbPalette, 
+                    breaks = c("replicate1", "replicate2"), 
+                    labels = c("rep1   ", "rep2")) + 
   labs(x="Methylation frequency", y="Percent of counts (%)", title="d")
 pd
 

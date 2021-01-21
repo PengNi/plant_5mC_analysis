@@ -787,6 +787,35 @@ megalodon reads_single_pass/part2/100x/10x.1/ \
     --devices 2 --processes 20 --output-directory megalodon_results.arab.pass.part2_guppy.10x_1.CHH \
     --overwrite > megalodon_results.arab.pass.part2_guppy.10x_1.CHH.log 2>&1 &
 Rscript correlation_with_bs.cal_plot.general.R bs.poses/D1902826A-ZJ_301301.L1L3_merged.cutadapt.R1_bismark_bt2_pe.sorted.mark_dup.sorted.CX_report.CHH.txt megalodon_results.arab.pass.part2_guppy.10x_1.CHH/modified_bases.5mC.bed bisulfite.rep1 megalodon.guppy.arab.10x.1 CHH yes analysis CHH_megalodon.guppy.arab.10x.1_vs_bisulfite.rep1.tsv > analysis/CHH_megalodon.guppy.arab.10x.1_vs_bisulfite.rep1.log 2>&1 &
+# ---- arab 10x.1 CHG new model
+megalodon reads_single_pass/part2/100x/10x.1/ \
+    --guppy-server-path /opt/ont/guppy/bin/guppy_basecall_server \
+    --guppy-params "-d /home/nipeng/tools/rerio/basecall_models/ --num_callers 2" \
+    --guppy-timeout 100 \
+    --guppy-config res_dna_r941_prom_modbases_5mC_v001.cfg \
+    --outputs per_read_mods mod_mappings mods \
+    --reference GCF_000001735.4_TAIR10.1_genomic.fna --mod-motif m CHG 0 \
+    --write-mods-text \
+    --mod-output-formats bedmethyl wiggle \
+    --devices 2 --processes 20 --output-directory megalodon_results/megalodon_results.arab.pass.part2_guppy.10x_1.CHG.new \
+    --overwrite --disable-mod-calibration > megalodon_results/megalodon_results.arab.pass.part2_guppy.10x_1.CHG.new.log 2>&1 &
+python ~/tools/plant_5mC_analysis/tools_to_cmp/correlation_with_bs.py --nano_file megalodon_results/megalodon_results.arab.pass.part2_guppy.10x_1.CHG.new/modified_bases.5mC.bed --bs_file bs.poses/D1902826A-ZJ_301301.L1L3_merged.cutadapt.R1_bismark_bt2_pe.sorted.mark_dup.sorted.CX_report.CHG.txt --contig_prefix NC_003 --cov_cf 5 > megalodon_results/megalodon_results.arab.pass.part2_guppy.10x_1.CHG.new.vs_bsrep1.cov5.nc_003.log &
+# ---- arab 10x.1 CHH new model
+megalodon reads_single_pass/part2/100x/10x.1/ \
+    --guppy-server-path /opt/ont/guppy/bin/guppy_basecall_server \
+    --guppy-params "-d /home/nipeng/tools/rerio/basecall_models/ --num_callers 2" \
+    --guppy-timeout 100 \
+    --guppy-config res_dna_r941_prom_modbases_5mC_v001.cfg \
+    --outputs per_read_mods mod_mappings mods \
+    --reference GCF_000001735.4_TAIR10.1_genomic.fna --mod-motif m CHH 0 \
+    --write-mods-text \
+    --mod-output-formats bedmethyl wiggle \
+    --devices 2 --processes 20 --output-directory megalodon_results/megalodon_results.arab.pass.part2_guppy.10x_1.CHH.new \
+    --overwrite --disable-mod-calibration > megalodon_results/megalodon_results.arab.pass.part2_guppy.10x_1.CHH.new.log 2>&1 &
+python ~/tools/plant_5mC_analysis/tools_to_cmp/correlation_with_bs.py --nano_file megalodon_results/megalodon_results.arab.pass.part2_guppy.10x_1.CHH.new/modified_bases.5mC.bed --bs_file bs.poses/D1902826A-ZJ_301301.L1L3_merged.cutadapt.R1_bismark_bt2_pe.sorted.mark_dup.sorted.CX_report.CHH.txt --contig_prefix NC_003 --cov_cf 5 > megalodon_results/megalodon_results.arab.pass.part2_guppy.10x_1.CHH.new.vs_bsrep1.cov5.nc_003.log &
+
+
+
 
 
 # tombo test (guppy) =================
@@ -855,11 +884,14 @@ python ~/tools/NanoSigFeaGen/test/test_combine_fb_of_report.py --report_fp bs.po
 python ~/tools/nanopolish/scripts/calculate_methylation_frequency.py -s athaliana.guppy.pass.part2.CG.nanopolish.10x_1.fastq.methyl_calls.tsv > athaliana.guppy.pass.part2.CG.nanopolish.10x_1.fastq.methyl_calls.freq.tsv
 Rscript correlation_with_bs.cal_plot.general.R bs.poses/D1902826A-ZJ_301301.L1L3_merged.cutadapt.R1_bismark_bt2_pe.sorted.mark_dup.sorted.CX_report.CG.fb_combined.txt athaliana.guppy.pass.part2.CG.nanopolish.10x_1.fastq.methyl_calls.freq.tsv bisulfite.rep1.fb nanopolish.arab.split.10x_1 CG yes analysis CG_nanopolish.arab.split.10x_1_vs_bisulfite.rep1.fb.tsv yes yes > analysis/CG_nanopolish.arab.split.10x_1_vs_bisulfite.rep1.fb.log 2>&1 &
 # =
+python ~/tools/nanopolish/scripts/calculate_methylation_frequency.s.py -s athaliana.guppy.pass.part2.CG.nanopolish.10x_1.fastq.methyl_calls.tsv > athaliana.guppy.pass.part2.CG.nanopolish.10x_1.fastq.methyl_calls.freq.strand_specific.tsv &
+# =
 python nanopolish_add_rev_freq.py --freq_file athaliana.guppy.pass.part2.CG.nanopolish.10x_1.fastq.methyl_calls.freq.tsv
 Rscript correlation_with_bs.cal_plot.general.R bs.poses/D1902826A-ZJ_301301.L1L3_merged.cutadapt.R1_bismark_bt2_pe.sorted.mark_dup.sorted.CX_report.CG.txt athaliana.guppy.pass.part2.CG.nanopolish.10x_1.fastq.methyl_calls.freq.add_rev.tsv bisulfite.rep1 nanopolish.arab.split_addrev.10x_1 CG yes analysis CG_nanopolish.arab.split_addrev.10x_1_vs_bisulfite.rep1.tsv yes yes > analysis/CG_nanopolish.arab.split_addrev.10x_1_vs_bisulfite.rep1.log 2>&1 &
 
 
-
+# deepsignal2 arab+rice->arab.10x.1 fb_combined ===
+python ~/tools/deepsignal2/scripts/combine_two_strands_frequency.py --frequency_fp athaliana.guppy.pass.part2.CG.bn13_sn16.arabnrice2-1.balance.both_bilstm.10x_1.freq.tsv --ref_fp GCF_000001735.4_TAIR10.1_genomic.fna &
 
 
 

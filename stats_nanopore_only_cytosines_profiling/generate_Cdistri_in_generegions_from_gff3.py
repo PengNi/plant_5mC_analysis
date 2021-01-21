@@ -17,6 +17,7 @@ chromname_map_arab = {"NC_003070.9": "Chr1",
 
 
 def _combine_regions(gff3_eles):
+    stats_len = 0
     chrom2regions = dict()
     for gele in gff3_eles:
         chrom, strand, start, end = gele.get_chromosome(), gele.get_strand(), gele.get_start(), gele.get_end()
@@ -24,6 +25,8 @@ def _combine_regions(gff3_eles):
         if keytmp not in chrom2regions.keys():
             chrom2regions[keytmp] = []
         chrom2regions[keytmp].append((start, end))
+        stats_len += end - start
+    print("regions length: {}".format(stats_len))
     return chrom2regions
 
 
@@ -39,9 +42,13 @@ def generate_gene_regions_from_gff3_arab(gff3_eles):
                                                                                          len(geles_ncg),
                                                                                          len(geles_pg),
                                                                                          len(geles_teg)))
+    print("=====protein-coding")
     regions_pcg = _combine_regions(geles_pcg)
+    print("=====non protein-coding")
     regions_ncg = _combine_regions(geles_ncg)
+    print("=====pseudogene")
     regions_pg = _combine_regions(geles_pg)
+    print("=====transposons")
     regions_teg = _combine_regions(geles_teg)
     return {"protein-coding genes": regions_pcg, "non-coding genes": regions_ncg,
             "pseudogenes": regions_pg, "transposons": regions_teg}
@@ -56,8 +63,11 @@ def generate_gene_regions_from_gff3_rice(gff3_eles):
     print("==protein-coding: {}; non-coding: {}; pseudogene: {}".format(len(geles_pcg),
                                                                         len(geles_ncg),
                                                                         len(geles_pg)))
+    print("=====protein-coding")
     regions_pcg = _combine_regions(geles_pcg)
+    print("=====non protein-coding")
     regions_ncg = _combine_regions(geles_ncg)
+    print("=====pseudogene")
     regions_pg = _combine_regions(geles_pg)
     return {"protein-coding genes": regions_pcg, "non-coding genes": regions_ncg,
             "pseudogenes": regions_pg}
@@ -70,8 +80,11 @@ def generate_transcript_regions_from_gff3(gff3_eles):
     print("==5'UTR: {}; CDS: {}; 3'UTR: {}".format(len(geles_5utr),
                                                    len(geles_cds),
                                                    len(geles_3utr)))
+    print("=====five_prime_UTR")
     regions_5utr = _combine_regions(geles_5utr)
+    print("=====CDS")
     regions_cds = _combine_regions(geles_cds)
+    print("=====three_prime_UTR")
     regions_3utr = _combine_regions(geles_3utr)
     return {"5'UTR": regions_5utr, "CDS": regions_cds,
             "3'UTR": regions_3utr}
@@ -141,8 +154,8 @@ def get_pos_distribution_in_generegion(rgtype2regions, chrom2motifsites):
 def main():
     # python generate_Cdistri_in_generegions_from_gff3.py --gff3 Araport11_GFF3_genes_transposons.201606.sorted.gff
     # --cytosine_info ninanjie.c_count.bs_3reps_vs_nano50x.only_nanopore_detected_Cs.pos.txt --species arab
-    parser = argparse.ArgumentParser("extract gene region locs of 4 classes: protein-coding; non-coding; "
-                                     "transposable_element_gene (transposon); pseudogene")
+    parser = argparse.ArgumentParser("extract gene region locs of 4 classes: protein-coding; "
+                                     "non-coding; transposable_element_gene (transposon); pseudogene")
     parser.add_argument("--gff3", type=str, required=True, help="")
     parser.add_argument("--cytosine_info", type=str, required=True,
                         help="cytosine location file, from generate_nanopore_only_cytosines_info.py")

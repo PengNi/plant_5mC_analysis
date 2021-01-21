@@ -26,7 +26,7 @@ p <- ggplot(signalnumdf_30,
         axis.text.x=element_text(size=7, family="serif")) + 
   scale_x_continuous(breaks=seq(0, 30, 1)) + 
   ggtitle('') + 
-  labs(x="number of signals of one base")
+  labs(x="Number of signals of one base", y='Count')
 
 
 ppi=300

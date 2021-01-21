@@ -23,6 +23,9 @@ chromname_map_rice = {"NC_029256.1": "1",
                       "NC_029266.1": "11",
                       "NC_029267.1": "12"}
 
+chroms_to_stat = {"arab": set(["NC_003070.9", "NC_003071.7", "NC_003074.8", "NC_003075.7", "NC_003076.8"]),
+                  "rice": set(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"])}
+
 
 # ======================
 def read_cytosine_info(cytosine_info_file):
@@ -49,8 +52,8 @@ def reformat_posinfo_for_cmp(posinfo):
     chrom2motifsites = {}
     for tposinfo in posinfo:
         chrom, loc, strand, motif = tposinfo
-        # keytmp = sep.join([chrom, strand])
-        keytmp = chrom
+        keytmp = sep.join([chrom, strand])
+        # keytmp = chrom
         if keytmp not in chrom2motifsites.keys():
             chrom2motifsites[keytmp] = {}
         if motif not in chrom2motifsites[keytmp].keys():
@@ -59,11 +62,37 @@ def reformat_posinfo_for_cmp(posinfo):
     return chrom2motifsites
 
 
-# read trf/irf .dat file
-def read_regioninfo_from_datfile(datfile):
+# read trf .dat file (1-based, [a, b])
+def read_regioninfo_from_trfdatfile(datfile, species="arab"):
     regions = []
     with open(datfile, 'r') as rf:
         chromname = ""
+        count = 0
+        for line in rf:
+            if line.startswith("Sequence:"):
+                chromname = line.strip().split(" ")[1]
+            elif line[0].isdigit():
+                words = line.strip().split(" ")
+                start, end = int(words[0]) - 1, int(words[1])
+                regions.append((chromname, start, end, "tr"+str(count), "0", "+"))
+                regions.append((chromname, start, end, "tr"+str(count), "0", "-"))
+                count += 1
+    regions = [x for x in regions if x[0] in chroms_to_stat[species]]
+    return regions
+
+
+def read_regioninfo_from_trfdatfile2(datfile, species="arab"):
+    def is_overlap(s1, e1, s2, e2):
+        s_max = max(s1, s2)
+        e_min = min(e1, e2)
+        if e_min > s_max:
+            return True
+        return False
+
+    regions = []
+    with open(datfile, 'r') as rf:
+        chromname = ""
+        count = 0
         for line in rf:
             if line.startswith("Sequence:"):
                 chromname = line.strip().split(" ")[1]
@@ -71,29 +100,79 @@ def read_regioninfo_from_datfile(datfile):
                 words = line.strip().split(" ")
                 start, end = int(words[0]) - 1, int(words[1])
                 regions.append((chromname, start, end))
+                count += 1
+    regions_save = []
+    chrom_last, start_last, end_last = "", -1, -1
+    for rtrf in regions:
+        chrom, start, end = rtrf
+        if chrom_last == chrom and is_overlap(start_last, end_last, start, end):
+            s_min = min(start_last, start)
+            e_max = max(end_last, end)
+            regions_save[-1] = (chrom, s_min, e_max)
+        else:
+            regions_save.append((chrom, start, end))
+        chrom_last, start_last, end_last = regions_save[-1]
+    regions_double = []
+    for region in regions_save:
+        chrom, start, end = region
+        regions_double.append((chrom, start, end, "tr"+str(count), "0", "+"))
+        regions_double.append((chrom, start, end, "tr"+str(count), "0", "-"))
+    regions_double = [x for x in regions_double if x[0] in chroms_to_stat[species]]
+    return regions_double
+
+
+# read irf .dat file (1-based, [a, b])
+def read_regioninfo_from_irfdatfile(datfile, species="arab"):
+    regions = []
+    with open(datfile, 'r') as rf:
+        chromname = ""
+        count = 0
+        for line in rf:
+            if line.startswith("Sequence:"):
+                chromname = line.strip().split(" ")[1]
+            elif line[0].isdigit():
+                words = line.strip().split(" ")
+                start1, end1 = int(words[0]) - 1, int(words[1])
+                start2, end2 = int(words[3]) - 1, int(words[4])
+                regions.append((chromname, start1, end1, "ir"+str(count)+"_l", "0", "+"))
+                regions.append((chromname, start1, end1, "ir"+str(count)+"_l", "0", "-"))
+                regions.append((chromname, start2, end2, "ir"+str(count)+"_r", "0", "+"))
+                regions.append((chromname, start2, end2, "ir"+str(count)+"_r", "0", "-"))
+                count += 1
+    regions = [x for x in regions if x[0] in chroms_to_stat[species]]
     return regions
 
 
-def read_regioninfo_from_bedfile(bedfile):
+def read_regioninfo_from_bedfile(bedfile, species):
     regions = []
     with open(bedfile, 'r') as rf:
         for line in rf:
             if not line.startswith("#"):
                 words = line.strip().split("\t")
-                chrom, start, end = words[0], int(words[1]), int(words[2])
-                regions.append((chrom, start, end))
+                chrom, start, end, name, score, strand = words[0], int(words[1]), int(words[2]), words[3], \
+                    int(words[4]), words[5]
+                if species == "rice":
+                    try:
+                        chrom = chromname_map_rice[chrom]
+                    except KeyError:
+                        chrom = chrom
+                if strand == ".":
+                    regions.append((chrom, start, end, name, score, "+"))
+                    regions.append((chrom, start, end, name, score, "-"))
+                else:
+                    regions.append((chrom, start, end, name, score, strand))
+    regions = [x for x in regions if x[0] in chroms_to_stat[species]]
     return regions
 
 
-def reformat_regioninfo_to_chrom2regions(regioninfo, species="arab", is_from_ncbi=False):
+def reformat_regioninfo_to_chrom2regions(regioninfo):
     chrom2regions = dict()
     for region in regioninfo:
-        chrom, start, end = region
-        if species == "rice" and is_from_ncbi:
-            chrom = chromname_map_rice[chrom]
-        if chrom not in chrom2regions.keys():
-            chrom2regions[chrom] = []
-        chrom2regions[chrom].append((start, end))
+        chrom, start, end, name, score, strand = region
+        keytmp = sep.join([chrom, strand])
+        if keytmp not in chrom2regions.keys():
+            chrom2regions[keytmp] = []
+        chrom2regions[keytmp].append((start, end))
     return chrom2regions
 
 
@@ -143,16 +222,17 @@ def stat_cytosine_distribution_in_repeats(args):
     cytosines_nano = reformat_posinfo_for_cmp(posinfo)
     totalnum = len(posinfo)
 
-    repeat_window = read_regioninfo_from_bedfile(args.windowmasker_bed)
+    repeat_window = read_regioninfo_from_bedfile(args.windowmasker_bed, args.species)
     print("windowmasker region num: {}".format(len(repeat_window)))
-    regions_win = reformat_regioninfo_to_chrom2regions(repeat_window, args.species, True)
-    repeat_repeat = read_regioninfo_from_bedfile(args.repeatmasker_bed)
+    regions_win = reformat_regioninfo_to_chrom2regions(repeat_window)
+    repeat_repeat = read_regioninfo_from_bedfile(args.repeatmasker_bed, args.species)
     print("repeatmasker region num: {}".format(len(repeat_repeat)))
-    regions_rep = reformat_regioninfo_to_chrom2regions(repeat_repeat, args.species, True)
-    repeat_trf = read_regioninfo_from_datfile(args.trf_dat)
-    regions_trf = reformat_regioninfo_to_chrom2regions(repeat_trf, args.species)
-    repeat_irf = read_regioninfo_from_datfile(args.irf_dat)
-    regions_irf = reformat_regioninfo_to_chrom2regions(repeat_irf, args.species)
+    regions_rep = reformat_regioninfo_to_chrom2regions(repeat_repeat)
+    # repeat_trf = read_regioninfo_from_trfdatfile(args.trf_dat, args.species)
+    repeat_trf = read_regioninfo_from_trfdatfile2(args.trf_dat, args.species)
+    regions_trf = reformat_regioninfo_to_chrom2regions(repeat_trf)
+    repeat_irf = read_regioninfo_from_irfdatfile(args.irf_dat, args.species)
+    regions_irf = reformat_regioninfo_to_chrom2regions(repeat_irf)
 
     rg2regions = dict()
     rg2regions["Repeats(WindowMasker)"] = regions_win
@@ -176,7 +256,7 @@ def main():
     # --trf_dat data.arab/trf.GCF_000001735.4_TAIR10.1_genomic.fna.2.7.7.80.10.50.500.dat
     # --irf_dat data.arab/irf.GCF_000001735.4_TAIR10.1_genomic.fna.2.3.5.80.10.40.500000.10000.dat
     # --repeatmasker_bed data.arab/Repeats_identified_by_RepeatMasker.chr1-5.BED &
-    parser = argparse.ArgumentParser("repeat regions")
+    parser = argparse.ArgumentParser("")
     parser.add_argument("--cytosine_info", type=str, required=True,
                         help="cytosine location file, from generate_nanopore_only_cytosines_info.py")
     parser.add_argument("--species", type=str, required=False, default="arab", choices=["arab", "rice"], help="")
@@ -209,7 +289,7 @@ def test():
                                                                                    len(win_sites.intersection(rep_sites))))
 
     print("======")
-    repeat_trf = read_regioninfo_from_datfile("data.arab/trf.GCF_000001735.4_TAIR10.1_genomic.fna.2.7.7.80.10.50.500.dat")
+    repeat_trf = read_regioninfo_from_trfdatfile("data.arab/trf.GCF_000001735.4_TAIR10.1_genomic.fna.2.7.7.80.10.50.500.dat")
     regions_trf = reformat_regioninfo_to_chrom2regions(repeat_trf)
     print("trf len: {}".format(len(repeat_trf)))
     for chrom in regions_trf.keys():
@@ -223,7 +303,7 @@ def test():
                                                                                                  len(trf_sites.intersection(win_sites))))
 
     print("======")
-    repeat_irf = read_regioninfo_from_datfile(
+    repeat_irf = read_regioninfo_from_irfdatfile(
         "data.arab/irf.GCF_000001735.4_TAIR10.1_genomic.fna.2.3.5.80.10.40.500000.10000.dat")
     regions_irf = reformat_regioninfo_to_chrom2regions(repeat_irf)
     print("irf len: {}".format(len(repeat_irf)))

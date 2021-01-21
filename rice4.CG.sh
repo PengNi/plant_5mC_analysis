@@ -184,6 +184,110 @@ megalodon fast5_pass2.single/10x.1/ \
     --devices 0 --processes 20 --output-directory megalodon_results.rice1-1.pass.part2_guppy.10x_1.CG \
     --overwrite > megalodon_results.rice1-1.pass.part2_guppy.10x_1.CG.log 2>&1 &
 Rscript correlation_with_bs.cal_plot.general.R bs.poses/D1904161A-QJ_L2L4.cutadapt.R1_bismark_bt2_pe.sorted.mark_dup.sorted.CX_report.CG.txt megalodon_results.rice1-1.pass.part2_guppy.10x_1.CG/modified_bases.5mC.bed bisulfite.rep1 megalodon.guppy.rice1-1.10x.1 CG yes analysis CG_megalodon.guppy.rice1-1.10x.1_vs_bisulfite.rep1.tsv > analysis/CG_megalodon.guppy.rice1-1.10x.1_vs_bisulfite.rep1.log 2>&1 &
+python ~/tools/plant_5mC_analysis/tools_to_cmp/combine_cpg_two_strands_methy_freqs.py --report_fp megalodon_results.rice1-1.pass.part2_guppy.10x_1.CG/modified_bases.5mC.bed -t bedmethyl --ref_fp Oryza_sativa.IRGSP-1.0.dna.toplevel.fa &
+# rice 10x.1 C
+megalodon fast5_pass2.single/10x.1/ \
+    --guppy-server-path /opt/ont/guppy/bin/guppy_basecall_server \
+    --guppy-params "-d /home/nipeng/tools/rerio/basecall_models/ --gpu_runners_per_device 2 --num_callers 6" \
+    --guppy-timeout 60 \
+    --guppy-config res_dna_r941_min_modbases-all-context_v001.cfg \
+    --outputs per_read_mods mod_mappings mods \
+    --reference Oryza_sativa.IRGSP-1.0.dna.toplevel.fa --mod-motif Z C 0 \
+    --write-mods-text \
+    --mod-output-formats bedmethyl \
+    --devices 0,1,2 --processes 40 --output-directory megalodon_results.rice1-1.pass.part2_guppy.10x_1.C \
+    --overwrite > megalodon_results.rice1-1.pass.part2_guppy.10x_1.C.log 2>&1 &
+# ---- rice1-1 10x.1 CHG new model
+megalodon fast5_pass2.single/10x.1/ \
+    --guppy-server-path /opt/ont/guppy/bin/guppy_basecall_server \
+    --guppy-params "-d /home/nipeng/tools/rerio/basecall_models/ --gpu_runners_per_device 2 --num_callers 2" \
+    --guppy-timeout 100 \
+    --guppy-config res_dna_r941_prom_modbases_5mC_v001.cfg \
+    --outputs per_read_mods mod_mappings mods \
+    --reference Oryza_sativa.IRGSP-1.0.dna.toplevel.fa --mod-motif m CHG 0 \
+    --write-mods-text \
+    --mod-output-formats bedmethyl \
+    --devices 2 --processes 20 --output-directory megalodon_results/megalodon_results.rice1-1.pass.part2_guppy.10x_1.CHG.new \
+    --overwrite --disable-mod-calibration > megalodon_results/megalodon_results.rice1-1.pass.part2_guppy.10x_1.CHG.new.log 2>&1 &
+python ~/tools/plant_5mC_analysis/tools_to_cmp/correlation_with_bs.py --nano_file megalodon_results/megalodon_results.rice1-1.pass.part2_guppy.10x_1.CHG.new/modified_bases.5mC.bed --bs_file bs.poses/D1904161A-QJ_L2L4.cutadapt.R1_bismark_bt2_pe.sorted.mark_dup.sorted.CX_report.CHG.txt --contig_names 1,2,3,4,5,6,7,8,9,10,11,12 --cov_cf 5 > megalodon_results/megalodon_results.rice1-1.pass.part2_guppy.10x_1.CHG.new.vs_bs.cov5.main_contigs.log &
+# ---- rice1-1 10x.1 CHH new model
+megalodon fast5_pass2.single/10x.1/ \
+    --guppy-server-path /opt/ont/guppy/bin/guppy_basecall_server \
+    --guppy-params "-d /home/nipeng/tools/rerio/basecall_models/ --gpu_runners_per_device 2 --num_callers 2" \
+    --guppy-timeout 100 \
+    --guppy-config res_dna_r941_prom_modbases_5mC_v001.cfg \
+    --outputs per_read_mods mod_mappings mods \
+    --reference Oryza_sativa.IRGSP-1.0.dna.toplevel.fa --mod-motif m CHH 0 \
+    --write-mods-text \
+    --mod-output-formats bedmethyl \
+    --devices 2 --processes 20 --output-directory megalodon_results/megalodon_results.rice1-1.pass.part2_guppy.10x_1.CHH.new \
+    --overwrite --disable-mod-calibration > megalodon_results/megalodon_results.rice1-1.pass.part2_guppy.10x_1.CHH.new.log 2>&1 &
+python ~/tools/plant_5mC_analysis/tools_to_cmp/correlation_with_bs.py --nano_file megalodon_results/megalodon_results.rice1-1.pass.part2_guppy.10x_1.CHH.new/modified_bases.5mC.bed --bs_file bs.poses/D1904161A-QJ_L2L4.cutadapt.R1_bismark_bt2_pe.sorted.mark_dup.sorted.CX_report.CHH.txt --contig_names 1,2,3,4,5,6,7,8,9,10,11,12 --cov_cf 5 > megalodon_results/megalodon_results.rice1-1.pass.part2_guppy.10x_1.CHH.new.vs_bs.cov5.main_contigs.log &
+
+
+
+
+
+# tombo test (guppy) =================
+# dp2, 192.16.10.51
+# already resquiggled guppy
+# rice 10x.1 CG
+tombo detect_modifications alternative_model --fast5-basedirs ../fast5_pass2.single/10x.1 --alternate-bases CpG --statistics-file-basename tombo_results.rice1-1.pass2_guppy.10x.1.CG --dna --multiprocess-region-size 1000 --processes 20 --corrected-group RawGenomeCorrected_001 >  tombo_results.rice1-1.pass2_guppy.10x.1.CG.log 2>&1 &
+tombo text_output browser_files \
+   --fast5-basedirs ../fast5_pass2.single/10x.1 \
+   --statistics-filename tombo_results.rice1-1.pass2_guppy.10x.1.CG.CpG.tombo.stats \
+   --file-types coverage dampened_fraction fraction\
+   --browser-file-basename tombo_results.rice1-1.pass2_guppy.10x.1.CG --corrected-group RawGenomeCorrected_001 \
+   > tombo_results.rice1-1.pass2_guppy.10x.1.CG.output.log 2>&1 &
+wig2bed --multisplit < tombo_results.rice1-1.pass2_guppy.10x.1.CG.dampened_fraction_modified_reads.minus.wig > tombo_results.rice1-1.pass2_guppy.10x.1.CG.dampened_fraction_modified_reads.minus.wig.bed
+wig2bed --multisplit < tombo_results.rice1-1.pass2_guppy.10x.1.CG.dampened_fraction_modified_reads.plus.wig > tombo_results.rice1-1.pass2_guppy.10x.1.CG.dampened_fraction_modified_reads.plus.wig.bed
+python ~/tools/plant_5mC_analysis/tools_to_cmp/tombo_reformat_bed.py --cov_plus tombo_results.rice1-1.pass2_guppy.10x.1.CG.coverage.plus.bedgraph --cov_minus tombo_results.rice1-1.pass2_guppy.10x.1.CG.coverage.minus.bedgraph --rmet_plus tombo_results.rice1-1.pass2_guppy.10x.1.CG.dampened_fraction_modified_reads.plus.wig.bed --rmet_minus tombo_results.rice1-1.pass2_guppy.10x.1.CG.dampened_fraction_modified_reads.minus.wig.bed --wfile tombo_results.rice1-1.pass2_guppy.10x.1.CG.dampened_fraction_modified_reads.methyl.bed &
+python ~/tools/plant_5mC_analysis/tools_to_cmp/combine_cpg_two_strands_methy_freqs.py --report_fp tombo_results/tombo_results.rice1-1.pass2_guppy.10x.1.CG.dampened_fraction_modified_reads.methyl.bed -t bedmethyl --ref_fp Oryza_sativa.IRGSP-1.0.dna.toplevel.fa &
+# rice 10x.1 C
+tombo detect_modifications alternative_model --fast5-basedirs ../fast5_pass2.single/10x.1 --alternate-bases 5mC --statistics-file-basename tombo_results.rice1-1.pass2_guppy.10x.1.5mC --dna --multiprocess-region-size 1000 --processes 20 --corrected-group RawGenomeCorrected_001 > tombo_results.rice1-1.pass2_guppy.10x.1.5mC.log 2>&1 &
+tombo text_output browser_files \
+   --fast5-basedirs ../fast5_pass2.single/10x.1 \
+   --statistics-filename tombo_results.rice1-1.pass2_guppy.10x.1.5mC.5mC.tombo.stats \
+   --file-types coverage dampened_fraction fraction\
+   --browser-file-basename tombo_results.rice1-1.pass2_guppy.10x.1.5mC --corrected-group RawGenomeCorrected_001 \
+   > tombo_results.rice1-1.pass2_guppy.10x.1.5mC.output.log 2>&1 &
+wig2bed --multisplit < tombo_results.rice1-1.pass2_guppy.10x.1.5mC.dampened_fraction_modified_reads.minus.wig > tombo_results.rice1-1.pass2_guppy.10x.1.5mC.dampened_fraction_modified_reads.minus.wig.bed
+wig2bed --multisplit < tombo_results.rice1-1.pass2_guppy.10x.1.5mC.dampened_fraction_modified_reads.plus.wig > tombo_results.rice1-1.pass2_guppy.10x.1.5mC.dampened_fraction_modified_reads.plus.wig.bed
+python ~/tools/plant_5mC_analysis/tools_to_cmp/tombo_reformat_bed.py --cov_plus tombo_results.rice1-1.pass2_guppy.10x.1.5mC.coverage.plus.bedgraph --cov_minus tombo_results.rice1-1.pass2_guppy.10x.1.5mC.coverage.minus.bedgraph --rmet_plus tombo_results.rice1-1.pass2_guppy.10x.1.5mC.dampened_fraction_modified_reads.plus.wig.bed --rmet_minus tombo_results.rice1-1.pass2_guppy.10x.1.5mC.dampened_fraction_modified_reads.minus.wig.bed --wfile tombo_results.rice1-1.pass2_guppy.10x.1.5mC.dampened_fraction_modified_reads.methyl.bed &
+
+
+
+
+# deepsignal guppy ==================
+# rice1-1 10x.1 CG
+CUDA_VISIBLE_DEVICES=1 deepsignal call_mods --input_path fast5_pass2.single/10x.1 --model_path model.CpG.R9.4_1D.human_hx1.bn17.sn360.v0.1.7+/bn_17.sn_360.epoch_9.ckpt --reference_path Oryza_sativa.IRGSP-1.0.dna.toplevel.fa --corrected_group RawGenomeCorrected_001 --nproc 20 --is_gpu yes --result_file shuidao1-1.guppy.pass2.CG.deepsignal.10x_1.tsv > shuidao1-1.guppy.pass2.CG.deepsignal.10x_1.log 2>&1 &
+python ~/tools/deepsignal2/scripts/call_modification_frequency.py --input_path shuidao1-1.guppy.pass2.CG.deepsignal.10x_1.tsv --result_file shuidao1-1.guppy.pass2.CG.deepsignal.10x_1.freq.tsv &
+python ~/tools/deepsignal2/scripts/combine_two_strands_frequency.py --frequency_fp shuidao1-1.guppy.pass2.CG.deepsignal.10x_1.freq.tsv --ref_fp Oryza_sativa.IRGSP-1.0.dna.toplevel.fa &
+
+
+
+
+# nanopolish guppy =====================
+# cat fast5_pass2.single.10x_1.guppy_fq/fastq_runid_ad257feb31473798f1830681149976c23991c66f_* > fast5_pass2.single.10x_1.guppy_fq.fastq
+/usr/bin/time -v bash nanopolish_call_methy.sh fast5_pass2.single/10x.1 fast5_pass2.single.10x_1.guppy_fq Oryza_sativa.IRGSP-1.0.dna.toplevel.fa 20 shuidao1-1.guppy.pass2.CG.nanopolish.10x_1 > shuidao1-1.guppy.pass2.CG.nanopolish.10x_1.log 2>&1 &
+python ~/tools/nanopolish/scripts/calculate_methylation_frequency.py -s shuidao1-1.guppy.pass2.CG.nanopolish.10x_1.fastq.methyl_calls.tsv > shuidao1-1.guppy.pass2.CG.nanopolish.10x_1.fastq.methyl_calls.freq.tsv
+# =
+python ~/tools/nanopolish/scripts/calculate_methylation_frequency.s.py -s shuidao1-1.guppy.pass2.CG.nanopolish.10x_1.fastq.methyl_calls.tsv > shuidao1-1.guppy.pass2.CG.nanopolish.10x_1.fastq.methyl_calls.freq.strand_specific.tsv
+
+
+# deepsignal2 arab+rice->arab.10x.1 fb_combined ===
+python ~/tools/deepsignal2/scripts/combine_two_strands_frequency.py --frequency_fp shuidao1-1.guppy.pass.part2.CG.bn13_sn16.arabnrice2-1.balance.both_bilstm.10x_1.freq.tsv --ref_fp Oryza_sativa.IRGSP-1.0.dna.toplevel.fa &
+
+
+# bs ===
+python ~/tools/plant_5mC_analysis/tools_to_cmp/combine_cpg_two_strands_methy_freqs.py --report_fp bs.poses/D1904161A-QJ_L2L4.cutadapt.R1_bismark_bt2_pe.sorted.mark_dup.sorted.CX_report.CG.txt --rtype bs --ref_fp Oryza_sativa.IRGSP-1.0.dna.toplevel.fa &
+
+
+
+
+
+
+
 
 
 

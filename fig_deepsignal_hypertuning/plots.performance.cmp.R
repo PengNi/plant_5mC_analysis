@@ -40,7 +40,7 @@ p <- ggplot() +
   scale_fill_manual(values=cbPalette) +
   coord_cartesian(ylim=c(0.6, 1)) +
   scale_y_continuous(breaks = seq(0.6, 1, 0.05)) + 
-  labs(x=expression(paste(italic("k"), "-mer length")), y="Pearson Correlation")
+  labs(x=expression(paste(italic("k"), "-mer length")), y="Pearson correlation")
 
 ppi= 300
 png("fig_deepsignal_hypertuning/eval.diff_kmer.arab.10x.vs_rep1.plot.png", 
@@ -75,13 +75,16 @@ p1 <- ggplot(data = df.denoise, aes(y=Pearson_Correlation, x=motif, fill = featu
   theme(legend.position = "bottom", 
         legend.title = element_blank(), 
         text=element_text(size=12,  family="serif"), 
-        plot.title = element_text(size=22, hjust = -0.18, face = "bold"),
+        plot.title = element_text(size=22, hjust = -0.18, face = "bold", 
+                                  vjust=-0.1),
         legend.key.size = unit(0.35, "cm"), 
         legend.margin=margin(-8, 0, 0, 0)) + 
-  scale_fill_manual(values=cbPalette) +
+  scale_fill_manual(values=cbPalette, 
+                    breaks=c("signal", "sequence", "signal+sequence"), 
+                    labels=c("signal  ", "sequence  ", "signal+sequence")) +
   coord_cartesian(ylim=c(0.65, 0.97)) +
   scale_y_continuous(breaks = seq(0.65, 0.97, 0.05)) + 
-  labs(x="", y="Pearson Correlation", 
+  labs(x="", y="Pearson correlation", 
        title = "a")
 
 # call_methyl selection
@@ -102,13 +105,16 @@ p2 <- ggplot(data = df.call, aes(y=Pearson_Correlation, x=motif, fill = feature,
   theme(legend.position = "bottom", 
         legend.title = element_blank(), 
         text=element_text(size=12, family="serif"), 
-        plot.title = element_text(size=22, hjust = -0.13, face = "bold", family="serif"),
+        plot.title = element_text(size=22, hjust = -0.13, face = "bold", family="serif",
+                                  vjust=-0.1),
         legend.key.size = unit(0.35, "cm"), 
         legend.margin=margin(-8, 0, 0, 0)) + 
-  scale_fill_manual(values=cbPalette2) +
+  scale_fill_manual(values=cbPalette2, 
+                    breaks=c("signal", "sequence", "signal+sequence"), 
+                    labels=c("signal  ", "sequence  ", "signal+sequence")) +
   coord_cartesian(ylim=c(0.65, 0.97)) +
   scale_y_continuous(breaks = seq(0.65, 0.97, 0.05)) + 
-  labs(x="", y="Pearson Correlation", 
+  labs(x="", y="Pearson correlation", 
        title = "b")
 
 
