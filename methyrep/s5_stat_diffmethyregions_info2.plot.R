@@ -50,25 +50,25 @@ Setdiff <- function (x, y) {
 arab_dp2_CG_stats <- read.table("methyrep/data/GCF_000001735.4_TAIR10.1_genomic.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.CG.deepsignal.all2_repeat_group_stats.txt", 
                                 header = F, sep = "\t", stringsAsFactors = F)
 colnames(arab_dp2_CG_stats) <- stat_colnames
-arab_dp2_CG_stats <- arab_dp2_CG_stats[arab_dp2_CG_stats$repeat_len>=9999, ]
+arab_dp2_CG_stats <- arab_dp2_CG_stats[arab_dp2_CG_stats$repeat_len>=10000, ]
 arab_dp2_diffid_CG <- arab_dp2_CG_stats[arab_dp2_CG_stats$ratio_diff2all>=0.1,]$rpair_name
 
 arab_dp2_CHG_stats <- read.table("methyrep/data/GCF_000001735.4_TAIR10.1_genomic.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.CHG.deepsignal.all2_repeat_group_stats.txt", 
                                 header = F, sep = "\t", stringsAsFactors = F)
 colnames(arab_dp2_CHG_stats) <- stat_colnames
-arab_dp2_CHG_stats <- arab_dp2_CHG_stats[arab_dp2_CHG_stats$repeat_len>=9999, ]
+arab_dp2_CHG_stats <- arab_dp2_CHG_stats[arab_dp2_CHG_stats$repeat_len>=10000, ]
 arab_dp2_diffid_CHG <- arab_dp2_CHG_stats[arab_dp2_CHG_stats$ratio_diff2all>=0.1,]$rpair_name
 
 arab_dp2_CHH_stats <- read.table("methyrep/data/GCF_000001735.4_TAIR10.1_genomic.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.CHH.deepsignal.all2_repeat_group_stats.txt", 
                                  header = F, sep = "\t", stringsAsFactors = F)
 colnames(arab_dp2_CHH_stats) <- stat_colnames
-arab_dp2_CHH_stats <- arab_dp2_CHH_stats[arab_dp2_CHH_stats$repeat_len>=9999, ]
+arab_dp2_CHH_stats <- arab_dp2_CHH_stats[arab_dp2_CHH_stats$repeat_len>=10000, ]
 arab_dp2_diffid_CHH <- arab_dp2_CHH_stats[arab_dp2_CHH_stats$ratio_diff2all>=0.1,]$rpair_name
 
 arab_dp2_C_stats <- read.table("methyrep/data/GCF_000001735.4_TAIR10.1_genomic.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.C.deepsignal.all2_repeat_group_stats.txt", 
                                 header = F, sep = "\t", stringsAsFactors = F)
 colnames(arab_dp2_C_stats) <- stat_colnames
-arab_dp2_C_stats <- arab_dp2_C_stats[arab_dp2_C_stats$repeat_len>=9999, ]
+arab_dp2_C_stats <- arab_dp2_C_stats[arab_dp2_C_stats$repeat_len>=10000, ]
 arab_dp2_diffid_C <- arab_dp2_C_stats[arab_dp2_C_stats$ratio_diff2all>=0.1,]$rpair_name
 
 # ==================== cytosine histogram
@@ -174,50 +174,50 @@ p_arab_dp2_diffid_venn
 rice_dp2_CG_stats <- read.table("methyrep/data/Oryza_sativa.IRGSP-1.0.dna.toplevel.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.CG.deepsignal_2-1.all2_repeat_group_stats.txt", 
                                 header = F, sep = "\t", stringsAsFactors = F)
 colnames(rice_dp2_CG_stats) <- stat_colnames
-rice_dp2_CG_stats <- rice_dp2_CG_stats[rice_dp2_CG_stats$repeat_len>=9999, ]
+rice_dp2_CG_stats <- rice_dp2_CG_stats[rice_dp2_CG_stats$repeat_len>=10000, ]
 rice_dp2_diffid_CG <- rice_dp2_CG_stats[rice_dp2_CG_stats$ratio_diff2all>=0.1,]$rpair_name
 
 rice_dp2_CHG_stats <- read.table("methyrep/data/Oryza_sativa.IRGSP-1.0.dna.toplevel.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.CHG.deepsignal_2-1.all2_repeat_group_stats.txt", 
                                 header = F, sep = "\t", stringsAsFactors = F)
 colnames(rice_dp2_CHG_stats) <- stat_colnames
-rice_dp2_CHG_stats <- rice_dp2_CHG_stats[rice_dp2_CHG_stats$repeat_len>=9999, ]
+rice_dp2_CHG_stats <- rice_dp2_CHG_stats[rice_dp2_CHG_stats$repeat_len>=10000, ]
 rice_dp2_diffid_CHG <- rice_dp2_CHG_stats[rice_dp2_CHG_stats$ratio_diff2all>=0.1,]$rpair_name
 
 rice_dp2_CHH_stats <- read.table("methyrep/data/Oryza_sativa.IRGSP-1.0.dna.toplevel.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.CHH.deepsignal_2-1.all2_repeat_group_stats.txt", 
                                  header = F, sep = "\t", stringsAsFactors = F)
 colnames(rice_dp2_CHH_stats) <- stat_colnames
-rice_dp2_CHH_stats <- rice_dp2_CHH_stats[rice_dp2_CHH_stats$repeat_len>=9999, ]
+rice_dp2_CHH_stats <- rice_dp2_CHH_stats[rice_dp2_CHH_stats$repeat_len>=10000, ]
 rice_dp2_diffid_CHH <- rice_dp2_CHH_stats[rice_dp2_CHH_stats$ratio_diff2all>=0.1,]$rpair_name
 
 rice_dp2_C_stats <- read.table("methyrep/data/Oryza_sativa.IRGSP-1.0.dna.toplevel.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.C.deepsignal_2-1.all2_repeat_group_stats.txt", 
                                  header = F, sep = "\t", stringsAsFactors = F)
 colnames(rice_dp2_C_stats) <- stat_colnames
-rice_dp2_C_stats <- rice_dp2_C_stats[rice_dp2_C_stats$repeat_len>=9999, ]
+rice_dp2_C_stats <- rice_dp2_C_stats[rice_dp2_C_stats$repeat_len>=10000, ]
 rice_dp2_diffid_C <- rice_dp2_C_stats[rice_dp2_C_stats$ratio_diff2all>=0.1,]$rpair_name
 
 # rice 1-1
 rice2_dp2_CG_stats <- read.table("methyrep/data/Oryza_sativa.IRGSP-1.0.dna.toplevel.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.CG.deepsignal_1-1.all2_repeat_group_stats.txt", 
                                 header = F, sep = "\t", stringsAsFactors = F)
 colnames(rice2_dp2_CG_stats) <- stat_colnames
-rice2_dp2_CG_stats <- rice2_dp2_CG_stats[rice2_dp2_CG_stats$repeat_len>=9999, ]
+rice2_dp2_CG_stats <- rice2_dp2_CG_stats[rice2_dp2_CG_stats$repeat_len>=10000, ]
 rice2_dp2_diffid_CG <- rice2_dp2_CG_stats[rice2_dp2_CG_stats$ratio_diff2all>=0.1,]$rpair_name
 
 rice2_dp2_CHG_stats <- read.table("methyrep/data/Oryza_sativa.IRGSP-1.0.dna.toplevel.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.CHG.deepsignal_1-1.all2_repeat_group_stats.txt", 
                                  header = F, sep = "\t", stringsAsFactors = F)
 colnames(rice2_dp2_CHG_stats) <- stat_colnames
-rice2_dp2_CHG_stats <- rice2_dp2_CHG_stats[rice2_dp2_CHG_stats$repeat_len>=9999, ]
+rice2_dp2_CHG_stats <- rice2_dp2_CHG_stats[rice2_dp2_CHG_stats$repeat_len>=10000, ]
 rice2_dp2_diffid_CHG <- rice2_dp2_CHG_stats[rice2_dp2_CHG_stats$ratio_diff2all>=0.1,]$rpair_name
 
 rice2_dp2_CHH_stats <- read.table("methyrep/data/Oryza_sativa.IRGSP-1.0.dna.toplevel.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.CHH.deepsignal_1-1.all2_repeat_group_stats.txt", 
                                  header = F, sep = "\t", stringsAsFactors = F)
 colnames(rice2_dp2_CHH_stats) <- stat_colnames
-rice2_dp2_CHH_stats <- rice2_dp2_CHH_stats[rice2_dp2_CHH_stats$repeat_len>=9999, ]
+rice2_dp2_CHH_stats <- rice2_dp2_CHH_stats[rice2_dp2_CHH_stats$repeat_len>=10000, ]
 rice2_dp2_diffid_CHH <- rice2_dp2_CHH_stats[rice2_dp2_CHH_stats$ratio_diff2all>=0.1,]$rpair_name
 
 rice2_dp2_C_stats <- read.table("methyrep/data/Oryza_sativa.IRGSP-1.0.dna.toplevel.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.C.deepsignal_1-1.all2_repeat_group_stats.txt", 
                                header = F, sep = "\t", stringsAsFactors = F)
 colnames(rice2_dp2_C_stats) <- stat_colnames
-rice2_dp2_C_stats <- rice2_dp2_C_stats[rice2_dp2_C_stats$repeat_len>=9999, ]
+rice2_dp2_C_stats <- rice2_dp2_C_stats[rice2_dp2_C_stats$repeat_len>=10000, ]
 rice2_dp2_diffid_C <- rice2_dp2_C_stats[rice2_dp2_C_stats$ratio_diff2all>=0.1,]$rpair_name
 
 
@@ -540,25 +540,25 @@ make_two_sets_venn_data <- function(bsset, nanoset){
 arab_bs_CG_stats <- read.table("methyrep/data/GCF_000001735.4_TAIR10.1_genomic.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.CG.bedmethyl.all2_repeat_group_stats.txt", 
                                 header = F, sep = "\t", stringsAsFactors = F)
 colnames(arab_bs_CG_stats) <- stat_colnames
-arab_bs_CG_stats <- arab_bs_CG_stats[arab_bs_CG_stats$repeat_len>=99, ]
+arab_bs_CG_stats <- arab_bs_CG_stats[arab_bs_CG_stats$repeat_len>=100, ]
 arab_bs_diffid_CG <- arab_bs_CG_stats[arab_bs_CG_stats$ratio_diff2all>=0.1,]$rpair_name
 
 arab_bs_CHG_stats <- read.table("methyrep/data/GCF_000001735.4_TAIR10.1_genomic.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.CHG.bedmethyl.all2_repeat_group_stats.txt", 
                                  header = F, sep = "\t", stringsAsFactors = F)
 colnames(arab_bs_CHG_stats) <- stat_colnames
-arab_bs_CHG_stats <- arab_bs_CHG_stats[arab_bs_CHG_stats$repeat_len>=99, ]
+arab_bs_CHG_stats <- arab_bs_CHG_stats[arab_bs_CHG_stats$repeat_len>=100, ]
 arab_bs_diffid_CHG <- arab_bs_CHG_stats[arab_bs_CHG_stats$ratio_diff2all>=0.1,]$rpair_name
 
 arab_bs_CHH_stats <- read.table("methyrep/data/GCF_000001735.4_TAIR10.1_genomic.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.CHH.bedmethyl.all2_repeat_group_stats.txt", 
                                  header = F, sep = "\t", stringsAsFactors = F)
 colnames(arab_bs_CHH_stats) <- stat_colnames
-arab_bs_CHH_stats <- arab_bs_CHH_stats[arab_bs_CHH_stats$repeat_len>=99, ]
+arab_bs_CHH_stats <- arab_bs_CHH_stats[arab_bs_CHH_stats$repeat_len>=100, ]
 arab_bs_diffid_CHH <- arab_bs_CHH_stats[arab_bs_CHH_stats$ratio_diff2all>=0.1,]$rpair_name
 
 arab_bs_C_stats <- read.table("methyrep/data/GCF_000001735.4_TAIR10.1_genomic.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.C.bedmethyl.all2_repeat_group_stats.txt", 
                                header = F, sep = "\t", stringsAsFactors = F)
 colnames(arab_bs_C_stats) <- stat_colnames
-arab_bs_C_stats <- arab_bs_C_stats[arab_bs_C_stats$repeat_len>=99, ]
+arab_bs_C_stats <- arab_bs_C_stats[arab_bs_C_stats$repeat_len>=100, ]
 arab_bs_diffid_C <- arab_bs_C_stats[arab_bs_C_stats$ratio_diff2all>=0.1,]$rpair_name
 
 
@@ -566,50 +566,50 @@ arab_bs_diffid_C <- arab_bs_C_stats[arab_bs_C_stats$ratio_diff2all>=0.1,]$rpair_
 rice_bs_CG_stats <- read.table("methyrep/data/Oryza_sativa.IRGSP-1.0.dna.toplevel.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.CG.bs_rmet_2-1.all2_repeat_group_stats.txt", 
                                 header = F, sep = "\t", stringsAsFactors = F)
 colnames(rice_bs_CG_stats) <- stat_colnames
-rice_bs_CG_stats <- rice_bs_CG_stats[rice_bs_CG_stats$repeat_len>=99, ]
+rice_bs_CG_stats <- rice_bs_CG_stats[rice_bs_CG_stats$repeat_len>=100, ]
 rice_bs_diffid_CG <- rice_bs_CG_stats[rice_bs_CG_stats$ratio_diff2all>=0.1,]$rpair_name
 
 rice_bs_CHG_stats <- read.table("methyrep/data/Oryza_sativa.IRGSP-1.0.dna.toplevel.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.CHG.bs_rmet_2-1.all2_repeat_group_stats.txt", 
                                  header = F, sep = "\t", stringsAsFactors = F)
 colnames(rice_bs_CHG_stats) <- stat_colnames
-rice_bs_CHG_stats <- rice_bs_CHG_stats[rice_bs_CHG_stats$repeat_len>=99, ]
+rice_bs_CHG_stats <- rice_bs_CHG_stats[rice_bs_CHG_stats$repeat_len>=100, ]
 rice_bs_diffid_CHG <- rice_bs_CHG_stats[rice_bs_CHG_stats$ratio_diff2all>=0.1,]$rpair_name
 
 rice_bs_CHH_stats <- read.table("methyrep/data/Oryza_sativa.IRGSP-1.0.dna.toplevel.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.CHH.bs_rmet_2-1.all2_repeat_group_stats.txt", 
                                  header = F, sep = "\t", stringsAsFactors = F)
 colnames(rice_bs_CHH_stats) <- stat_colnames
-rice_bs_CHH_stats <- rice_bs_CHH_stats[rice_bs_CHH_stats$repeat_len>=99, ]
+rice_bs_CHH_stats <- rice_bs_CHH_stats[rice_bs_CHH_stats$repeat_len>=100, ]
 rice_bs_diffid_CHH <- rice_bs_CHH_stats[rice_bs_CHH_stats$ratio_diff2all>=0.1,]$rpair_name
 
 rice_bs_C_stats <- read.table("methyrep/data/Oryza_sativa.IRGSP-1.0.dna.toplevel.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.C.bs_rmet_2-1.all2_repeat_group_stats.txt", 
                                header = F, sep = "\t", stringsAsFactors = F)
 colnames(rice_bs_C_stats) <- stat_colnames
-rice_bs_C_stats <- rice_bs_C_stats[rice_bs_C_stats$repeat_len>=99, ]
+rice_bs_C_stats <- rice_bs_C_stats[rice_bs_C_stats$repeat_len>=100, ]
 rice_bs_diffid_C <- rice_bs_C_stats[rice_bs_C_stats$ratio_diff2all>=0.1,]$rpair_name
 
 # rice 1-1===================================================================
 rice2_bs_CG_stats <- read.table("methyrep/data/Oryza_sativa.IRGSP-1.0.dna.toplevel.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.CG.bs_rmet_1-1.all2_repeat_group_stats.txt", 
                                  header = F, sep = "\t", stringsAsFactors = F)
 colnames(rice2_bs_CG_stats) <- stat_colnames
-rice2_bs_CG_stats <- rice2_bs_CG_stats[rice2_bs_CG_stats$repeat_len>=99, ]
+rice2_bs_CG_stats <- rice2_bs_CG_stats[rice2_bs_CG_stats$repeat_len>=100, ]
 rice2_bs_diffid_CG <- rice2_bs_CG_stats[rice2_bs_CG_stats$ratio_diff2all>=0.1,]$rpair_name
 
 rice2_bs_CHG_stats <- read.table("methyrep/data/Oryza_sativa.IRGSP-1.0.dna.toplevel.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.CHG.bs_rmet_1-1.all2_repeat_group_stats.txt", 
                                   header = F, sep = "\t", stringsAsFactors = F)
 colnames(rice2_bs_CHG_stats) <- stat_colnames
-rice2_bs_CHG_stats <- rice2_bs_CHG_stats[rice2_bs_CHG_stats$repeat_len>=99, ]
+rice2_bs_CHG_stats <- rice2_bs_CHG_stats[rice2_bs_CHG_stats$repeat_len>=100, ]
 rice2_bs_diffid_CHG <- rice2_bs_CHG_stats[rice2_bs_CHG_stats$ratio_diff2all>=0.1,]$rpair_name
 
 rice2_bs_CHH_stats <- read.table("methyrep/data/Oryza_sativa.IRGSP-1.0.dna.toplevel.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.CHH.bs_rmet_1-1.all2_repeat_group_stats.txt", 
                                   header = F, sep = "\t", stringsAsFactors = F)
 colnames(rice2_bs_CHH_stats) <- stat_colnames
-rice2_bs_CHH_stats <- rice2_bs_CHH_stats[rice2_bs_CHH_stats$repeat_len>=99, ]
+rice2_bs_CHH_stats <- rice2_bs_CHH_stats[rice2_bs_CHH_stats$repeat_len>=100, ]
 rice2_bs_diffid_CHH <- rice2_bs_CHH_stats[rice2_bs_CHH_stats$ratio_diff2all>=0.1,]$rpair_name
 
 rice2_bs_C_stats <- read.table("methyrep/data/Oryza_sativa.IRGSP-1.0.dna.toplevel.rmN_cut.overlap_mummer.chr_offset2absloc.coords.100_0.99.main_contig.reformat.group.sites.C.bs_rmet_1-1.all2_repeat_group_stats.txt", 
                                 header = F, sep = "\t", stringsAsFactors = F)
 colnames(rice2_bs_C_stats) <- stat_colnames
-rice2_bs_C_stats <- rice2_bs_C_stats[rice2_bs_C_stats$repeat_len>=99, ]
+rice2_bs_C_stats <- rice2_bs_C_stats[rice2_bs_C_stats$repeat_len>=100, ]
 rice2_bs_diffid_C <- rice2_bs_C_stats[rice2_bs_C_stats$ratio_diff2all>=0.1,]$rpair_name
 
 

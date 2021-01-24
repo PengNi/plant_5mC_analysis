@@ -38,7 +38,7 @@ class MumRepeat:
             if (not str(self._refid).startswith(contig_prefix)) or (not str(self._queryid).startswith(contig_prefix)):
                 return []
 
-        if self._identity < identity_cf or self._ref_regionlen < len_cf:
+        if self._identity < identity_cf or (self._ref_regionlen < len_cf and self._query_regionlen < len_cf):
             return []
         if self._refid == self._queryid:
             # if abs(self._refstart - self._querystart) < same_region_cf * (1-over_region_ratio) and \

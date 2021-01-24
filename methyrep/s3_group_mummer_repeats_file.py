@@ -54,9 +54,13 @@ def group_repeats(repeat_file, is_combine_near=False):
     for rcc in sorted(nx.connected_components(rgraph), key=len, reverse=True):
         subrg = rgraph.subgraph(rcc).copy()
 
-        words = str(list(rcc)[0]).split(sep)
-        _, start, end = words[0], int(words[1]), int(words[2])
-        region_len = end - start + 1
+        region_len = 0
+        for rccnode in list(rcc):
+            words = str(rccnode).split(sep)
+            _, start, end = words[0], int(words[1]), int(words[2])
+            rlen = end - start + 1
+            if region_len < rlen:
+                region_len = rlen
 
         srgnodes = []
         for srgn in rcc:

@@ -2,6 +2,7 @@
 import argparse
 import os
 import re
+import uuid
 
 
 def str2bool(v):
@@ -167,6 +168,7 @@ def _get_pairwise_alignment_from_cigar(queryseq, targetseq, cigarseq):
     qextseq, textseq = "", ""
     pattern = re.compile(r'((\d)+(M|S|H|X|=|I|D|N))')
     it = pattern.findall(cigarseq)
+
     cidx_q, cidx_t = 0, 0
     for match in it:
         num = int(match[0][:-1])
@@ -194,19 +196,28 @@ def _get_match_pair_loc(query_extseq, target_extseq):
     assert(len(query_extseq) == len(target_extseq))
 
     qt_match_pairs = []
+    cnt_m, cnt_unm, cnt_indel = 0, 0, 0
     qidx, tidx = 0, 0
     for i in range(0, len(query_extseq)):
         if query_extseq[i] == "-":
             tidx += 1
+            cnt_indel += 1
         elif target_extseq[i] == "-":
             qidx += 1
+            cnt_indel += 1
         else:
             if query_extseq[i] != target_extseq[i]:
                 print(i, query_extseq[i], target_extseq[i])
+                cnt_unm += 1
+            else:
+                cnt_m += 1
             qt_match_pairs.append((qidx, tidx))
             qidx += 1
             tidx += 1
-    print("match pair len: {}".format(len(qt_match_pairs)))
+    print("total len: {}, match pair len: {}(m:{}/unm:{}), indel len: {}".format(len(query_extseq),
+                                                                                 len(qt_match_pairs),
+                                                                                 cnt_m, cnt_unm,
+                                                                                 cnt_indel))
     return qt_match_pairs
 
 
@@ -227,17 +238,26 @@ def _get_refseq(chrom, strand, start, end, contigname2seq, is_target):
     return subseq
 
 
-def _get_absolute_loc(relative_locs, abs_start, abs_end, strand):
-    if strand == "+":
+def _get_absolute_loc(relative_locs, abs_start, abs_end, strand, is_target):
+    if is_target:
         return [x + abs_start for x in relative_locs]
     else:
-        return [abs_end - 1 - x for x in relative_locs]
+        if strand == "+":
+            return [x + abs_start for x in relative_locs]
+        else:
+            return [abs_end - 1 - x for x in relative_locs]
 
 
-def _get_absolute_loc2(relative_locs, chrom):
+def _get_absolute_loc2(relative_locs, chrom, is_target=False, targetstrand=None):
     chrom_eles = chrom.split("_")
     chrom_c, chrom_s, chrom_e = "_".join(chrom_eles[:-2]), int(chrom_eles[-2]), int(chrom_eles[-1])
-    return [(chrom_s-1) + x for x in relative_locs]
+    if is_target:
+        if targetstrand == "+":
+            return [(chrom_s - 1) + x for x in relative_locs]
+        else:
+            return [(chrom_e - 1) - x for x in relative_locs]
+    else:
+        return [(chrom_s-1) + x for x in relative_locs]
 
 
 def _get_5mer(chromloc_key, siteloc, contigs):
@@ -247,7 +267,7 @@ def _get_5mer(chromloc_key, siteloc, contigs):
     motif_s = siteloc - 2
     motif_e = siteloc + 2 + 1
     if motif_s < 0 or motif_e > len(contigs[chrom_c]):
-        return ""
+        return None
     motif_seq = contigs[chrom_c][motif_s:motif_e]
     if strand == "-":
         motif_seq = complement_seq(motif_seq)
@@ -293,12 +313,12 @@ def parse_paf(paffile, contigname2seq, ref_strand, motifs="CG", mod_loc=0):  # p
             qmatchlocs, tmatchlocs = qt_match_pairs[0], qt_match_pairs[1]
             # get absolute loc in the seq for alignment
             q_abslocs, tabslocs = _get_absolute_loc(qmatchlocs, pafrecord2._querystart,
-                                                    pafrecord2._queryend, pafrecord2._strand), \
+                                                    pafrecord2._queryend, pafrecord2._strand, False), \
                                   _get_absolute_loc(tmatchlocs, pafrecord2._targetstart,
-                                                    pafrecord2._targetend, target_strand)
+                                                    pafrecord2._targetend, target_strand, True)
             # get absolute loc in the genome reference
-            q_abslocs, tabslocs = _get_absolute_loc2(q_abslocs, pafrecord2._queryname), \
-                                  _get_absolute_loc2(tabslocs, pafrecord2._targetname)
+            q_abslocs, tabslocs = _get_absolute_loc2(q_abslocs, pafrecord2._queryname, False), \
+                                  _get_absolute_loc2(tabslocs, pafrecord2._targetname, True, target_strand)
 
             # keep only motif locs
             # print(motiflocs)
@@ -321,11 +341,16 @@ def parse_paf(paffile, contigname2seq, ref_strand, motifs="CG", mod_loc=0):  # p
     tlocs_inter_tmp = []
     for i in range(0, len(tlocs_inter)):
         tsite_motif = _get_5mer("_".join([target_name, target_strand]), tlocs_inter[i], contigname2seq)
+        if tsite_motif is None:
+            continue
+        is_keep = True
         for query_name in querys_locs.keys():
             qsite_motif = _get_5mer(query_name, querys_locs[query_name][tlocs_inter[i]], contigname2seq)
-            if qsite_motif != tsite_motif:
-                continue
-        tlocs_inter_tmp.append(tlocs_inter[i])
+            if qsite_motif is None or qsite_motif != tsite_motif:
+                is_keep = False
+                break
+        if is_keep:
+            tlocs_inter_tmp.append(tlocs_inter[i])
     tlocs_inter = tlocs_inter_tmp
 
     if len(tlocs_inter) > 0:
@@ -366,8 +391,9 @@ def alignment_of_a_group(regions, contigs):
     region_querys = regions_len[:-1]
 
     # temp file
-    ref_fa_fp1 = "/tmp" + "/" + "_".join(list(map(str, list(region_ref[1:])))) + ".ref+.fa"
-    ref_fa_fp2 = "/tmp" + "/" + "_".join(list(map(str, list(region_ref[1:])))) + ".ref-.fa"
+    uuid_tmp = str(uuid.uuid1())
+    ref_fa_fp1 = "/tmp" + "/" + "_".join(list(map(str, list(region_ref[1:])))) + "." + uuid_tmp + ".ref+.fa"
+    ref_fa_fp2 = "/tmp" + "/" + "_".join(list(map(str, list(region_ref[1:])))) + "." + uuid_tmp + ".ref-.fa"
     with open(ref_fa_fp1, "w") as wf:
         seqlen, chrom, start, end = region_ref
         seq_ref = contigs[chrom][(start-1):end]
@@ -378,7 +404,7 @@ def alignment_of_a_group(regions, contigs):
         seq_ref = complement_seq(contigs[chrom][(start-1):end])
         wf.write(">{}\n".format("_".join([chrom, str(start), str(end)])))
         wf.write(seq_ref + "\n")
-    query_fa_fp = "/tmp" + "/" + "_".join(list(map(str, list(region_ref[1:])))) + ".query.fa"
+    query_fa_fp = "/tmp" + "/" + "_".join(list(map(str, list(region_ref[1:])))) + "." + uuid_tmp + ".query.fa"
     with open(query_fa_fp, "w") as wf:
         for region_q in region_querys:
             seqlen, chrom, start, end = region_q
