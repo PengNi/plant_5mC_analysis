@@ -7,6 +7,9 @@ library(ggplot2)
 library(reshape2)
 library(RColorBrewer)
 library(scales)
+library(ggthemes)
+library(extrafont)
+library(plyr)
 
 ############
 # arab, rice2-1; megalodon bs_cov_15
@@ -89,11 +92,11 @@ plot_rmet_heatmap <- function(rmet_df_file, hunit=40,
                          labels=comma) + 
     scale_x_continuous(breaks = seq(0, 1, 0.2)) +
     scale_y_continuous(breaks = seq(0, 1, 0.2)) +
-    theme(text=element_text(size=17, family = "serif"), 
-          axis.title = element_text(size = 15, family = "serif"), 
-          axis.text=element_text(size=15, family = "serif"), 
-          legend.text = element_text(size=12, family = "serif"), 
-          legend.title = element_text(size=15, family = "serif"), 
+    theme(text=element_text(size=17, family = "Arial"), 
+          axis.title = element_text(size = 15, family = "Arial"), 
+          axis.text=element_text(size=15, family = "Arial"), 
+          legend.text = element_text(size=12, family = "Arial"), 
+          legend.title = element_text(size=15, family = "Arial"), 
           plot.title = element_text(hjust = titlehjust)) +
     xlab(name_bs) + ylab(name_nano) + 
     ggtitle(bquote(paste(.(data_label), ",  ", italic("r"), " = ", .(pearcor_fmt))))
@@ -103,7 +106,7 @@ plot_rmet_heatmap <- function(rmet_df_file, hunit=40,
 
 p_arab_cg <- plot_rmet_heatmap("tools_to_cmp/megalodon_results.arab.pass.part2_guppy.50x_12345.CG_retrain_comb.bs_cov_15.vs_bsrep123.rmet.tsv", 
                                hunit = 50,
-                               data_label = "CG", 
+                               data_label = "CpG", 
                                name_bs = "Bisulfite methylation frequency", 
                                name_nano = "Megalodon methylation frequency",  
                                titlehjust = -0.0, 
@@ -137,7 +140,7 @@ p_arab_chh
 
 p_rice_cg <- plot_rmet_heatmap("tools_to_cmp/megalodon_results.rice2-1.pass2_guppy.50x_12345.CG_retrain_comb.bs_cov_15.vs_bs2-1.rmet.tsv", 
                                hunit = 50,
-                               data_label = "CG", 
+                               data_label = "CpG", 
                                name_bs = "Bisulfite methylation frequency", 
                                name_nano = "Megalodon methylation frequency", 
                                titlehjust = -0.0, 

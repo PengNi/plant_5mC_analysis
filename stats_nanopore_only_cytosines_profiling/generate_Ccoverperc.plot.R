@@ -41,6 +41,9 @@ repeat_arab_1k$key <- paste(repeat_arab_1k$chrom, repeat_arab_1k$start,
                             repeat_arab_1k$end, repeat_arab_1k$strand, 
                             repeat_arab_1k$motif, sep = "||")
 repeat_arab_1k <- repeat_arab_1k[repeat_arab_1k$key %in% keys_test, ]
+# =
+# repeat_arab_1k[repeat_arab_1k$motif=="CG", ]$motif = "CpG"
+# repeat_arab_1k$motif <- factor(repeat_arab_1k$motif, levels = c("CpG", "CHG", "CHH"))
 
 cbPalette <- c('#fc8d62', '#66c2a5')
 p_repeat_arab <- ggplot(repeat_arab_1k, aes(x=motif, y=covcf_ratio, fill=method)) + 
@@ -52,25 +55,25 @@ p_repeat_arab <- ggplot(repeat_arab_1k, aes(x=motif, y=covcf_ratio, fill=method)
   theme(legend.position = "bottom", 
         legend.title = element_blank(), 
         legend.margin=margin(-2, 0, 0, 0),
-        legend.key.size = unit(0.6, "cm"),
-        legend.text = element_text(size=17, family = "serif"),
-        strip.text.x = element_text(size = 13),
-        text = element_text(size=17, family="serif"), 
-        axis.title = element_text(size = 17, family = "serif"), 
-        axis.text=element_text(size=17, family = "serif"), 
-        plot.title = element_text(size=17, hjust = 0.5, vjust = 0, 
-                                  family="serif", face="italic")) + 
+        legend.key.size = unit(0.5, "cm"),
+        legend.text = element_text(size=15, family = "Arial"),
+        strip.text.x = element_text(size = 12),
+        text = element_text(size=15, family="Arial"), 
+        axis.title.y = element_text(size = 13, family = "Arial"), 
+        axis.text=element_text(size=15, family = "Arial"), 
+        plot.title = element_text(size=18, hjust = 0.5, vjust = 0, 
+                                  family="Arial", face="italic")) + 
   scale_y_continuous(limits = c(0, 1.0), 
                      breaks = seq(0, 1, 0.2), 
                      labels = seq(0, 1, 0.2)*100) + 
   scale_x_discrete(breaks=c("CG", "CHG", "CHH"), 
-                   labels=c("CG", "CHG", "CHH")) +
+                   labels=c("CpG", "CHG", "CHH")) +
   scale_fill_manual(values=cbPalette, 
                     breaks=c("bisulfite", "Nanopore"), 
-                    labels=c("bisulfite   ", "Nanopore")) +
+                    labels=c(" bisulfite    ", " Nanopore")) +
   xlab("") + 
   ylab("Percent of profiled cytosines (%)")
-p_repeat_arab
+# p_repeat_arab
 
 # genes ===
 gene_arab_bs <- read.table("stats_nanopore_only_cytosines_profiling/ninanjie.cytosine_coverage.in_genes.CG_CHG_CHH.bs_rep123.covcf_5.txt", 
@@ -116,25 +119,26 @@ p_gene_arab <- ggplot(gene_arab_1k, aes(x=motif, y=covcf_ratio, fill=method)) +
   theme(legend.position = "bottom", 
         legend.title = element_blank(), 
         legend.margin=margin(-2, 0, 0, 0),
-        legend.key.size = unit(0.6, "cm"),
-        legend.text = element_text(size=17, family = "serif"),
-        strip.text.x = element_text(size = 13),
-        text = element_text(size=17, family="serif"), 
-        axis.title = element_text(size = 17, family = "serif"), 
-        axis.text=element_text(size=17, family = "serif"), 
-        plot.title = element_text(size=17, hjust = 0.5, vjust = 0, 
-                                  family="serif", face="italic")) + 
+        legend.key.size = unit(0.5, "cm"),
+        legend.text = element_text(size=15, family = "Arial"),
+        strip.text.x = element_text(size = 11),
+        text = element_text(size=15, family="Arial"), 
+        axis.title.y = element_text(size = 13, family = "Arial"), 
+        axis.text.y=element_text(size=15, family = "Arial"), 
+        axis.text.x=element_text(size=13, family = "Arial"), 
+        plot.title = element_text(size=18, hjust = 0.5, vjust = 0, 
+                                  family="Arial", face="italic")) + 
   scale_y_continuous(limits = c(0, 1), 
                      breaks = seq(0, 1, 0.2),
                      labels = seq(0, 1, 0.2)*100) + 
   scale_x_discrete(breaks=c("CG", "CHG", "CHH"), 
-                   labels=c("CG", "CHG", "CHH")) +
+                   labels=c("CpG", "CHG", "CHH")) +
   scale_fill_manual(values=cbPalette, 
                     breaks=c("bisulfite", "Nanopore"), 
-                    labels=c("bisulfite   ", "Nanopore")) +
+                    labels=c(" bisulfite    ", " Nanopore")) +
   xlab("") + 
   ylab("Percent of profiled cytosines (%)")
-p_gene_arab
+# p_gene_arab
 
 
 # shuidao2-1 =================
@@ -181,25 +185,25 @@ p_repeat_rice <- ggplot(repeat_rice_1k, aes(x=motif, y=covcf_ratio, fill=method)
   theme(legend.position = "bottom", 
         legend.title = element_blank(), 
         legend.margin=margin(-2, 0, 0, 0),
-        legend.key.size = unit(0.6, "cm"),
-        legend.text = element_text(size=17, family = "serif"),
-        strip.text.x = element_text(size = 13),
-        text = element_text(size=17, family="serif"), 
-        axis.title = element_text(size = 17, family = "serif"), 
-        axis.text=element_text(size=17, family = "serif"), 
-        plot.title = element_text(size=17, hjust = 0.5, vjust = 0, 
-                                  family="serif", face="italic")) + 
+        legend.key.size = unit(0.5, "cm"),
+        legend.text = element_text(size=15, family = "Arial"),
+        strip.text.x = element_text(size = 12),
+        text = element_text(size=15, family="Arial"), 
+        axis.title.y = element_text(size = 13, family = "Arial"), 
+        axis.text=element_text(size=15, family = "Arial"), 
+        plot.title = element_text(size=18, hjust = 0.5, vjust = 0, 
+                                  family="Arial", face="italic")) + 
   scale_y_continuous(limits = c(0, 1), 
                      breaks = seq(0, 1, 0.2),
                      labels = seq(0, 1, 0.2)*100) + 
   scale_x_discrete(breaks=c("CG", "CHG", "CHH"), 
-                   labels=c("CG", "CHG", "CHH")) +
+                   labels=c("CpG", "CHG", "CHH")) +
   scale_fill_manual(values=cbPalette, 
                     breaks=c("bisulfite", "Nanopore"), 
-                    labels=c("bisulfite   ", "Nanopore")) +
+                    labels=c(" bisulfite    ", " Nanopore")) +
   xlab("") + 
   ylab("Percent of profiled cytosines (%)")
-p_repeat_rice
+# p_repeat_rice
 
 
 # genes ===
@@ -244,25 +248,25 @@ p_gene_rice <- ggplot(gene_rice_1k, aes(x=motif, y=covcf_ratio, fill=method)) +
   theme(legend.position = "bottom", 
         legend.title = element_blank(), 
         legend.margin=margin(-2, 0, 0, 0),
-        legend.key.size = unit(0.6, "cm"),
-        legend.text = element_text(size=17, family = "serif"),
-        strip.text.x = element_text(size = 13),
-        text = element_text(size=17, family="serif"), 
-        axis.title = element_text(size = 17, family = "serif"), 
-        axis.text=element_text(size=17, family = "serif"), 
-        plot.title = element_text(size=17, hjust = 0.5, vjust = 0, 
-                                  family="serif", face="italic")) + 
+        legend.key.size = unit(0.5, "cm"),
+        legend.text = element_text(size=15, family = "Arial"),
+        strip.text.x = element_text(size = 12),
+        text = element_text(size=15, family="Arial"), 
+        axis.title.y = element_text(size = 13, family = "Arial"), 
+        axis.text=element_text(size=15, family = "Arial"), 
+        plot.title = element_text(size=18, hjust = 0.5, vjust = 0, 
+                                  family="Arial", face="italic")) + 
   scale_y_continuous(limits = c(0, 1), 
                      breaks = seq(0, 1, 0.2),
                      labels = seq(0, 1, 0.2)*100) + 
   scale_x_discrete(breaks=c("CG", "CHG", "CHH"), 
-                   labels=c("CG", "CHG", "CHH")) +
+                   labels=c("CpG", "CHG", "CHH")) +
   scale_fill_manual(values=cbPalette, 
                     breaks=c("bisulfite", "Nanopore"), 
-                    labels=c("bisulfite   ", "Nanopore")) +
+                    labels=c(" bisulfite    ", " Nanopore")) +
   xlab("") + 
   ylab("Percent of profiled cytosines (%)")
-p_gene_rice
+# p_gene_rice
 
 
 
@@ -310,25 +314,25 @@ p_repeat_rice2 <- ggplot(repeat_rice2_1k, aes(x=motif, y=covcf_ratio, fill=metho
   theme(legend.position = "bottom", 
         legend.title = element_blank(), 
         legend.margin=margin(-2, 0, 0, 0),
-        legend.key.size = unit(0.6, "cm"),
-        legend.text = element_text(size=17, family = "serif"),
-        strip.text.x = element_text(size = 13),
-        text = element_text(size=17, family="serif"), 
-        axis.title = element_text(size = 17, family = "serif"), 
-        axis.text=element_text(size=17, family = "serif"), 
-        plot.title = element_text(size=17, hjust = 0.5, vjust = 0, 
-                                  family="serif", face="italic")) + 
+        legend.key.size = unit(0.5, "cm"),
+        legend.text = element_text(size=15, family = "Arial"),
+        strip.text.x = element_text(size = 12),
+        text = element_text(size=15, family="Arial"), 
+        axis.title.y = element_text(size = 13, family = "Arial"),  
+        axis.text=element_text(size=15, family = "Arial"), 
+        plot.title = element_text(size=18, hjust = 0.5, vjust = 0, 
+                                  family="Arial", face="italic")) + 
   scale_y_continuous(limits = c(0, 1), 
                      breaks = seq(0, 1, 0.2),
                      labels = seq(0, 1, 0.2)*100) + 
   scale_x_discrete(breaks=c("CG", "CHG", "CHH"), 
-                   labels=c("CG", "CHG", "CHH")) +
+                   labels=c("CpG", "CHG", "CHH")) +
   scale_fill_manual(values=cbPalette, 
                     breaks=c("bisulfite", "Nanopore"), 
-                    labels=c("bisulfite   ", "Nanopore")) +
+                    labels=c(" bisulfite    ", " Nanopore")) +
   xlab("") + 
   ylab("Percent of profiled cytosines (%)")
-p_repeat_rice2
+# p_repeat_rice2
 
 
 # genes ===
@@ -373,33 +377,33 @@ p_gene_rice2 <- ggplot(gene_rice2_1k, aes(x=motif, y=covcf_ratio, fill=method)) 
   theme(legend.position = "bottom", 
         legend.title = element_blank(), 
         legend.margin=margin(-2, 0, 0, 0),
-        legend.key.size = unit(0.6, "cm"),
-        legend.text = element_text(size=17, family = "serif"),
-        strip.text.x = element_text(size = 13),
-        text = element_text(size=17, family="serif"), 
-        axis.title = element_text(size = 17, family = "serif"), 
-        axis.text=element_text(size=17, family = "serif"), 
-        plot.title = element_text(size=17, hjust = 0.5, vjust = 0, 
-                                  family="serif", face="italic")) + 
+        legend.key.size = unit(0.5, "cm"),
+        legend.text = element_text(size=15, family = "Arial"),
+        strip.text.x = element_text(size = 12),
+        text = element_text(size=15, family="Arial"), 
+        axis.title.y = element_text(size = 13, family = "Arial"), 
+        axis.text=element_text(size=15, family = "Arial"), 
+        plot.title = element_text(size=18, hjust = 0.5, vjust = 0, 
+                                  family="Arial", face="italic")) + 
   scale_y_continuous(limits = c(0, 1), 
                      breaks = seq(0, 1, 0.2),
                      labels = seq(0, 1, 0.2)*100) + 
   scale_x_discrete(breaks=c("CG", "CHG", "CHH"), 
-                   labels=c("CG", "CHG", "CHH")) +
+                   labels=c("CpG", "CHG", "CHH")) +
   scale_fill_manual(values=cbPalette, 
                     breaks=c("bisulfite", "Nanopore"), 
-                    labels=c("bisulfite   ", "Nanopore")) +
+                    labels=c(" bisulfite    ", " Nanopore")) +
   xlab("") + 
   ylab("Percent of profiled cytosines (%)")
-p_gene_rice2
+# p_gene_rice2
 
 
 # combined figs
 ppi= 300
-#45, 22
+#45, 39
 png("stats_nanopore_only_cytosines_profiling/generate_Ccoverperc_in_repeats_n_genes_len1_bs0.9.png", 
-    width = 45, 
-    height = 39, units = "cm", res=ppi)
+    width = 36, 
+    height = 32, units = "cm", res=ppi)
 grid.arrange(arrangeGrob(grid.rect(gp=gpar(col="white")), 
                          nrow = 1), 
              arrangeGrob(p_repeat_arab,
@@ -425,8 +429,8 @@ grid.arrange(arrangeGrob(grid.rect(gp=gpar(col="white")),
 dev.off()
 
 svg("stats_nanopore_only_cytosines_profiling/generate_Ccoverperc_in_repeats_n_genes_len1_bs0.9.svg", 
-    width = 45/2.54, 
-    height = 39/2.54)
+    width = 36/2.54, 
+    height = 32/2.54)
 grid.arrange(arrangeGrob(grid.rect(gp=gpar(col="white")), 
                          nrow = 1), 
              arrangeGrob(p_repeat_arab,

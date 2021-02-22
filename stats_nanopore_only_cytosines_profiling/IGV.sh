@@ -19,7 +19,9 @@ samtools view -bS -@ 40 arab.part2_50x_12345.guppy.fastq.fq.minimap2.sam > arab.
 samtools sort -@ 40 -O bam -T arab.part2_50x_12345.guppy.fastq.fq.minimap2.bam.tmp arab.part2_50x_12345.guppy.fastq.fq.minimap2.bam > arab.part2_50x_12345.guppy.fastq.fq.minimap2.sorted.bam
 bedtools genomecov -bga -ibam arab.part2_50x_12345.guppy.fastq.fq.minimap2.sorted.bam > arab.part2_50x_12345.guppy.fastq.fq.minimap2.sorted.bam.bedgraph
 
-
+# to TDF
+igvtools toTDF -z 7 shuidao2-1_1_bismark_bt2_pe.sorted.mark_dup.sorted.CX_report.CHH.rmet.covcf_5.rmet.minus.bedgraph shuidao2-1_1_bismark_bt2_pe.sorted.mark_dup.sorted.CX_report.CHH.rmet.covcf_5.rmet.minus.bedgraph.tdf /homeb/nipeng/data/genome/rice/Oryza_sativa.IRGSP-1.0.dna.toplevel.fa &
+igvtools toTDF -z 7 shuidao2-1_1_bismark_bt2_pe.sorted.mark_dup.sorted.CX_report.CHH.rmet.covcf_5.rmet.plus.bedgraph shuidao2-1_1_bismark_bt2_pe.sorted.mark_dup.sorted.CX_report.CHH.rmet.covcf_5.rmet.plus.bedgraph.tdf /homeb/nipeng/data/genome/rice/Oryza_sativa.IRGSP-1.0.dna.toplevel.fa &
 
 
 

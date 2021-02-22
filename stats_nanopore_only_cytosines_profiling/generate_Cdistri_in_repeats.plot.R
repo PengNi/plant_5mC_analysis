@@ -19,14 +19,14 @@ arab_rep$region <- factor(arab_rep$region,
 p_arab_rep <- ggplot(data=arab_rep, aes(x=region, y=motif_ratio, fill=motif)) +
   geom_bar(stat="identity", position=position_dodge(), colour="black") +
   theme_bw() + 
-  theme(text=element_text(size=16, family = "serif"),
+  theme(text=element_text(size=15, family = "Arial"),
         legend.position = "bottom", 
         legend.title = element_blank(),
         legend.margin = margin(-5, 0, 0, 0),
-        plot.title = element_text(size=32, face="bold", hjust = -0.15, vjust = -0.01), 
-        axis.text.x  = element_text(size=10)) + 
+        plot.title = element_text(size=28, face="bold", hjust = -0.15, vjust = -0.01), 
+        axis.text.x  = element_text(size=9)) + 
   scale_fill_brewer(palette="Set2", 
-                    labels = c("CG   ", "CHG   ", "CHH")) +
+                    labels = c(" CpG    ", " CHG    ", " CHH")) +
   scale_y_continuous(limits=c(0, 0.25), breaks = seq(0, 0.25, 0.05), 
                      labels = seq(0, 0.25, 0.05) * 100) +
   labs(x="", y="Ratio (%)", title="a")
@@ -52,14 +52,14 @@ rice_rep$region <- factor(rice_rep$region,
 p_rice_rep <- ggplot(data=rice_rep, aes(x=region, y=motif_ratio, fill=motif)) +
   geom_bar(stat="identity", position=position_dodge(), colour="black") +
   theme_bw() + 
-  theme(text = element_text(size=16, family = "serif"),
+  theme(text = element_text(size=15, family = "Arial"),
         legend.position = "bottom", 
         legend.title = element_blank(), 
         legend.margin = margin(-5, 0, 0, 0),
-        plot.title = element_text(size=32, face="bold", hjust = -0.15, vjust = -0.01), 
-        axis.text.x = element_text(size=10)) + 
+        plot.title = element_text(size=28, face="bold", hjust = -0.15, vjust = -0.01), 
+        axis.text.x = element_text(size=9)) + 
   scale_fill_brewer(palette="Set2", 
-                    labels = c("CG   ", "CHG   ", "CHH")) +
+                    labels = c(" CpG    ", " CHG    ", " CHH")) +
   scale_y_continuous(limits=c(0, 0.4), breaks = seq(0, 0.4, 0.1), 
                      labels = seq(0, 0.4, 0.1) * 100) +
   labs(x="", y="Ratio (%)", title="d")
@@ -78,14 +78,14 @@ rice_rep2$region <- factor(rice_rep2$region,
 p_rice_rep2 <- ggplot(data=rice_rep2, aes(x=region, y=motif_ratio, fill=motif)) +
   geom_bar(stat="identity", position=position_dodge(), colour="black") +
   theme_bw() + 
-  theme(text = element_text(size=16, family = "serif"),
+  theme(text = element_text(size=15, family = "Arial"),
         legend.position = "bottom", 
         legend.title = element_blank(), 
         legend.margin = margin(-5, 0, 0, 0),
-        plot.title = element_text(size=32, face="bold", hjust = -0.15, vjust = -0.01), 
-        axis.text.x = element_text(size=10)) + 
+        plot.title = element_text(size=28, face="bold", hjust = -0.15, vjust = -0.01), 
+        axis.text.x = element_text(size=9)) + 
   scale_fill_brewer(palette="Set2", 
-                    labels = c("CG   ", "CHG   ", "CHH")) +
+                    labels = c(" CpG    ", " CHG    ", " CHH")) +
   scale_y_continuous(limits=c(0, 0.48), breaks = seq(0, 0.5, 0.1), 
                      labels = seq(0, 0.5, 0.1) * 100) +
   labs(x="", y="Ratio (%)", title="g")

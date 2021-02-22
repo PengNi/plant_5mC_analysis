@@ -16,14 +16,14 @@ arab_gene$region <- factor(arab_gene$region,
 p_arab_gene <- ggplot(data=arab_gene, aes(x=region, y=motif_ratio, fill=motif)) +
   geom_bar(stat="identity", position=position_dodge(), colour="black") +
   theme_bw() + 
-  theme(text=element_text(size=16, family = "serif"),
+  theme(text=element_text(size=15, family = "Arial"),
         legend.position = "bottom", 
         legend.title = element_blank(), 
         legend.margin = margin(-5, 0, 0, 0),
-        plot.title = element_text(size=32, face="bold", hjust = -0.15, vjust = -0.01), 
-        axis.text.x  = element_text(size=8)) + 
+        plot.title = element_text(size=28, face="bold", hjust = -0.15, vjust = -0.01), 
+        axis.text.x  = element_text(size=7.5)) + 
   scale_fill_brewer(palette="Set2", 
-                    labels = c("CG   ", "CHG   ", "CHH")) +
+                    labels = c(" CpG    ", " CHG    ", " CHH")) +
   scale_x_discrete(breaks=c("protein-coding genes", "non-coding genes", 
                             "pseudogenes", "transposons"), 
                    labels=c("protein-coding genes", "non-coding genes", 
@@ -45,13 +45,13 @@ arab_rna$region <- factor(arab_rna$region,
 p_arab_rna <- ggplot(data=arab_rna, aes(x=region, y=motif_ratio, fill=motif)) +
   geom_bar(stat="identity", position=position_dodge(), colour="black") +
   theme_bw() + 
-  theme(text=element_text(size=16, family = "serif"),
+  theme(text=element_text(size=15, family = "Arial"),
         legend.position = "bottom", 
         legend.title = element_blank(), 
         legend.margin = margin(-5, 0, 0, 0),
-        plot.title = element_text(size=32, face="bold", hjust = -0.15, vjust = -0.01)) + 
+        plot.title = element_text(size=28, face="bold", hjust = -0.15, vjust = -0.01)) + 
   scale_fill_brewer(palette="Set2", 
-                    labels = c("CG   ", "CHG   ", "CHH")) +
+                    labels = c(" CpG    ", " CHG    ", " CHH")) +
   scale_y_continuous(limits=c(0, 0.12), breaks = seq(0, 0.12, 0.03), 
                      labels = seq(0, 0.12, 0.03) * 100) +
   labs(x="", y="Ratio (%)", title="c")
@@ -69,13 +69,13 @@ rice_gene$region <- factor(rice_gene$region,
 p_rice_gene <- ggplot(data=rice_gene, aes(x=region, y=motif_ratio, fill=motif)) +
   geom_bar(stat="identity", position=position_dodge(), colour="black") +
   theme_bw() + 
-  theme(text=element_text(size=16, family = "serif"),
+  theme(text=element_text(size=15, family = "Arial"),
         legend.position = "bottom", 
         legend.title = element_blank(), 
         legend.margin = margin(-5, 0, 0, 0),
-        plot.title = element_text(size=32, face="bold", hjust = -0.10, vjust = -0.01)) + 
+        plot.title = element_text(size=28, face="bold", hjust = -0.10, vjust = -0.01)) + 
   scale_fill_brewer(palette="Set2", 
-                    labels = c("CG   ", "CHG   ", "CHH")) +
+                    labels = c(" CpG    ", " CHG    ", " CHH")) +
   scale_y_continuous(limits=c(0, 0.08), breaks = seq(0, 0.08, 0.02), 
                      labels = seq(0, 0.08, 0.02) * 100) +
   labs(x="", y="Ratio (%)", title = "e")
@@ -93,13 +93,13 @@ rice_rna$region <- factor(rice_rna$region,
 p_rice_rna <- ggplot(data=rice_rna, aes(x=region, y=motif_ratio, fill=motif)) +
   geom_bar(stat="identity", position=position_dodge(), colour="black") +
   theme_bw() + 
-  theme(text=element_text(size=16, family = "serif"),
+  theme(text=element_text(size=15, family = "Arial"),
         legend.position = "bottom", 
         legend.title = element_blank(), 
         legend.margin = margin(-5, 0, 0, 0),
-        plot.title = element_text(size=32, face="bold", hjust = -0.14, vjust = -0.01)) + 
+        plot.title = element_text(size=28, face="bold", hjust = -0.14, vjust = -0.01)) + 
   scale_fill_brewer(palette="Set2", 
-                    labels = c("CG   ", "CHG   ", "CHH")) +
+                    labels = c(" CpG    ", " CHG    ", " CHH")) +
   scale_y_continuous(limits=c(0, 0.02), breaks = seq(0, 0.02, 0.005), 
                      labels = seq(0, 0.02, 0.005) * 100) +
   labs(x="", y="Ratio (%)", title="f")
@@ -117,13 +117,13 @@ rice_gene2$region <- factor(rice_gene2$region,
 p_rice_gene2 <- ggplot(data=rice_gene2, aes(x=region, y=motif_ratio, fill=motif)) +
   geom_bar(stat="identity", position=position_dodge(), colour="black") +
   theme_bw() + 
-  theme(text=element_text(size=16, family = "serif"),
+  theme(text=element_text(size=15, family = "Arial"),
         legend.position = "bottom", 
         legend.title = element_blank(), 
         legend.margin = margin(-5, 0, 0, 0),
-        plot.title = element_text(size=32, face="bold", hjust = -0.10, vjust = -0.01)) + 
+        plot.title = element_text(size=28, face="bold", hjust = -0.10, vjust = -0.01)) + 
   scale_fill_brewer(palette="Set2", 
-                    labels = c("CG   ", "CHG   ", "CHH")) +
+                    labels = c(" CpG    ", " CHG    ", " CHH")) +
   scale_y_continuous(limits=c(0, 0.08), breaks = seq(0, 0.08, 0.02), 
                      labels = seq(0, 0.08, 0.02) * 100) +
   labs(x="", y="Ratio (%)", title = "h")
@@ -140,13 +140,13 @@ rice_rna2$region <- factor(rice_rna2$region,
 p_rice_rna2 <- ggplot(data=rice_rna2, aes(x=region, y=motif_ratio, fill=motif)) +
   geom_bar(stat="identity", position=position_dodge(), colour="black") +
   theme_bw() + 
-  theme(text=element_text(size=16, family = "serif"),
+  theme(text=element_text(size=15, family = "Arial"),
         legend.position = "bottom", 
         legend.title = element_blank(), 
         legend.margin = margin(-5, 0, 0, 0),
-        plot.title = element_text(size=32, face="bold", hjust = -0.14, vjust = -0.01)) + 
+        plot.title = element_text(size=28, face="bold", hjust = -0.14, vjust = -0.01)) + 
   scale_fill_brewer(palette="Set2", 
-                    labels = c("CG   ", "CHG   ", "CHH")) +
+                    labels = c(" CpG    ", " CHG    ", " CHH")) +
   scale_y_continuous(limits=c(0, 0.026), breaks = seq(0, 0.025, 0.005), 
                      labels = seq(0, 0.025, 0.005) * 100) +
   labs(x="", y="Ratio (%)", title="i")

@@ -4,6 +4,9 @@ library(ggplot2)
 library(reshape2)
 library(RColorBrewer)
 library(scales)
+library(ggthemes)
+library(extrafont)
+library(plyr)
 
 # 254.6 bnigra
 # === cg
@@ -41,15 +44,15 @@ p_cg <- ggplot(df_cg, aes(x=binname, y=rmet, fill=method)) +
         legend.title = element_blank(), 
         legend.margin=margin(-2, 0, 0, 0),
         legend.key.size = unit(0.6, "cm"),
-        legend.text = element_text(size=17, family = "serif"),
+        legend.text = element_text(size=17, family = "Arial"),
         strip.text.x = element_text(size = 13),
-        text = element_text(size=17, family="serif"), 
-        axis.title = element_text(size = 17, family = "serif"), 
-        axis.text=element_text(size=17, family = "serif"), 
+        text = element_text(size=17, family="Arial"), 
+        axis.title = element_text(size = 17, family = "Arial"), 
+        axis.text=element_text(size=17, family = "Arial"), 
         # plot.title = element_text(size=33, hjust = -0.05, vjust = -0.01, 
-        #                          family="serif", face="bold")) + 
-        plot.title = element_text(size=25, hjust = 0.5, vjust = 0, 
-                                  family="serif")) +
+        #                          family="Arial", face="bold")) + 
+        plot.title = element_text(size=17, hjust = 0.5, vjust = 0, 
+                                  family="Arial")) +
   scale_y_continuous(limits = c(0, 1), 
                      breaks = seq(0, 1, 0.2)) + 
   scale_x_discrete(breaks=c("low methylation", "intermediate methylation", 
@@ -64,7 +67,7 @@ p_cg <- ggplot(df_cg, aes(x=binname, y=rmet, fill=method)) +
   xlab("Bisulfite methylation frequency") + 
   ylab("Methylation frequency") + 
   # ggtitle("a")
-  ggtitle(expression(paste(italic("B. nigra"), "     CG", sep = "")))
+  ggtitle(expression(paste(italic("B. nigra"), "     CpG", sep = "")))
 
 # p_cg
 
@@ -105,15 +108,15 @@ p_chg <- ggplot(df_chg, aes(x=binname, y=rmet, fill=method)) +
         legend.title = element_blank(),
         legend.margin=margin(-2, 0, 0, 0),
         legend.key.size = unit(0.6, "cm"),
-        legend.text = element_text(size=17, family = "serif"),
+        legend.text = element_text(size=17, family = "Arial"),
         strip.text.x = element_text(size = 13),
-        text = element_text(size=17, family="serif"),
-        axis.title = element_text(size = 17, family = "serif"),
-        axis.text=element_text(size=17, family = "serif"),
+        text = element_text(size=17, family="Arial"),
+        axis.title = element_text(size = 17, family = "Arial"),
+        axis.text=element_text(size=17, family = "Arial"),
         # plot.title = element_text(size=33, hjust = -0.05, vjust = -0.01, 
-        #                          family="serif", face="bold")) + 
-        plot.title = element_text(size=25, hjust = 0.5, vjust = 0, 
-                                  family="serif")) +
+        #                          family="Arial", face="bold")) + 
+        plot.title = element_text(size=17, hjust = 0.5, vjust = 0, 
+                                  family="Arial")) +
   scale_y_continuous(limits = c(0, 1),
                      breaks = seq(0, 1, 0.2)) +
   scale_x_discrete(breaks=c("low methylation", "intermediate methylation",
@@ -169,15 +172,15 @@ p_chh <- ggplot(df_chh, aes(x=binname, y=rmet, fill=method)) +
         legend.title = element_blank(),
         legend.margin=margin(-2, 0, 0, 0),
         legend.key.size = unit(0.6, "cm"),
-        legend.text = element_text(size=17, family = "serif"),
+        legend.text = element_text(size=17, family = "Arial"),
         strip.text.x = element_text(size = 13),
-        text = element_text(size=17, family="serif"),
-        axis.title = element_text(size = 17, family = "serif"),
-        axis.text=element_text(size=17, family = "serif"),
+        text = element_text(size=17, family="Arial"),
+        axis.title = element_text(size = 17, family = "Arial"),
+        axis.text=element_text(size=17, family = "Arial"),
         # plot.title = element_text(size=33, hjust = -0.05, vjust = -0.01, 
-        #                          family="serif", face="bold")) + 
-        plot.title = element_text(size=25, hjust = 0.5, vjust = 0, 
-                                  family="serif")) +
+        #                          family="Arial", face="bold")) + 
+        plot.title = element_text(size=17, hjust = 0.5, vjust = 0, 
+                                  family="Arial")) +
   scale_y_continuous(limits = c(0, 1),
                      breaks = seq(0, 1, 0.2)) +
   scale_x_discrete(breaks=c("low methylation", "intermediate methylation",

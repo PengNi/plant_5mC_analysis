@@ -22,8 +22,8 @@ p <- ggplot(signalnumdf_30,
   geom_vline(xintercept = ceiling(signalnum.mean) + ceiling(signalnum.std), 
              linetype="dashed", size=1) +
   theme_bw() + 
-  theme(text=element_text(size=12, family="serif"), 
-        axis.text.x=element_text(size=7, family="serif")) + 
+  theme(text=element_text(size=12, family="Arial"), 
+        axis.text.x=element_text(size=7, family="Arial")) + 
   scale_x_continuous(breaks=seq(0, 30, 1)) + 
   ggtitle('') + 
   labs(x="Number of signals of one base", y='Count')

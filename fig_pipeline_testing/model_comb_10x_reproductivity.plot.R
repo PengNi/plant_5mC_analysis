@@ -105,11 +105,11 @@ heatplot <- function(heat_mat, xlab="", ylab="", title="",
     scale_y_discrete(expand=c(0,0))+
     theme(axis.ticks=element_blank())
   if (labs == TRUE)
-    p <- p+geom_text(size=labs.size, family = "serif")
+    p <- p+geom_text(size=labs.size, family = "Arial")
   p <- p + theme(axis.text.x=element_text( hjust=0.5, angle=0)) +
     theme(axis.text.y=element_text(vjust=0.5, hjust=0.5, angle=90))
   p <- p+theme(legend.title=element_blank())
-  p <- p+theme(text = element_text(size = 17, family = "serif"))
+  p <- p+theme(text = element_text(size = 17, family = "Arial"))
   ##geom_point(aes(size=value))
   p <- p+xlab(xlab)+ylab(ylab) + ggtitle(" ")
   
@@ -125,7 +125,7 @@ df_comb_meanstd <- summarySE(df_comb, "Pearson_correlation", c("motif", "species
 
 
 # plot ==============================
-cbPalettec <- c("#66c2a5", "#fc8d62")
+cbPalettec <- c("#1f78b4", "#33a02c")
 
 # ====== arab
 species = "A. thaliana"
@@ -140,25 +140,25 @@ p_a_cg <- ggplot(pearson_corrs, aes(y=pearson_corr, x=xaxis, fill=xaxis)) +
                lwd=0.5, outlier.size=-1, fatten=2) + 
   theme_bw() + 
   theme(legend.position = "none",
-        text = element_text(size=17, family="serif"),
-        axis.title = element_text(size = 17, family = "serif"),
-        axis.text.y = element_text(size = 12, family = "serif"),
+        text = element_text(size=17, family="Arial"),
+        axis.title = element_text(size = 17, family = "Arial"),
+        axis.text.y = element_text(size = 12, family = "Arial"),
         axis.text.x = element_blank(), 
         axis.ticks.x = element_blank(), 
-        plot.title=element_text(size=17, family="serif", hjust=0.5)) +
+        plot.title=element_text(size=17, family="Arial", hjust=0.5)) +
   scale_fill_manual(values=cbPalettec[1]) +
   scale_y_continuous(labels = fmt_dcimals(4)) +
-  labs(title=bquote(paste(italic(.(species)), "     ", .(motif), sep = "")),
+  labs(title=bquote(paste(italic(.(species)), "   CpG", sep = "")),
        y="Pearson correlation", 
        x="") + 
   annotation_custom(grobTree(textGrob(paste("mean: ", 
                                             round(mean(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.92, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="serif")))) + 
+                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial")))) + 
   annotation_custom(grobTree(textGrob(paste("   s.d.: ", 
                                             round(sd(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.87, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="serif"))))
+                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial"))))
 p_a_cg
 
 # df_a_cg_heat <- read.table("fig_pipeline_testing/model_comb_10x_self_corr.arab.part2.CG.txt", 
@@ -180,26 +180,26 @@ p_a_chg <- ggplot(pearson_corrs, aes(y=pearson_corr, x=xaxis, fill=xaxis)) +
                lwd=0.5, outlier.size=-1, fatten=2) + 
   theme_bw() + 
   theme(legend.position = "none",
-        text = element_text(size=17, family="serif"),
-        axis.title = element_text(size = 17, family = "serif"),
-        axis.text.y = element_text(size = 12, family = "serif"),
+        text = element_text(size=17, family="Arial"),
+        axis.title = element_text(size = 17, family = "Arial"),
+        axis.text.y = element_text(size = 12, family = "Arial"),
         axis.text.x = element_blank(), 
         axis.ticks.x = element_blank(), 
-        plot.title=element_text(size=17, family="serif", hjust=0.5)) +
+        plot.title=element_text(size=17, family="Arial", hjust=0.5)) +
   scale_fill_manual(values=cbPalettec[1]) +
   scale_y_continuous(labels = fmt_dcimals(4)) +
-  labs(title=bquote(paste(italic(.(species)), "     ", .(motif), sep = "")),
+  labs(title=bquote(paste(italic(.(species)), "   ", .(motif), sep = "")),
        y="Pearson correlation", 
        x="") + 
   annotation_custom(grobTree(textGrob(paste("mean: ", 
                                             format(round(mean(pearson_corrs$pearson_corr), 4),
                                                    nsmall = 4)), 
                                       x=0.51,  y=0.92, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="serif")))) + 
+                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial")))) + 
   annotation_custom(grobTree(textGrob(paste("   s.d.: ", 
                                             round(sd(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.87, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="serif"))))
+                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial"))))
 p_a_chg
 
 # df_a_chg_heat <- read.table("fig_pipeline_testing/model_comb_10x_self_corr.arab.part2.CHG.txt", 
@@ -221,25 +221,25 @@ p_a_chh <- ggplot(pearson_corrs, aes(y=pearson_corr, x=xaxis, fill=xaxis)) +
                lwd=0.5, outlier.size=-1, fatten=2) + 
   theme_bw() + 
   theme(legend.position = "none",
-        text = element_text(size=17, family="serif"),
-        axis.title = element_text(size = 17, family = "serif"),
-        axis.text.y = element_text(size = 12, family = "serif"),
+        text = element_text(size=17, family="Arial"),
+        axis.title = element_text(size = 17, family = "Arial"),
+        axis.text.y = element_text(size = 12, family = "Arial"),
         axis.text.x = element_blank(), 
         axis.ticks.x = element_blank(), 
-        plot.title=element_text(size=17, family="serif", hjust=0.5)) +
+        plot.title=element_text(size=17, family="Arial", hjust=0.5)) +
   scale_fill_manual(values=cbPalettec[1]) +
   scale_y_continuous(labels = fmt_dcimals(4)) +
-  labs(title=bquote(paste(italic(.(species)), "     ", .(motif), sep = "")),
+  labs(title=bquote(paste(italic(.(species)), "   ", .(motif), sep = "")),
        y="Pearson correlation", 
        x="") + 
   annotation_custom(grobTree(textGrob(paste("mean: ", 
                                             round(mean(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.92, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="serif")))) + 
+                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial")))) + 
   annotation_custom(grobTree(textGrob(paste("   s.d.: ", 
                                             round(sd(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.87, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="serif"))))
+                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial"))))
 p_a_chh
 
 # df_a_chh_heat <- read.table("fig_pipeline_testing/model_comb_10x_self_corr.arab.part2.CHH.txt", 
@@ -264,25 +264,25 @@ p_o_cg <- ggplot(pearson_corrs, aes(y=pearson_corr, x=xaxis, fill=xaxis)) +
                lwd=0.5, outlier.size=-1, fatten=2) + 
   theme_bw() + 
   theme(legend.position = "none",
-        text = element_text(size=17, family="serif"),
-        axis.title = element_text(size = 17, family = "serif"),
-        axis.text.y = element_text(size = 12, family = "serif"),
+        text = element_text(size=17, family="Arial"),
+        axis.title = element_text(size = 17, family = "Arial"),
+        axis.text.y = element_text(size = 12, family = "Arial"),
         axis.text.x = element_blank(), 
         axis.ticks.x = element_blank(), 
-        plot.title=element_text(size=17, family="serif", hjust=0.5)) +
+        plot.title=element_text(size=17, family="Arial", hjust=0.5)) +
   scale_fill_manual(values=cbPalettec[2]) +
   scale_y_continuous(labels = fmt_dcimals(4)) +
-  labs(title=bquote(paste(italic(.(species)), "     ", .(motif), sep = "")),
+  labs(title=bquote(paste(italic(.(species)), "   CpG", sep = "")),
        y="Pearson correlation", 
        x="") + 
   annotation_custom(grobTree(textGrob(paste("mean: ", 
                                             round(mean(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.92, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="serif")))) + 
+                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial")))) + 
   annotation_custom(grobTree(textGrob(paste("   s.d.: ", 
                                             round(sd(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.87, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="serif"))))
+                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial"))))
 p_o_cg
 
 # df_o_cg_heat <- read.table("fig_pipeline_testing/model_comb_10x_self_corr.rice1-1.part2.CG.txt", 
@@ -304,25 +304,25 @@ p_o_chg <- ggplot(pearson_corrs, aes(y=pearson_corr, x=xaxis, fill=xaxis)) +
                lwd=0.5, outlier.size=-1, fatten=2) + 
   theme_bw() + 
   theme(legend.position = "none",
-        text = element_text(size=17, family="serif"),
-        axis.title = element_text(size = 17, family = "serif"),
-        axis.text.y = element_text(size = 12, family = "serif"),
+        text = element_text(size=17, family="Arial"),
+        axis.title = element_text(size = 17, family = "Arial"),
+        axis.text.y = element_text(size = 12, family = "Arial"),
         axis.text.x = element_blank(), 
         axis.ticks.x = element_blank(), 
-        plot.title=element_text(size=17, family="serif", hjust=0.5)) +
+        plot.title=element_text(size=17, family="Arial", hjust=0.5)) +
   scale_fill_manual(values=cbPalettec[2]) +
   scale_y_continuous(labels = fmt_dcimals(4)) +
-  labs(title=bquote(paste(italic(.(species)), "     ", .(motif), sep = "")),
+  labs(title=bquote(paste(italic(.(species)), "   ", .(motif), sep = "")),
        y="Pearson correlation", 
        x="") + 
   annotation_custom(grobTree(textGrob(paste("mean: ", 
                                             round(mean(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.92, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="serif")))) + 
+                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial")))) + 
   annotation_custom(grobTree(textGrob(paste("   s.d.: ", 
                                             round(sd(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.87, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="serif"))))
+                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial"))))
 p_o_chg
 
 # df_o_chg_heat <- read.table("fig_pipeline_testing/model_comb_10x_self_corr.rice1-1.part2.CHG.txt", 
@@ -344,25 +344,25 @@ p_o_chh <- ggplot(pearson_corrs, aes(y=pearson_corr, x=xaxis, fill=xaxis)) +
                lwd=0.5, outlier.size=-1, fatten=2) + 
   theme_bw() + 
   theme(legend.position = "none",
-        text = element_text(size=17, family="serif"),
-        axis.title = element_text(size = 17, family = "serif"),
-        axis.text.y = element_text(size = 12, family = "serif"),
+        text = element_text(size=17, family="Arial"),
+        axis.title = element_text(size = 17, family = "Arial"),
+        axis.text.y = element_text(size = 12, family = "Arial"),
         axis.text.x = element_blank(), 
         axis.ticks.x = element_blank(), 
-        plot.title=element_text(size=17, family="serif", hjust=0.5)) +
+        plot.title=element_text(size=17, family="Arial", hjust=0.5)) +
   scale_fill_manual(values=cbPalettec[2]) +
   scale_y_continuous(labels = fmt_dcimals(4)) +
-  labs(title=bquote(paste(italic(.(species)), "     ", .(motif), sep = "")),
+  labs(title=bquote(paste(italic(.(species)), "   ", .(motif), sep = "")),
        y="Pearson correlation", 
        x="") + 
   annotation_custom(grobTree(textGrob(paste("mean: ", 
                                             round(mean(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.92, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="serif")))) + 
+                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial")))) + 
   annotation_custom(grobTree(textGrob(paste("   s.d.: ", 
                                             round(sd(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.87, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="serif"))))
+                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial"))))
 p_o_chh
 
 # df_o_chh_heat <- read.table("fig_pipeline_testing/model_comb_10x_self_corr.rice1-1.part2.CHH.txt", 

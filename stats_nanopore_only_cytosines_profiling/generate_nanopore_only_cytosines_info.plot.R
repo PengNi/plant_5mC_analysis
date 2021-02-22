@@ -58,10 +58,11 @@ lomethy_rice2/nrow(rmet_diffnano_rice2)
 
 
 # ==================== cytosine
-cbPalette <- c("#66c2a5", "#fc8d62")
-# fontsize: 17, 15, 38
-p_rmet_c <- ggplot(rmet_all, aes(x=rmet, fill=species)) + 
-  geom_density(colour="black", alpha=0.75, size=0.5) + 
+cbPalette <- c("#1f78b4", "#33a02c")
+
+p_rmet_c_a <-  ggplot(rmet_arab, aes(x=rmet)) + 
+  geom_density(colour="black", alpha=0.8, size=0.4, 
+               fill=cbPalette[1]) + 
   geom_vline(xintercept=0.3, 
              colour="black", 
              linetype="dashed", size=0.8) +
@@ -69,52 +70,88 @@ p_rmet_c <- ggplot(rmet_all, aes(x=rmet, fill=species)) +
              colour="black", 
              linetype="dashed", size=0.8) +
   theme_bw() + 
-  theme(text=element_text(size=17, family = "serif"),
-        legend.position = "bottom", 
-        legend.title = element_blank(), 
-        legend.text = element_text(size=15, face = "italic"), 
-        legend.key.size = unit(0.35, "cm"), 
-        plot.title = element_text(size=38, face="bold", hjust = -0.1)) + 
-  scale_fill_manual(values=cbPalette, 
-                    breaks = c("A. thaliana", "O. sativa"), 
-                    labels = c("A. thaliana    ", "O. sativa")) + 
+  theme(text=element_text(size=15, family = "Arial"),
+        plot.title = element_text(size=18, hjust = 0.5), 
+        axis.title = element_text(size=15, family = "Arial"),
+        axis.text = element_text(size=15, family = "Arial")) + 
   scale_x_continuous(limits=c(0, 1), 
                      breaks = seq(0, 1, 0.1)) +
   scale_y_continuous(limits = c(0, 8), 
                      breaks = seq(0, 8, 1)) + 
   labs(x="Methylation frequency", 
-       y="Density", title = "")
-# p_rmet_c
+       y="Density", title = "A.thaliana")
 
+p_rmet_c_rice <-  ggplot(rmet_rice, aes(x=rmet)) + 
+  geom_density(colour="black", alpha=0.8, size=0.4, 
+               fill=cbPalette[2]) + 
+  geom_vline(xintercept=0.3, 
+             colour="black", 
+             linetype="dashed", size=0.8) +
+  geom_vline(xintercept=0.7, 
+             colour="black", 
+             linetype="dashed", size=0.8) +
+  theme_bw() + 
+  theme(text=element_text(size=15, family = "Arial"),
+        plot.title = element_text(size=18, hjust = 0.5), 
+        axis.title = element_text(size=15, family = "Arial"),
+        axis.text = element_text(size=15, family = "Arial")) + 
+  scale_x_continuous(limits=c(0, 1), 
+                     breaks = seq(0, 1, 0.1)) +
+  scale_y_continuous(limits = c(0, 8), 
+                     breaks = seq(0, 8, 1)) + 
+  labs(x="Methylation frequency", 
+       y="Density", title = expression(paste(italic("O. sativa"),  " (sample1)", sep = "")))
+
+# # fontsize: 17, 15, 38
+# p_rmet_c <- ggplot(rmet_all, aes(x=rmet, fill=species)) + 
+#   geom_density(colour="black", alpha=0.75, size=0.5) + 
+#   geom_vline(xintercept=0.3, 
+#              colour="black", 
+#              linetype="dashed", size=0.8) +
+#   geom_vline(xintercept=0.7, 
+#              colour="black", 
+#              linetype="dashed", size=0.8) +
+#   theme_bw() + 
+#   theme(text=element_text(size=17, family = "Arial"),
+#         legend.position = "bottom", 
+#         legend.title = element_blank(), 
+#         legend.text = element_text(size=15, face = "italic"), 
+#         legend.key.size = unit(0.35, "cm"), 
+#         plot.title = element_text(size=38, face="bold", hjust = -0.1)) + 
+#   scale_fill_manual(values=cbPalette, 
+#                     breaks = c("A. thaliana", "O. sativa"), 
+#                     labels = c("A. thaliana    ", "O. sativa")) + 
+#   scale_x_continuous(limits=c(0, 1), 
+#                      breaks = seq(0, 1, 0.1)) +
+#   scale_y_continuous(limits = c(0, 8), 
+#                      breaks = seq(0, 8, 1)) + 
+#   labs(x="Methylation frequency", 
+#        y="Density", title = "")
+# # p_rmet_c
+
+# # combine with venn a, b (compare_detected_cytosines.plot.R)
 # ppi= 300
-# jpeg("stats_nanopore_only_cytosines_profiling/generate_nanopore_only_cytosines_info.methyfreq.c.jpg", 
-#      width = 13, 
+# png("stats_nanopore_only_cytosines_profiling/fig_nanopore_only_cs.fig_abc.notitle.png", 
+#      width = 37, 
 #      height = 10, units = "cm", res=ppi)
-# p_rmet_c
+# grid.arrange(p_arab_c, grid.rect(gp=gpar(col="white")), p_rice_c, 
+#              grid.rect(gp=gpar(col="white")), p_rmet_c,
+#              widths = c(12, 1, 12, 1, 13))
+# dev.off()
+# svg("stats_nanopore_only_cytosines_profiling/fig_nanopore_only_cs.fig_abc.notitle.svg", 
+#     width = 37/2.54, 
+#     height = 10/2.54)
+# grid.arrange(p_arab_c, grid.rect(gp=gpar(col="white")), p_rice_c, 
+#              grid.rect(gp=gpar(col="white")), p_rmet_c,
+#              widths = c(12, 1, 12, 1, 13))
 # dev.off()
 
-# combine with venn a, b (compare_detected_cytosines.plot.R)
-ppi= 300
-png("stats_nanopore_only_cytosines_profiling/fig_nanopore_only_cs.fig_abc.notitle.png", 
-     width = 37, 
-     height = 10, units = "cm", res=ppi)
-grid.arrange(p_arab_c, grid.rect(gp=gpar(col="white")), p_rice_c, 
-             grid.rect(gp=gpar(col="white")), p_rmet_c,
-             widths = c(12, 1, 12, 1, 13))
-dev.off()
-svg("stats_nanopore_only_cytosines_profiling/fig_nanopore_only_cs.fig_abc.notitle.svg", 
-    width = 37/2.54, 
-    height = 10/2.54)
-grid.arrange(p_arab_c, grid.rect(gp=gpar(col="white")), p_rice_c, 
-             grid.rect(gp=gpar(col="white")), p_rmet_c,
-             widths = c(12, 1, 12, 1, 13))
-dev.off()
-
 # =============== rice rep2
-cbPalette <- c("#fc8d62")
+# cbPalette <- c("#fc8d62")
 # fontsize: 17, 15, 38
-p_rmet_c_rice2 <- ggplot(rmet_rice2, aes(x=rmet, fill=species)) + 
-  geom_density(colour="black", alpha=0.75, size=0.5) + 
+p_rmet_c_rice2 <-  ggplot(rmet_rice2, aes(x=rmet)) + 
+  geom_density(colour="black", alpha=0.8, size=0.4, 
+               fill=cbPalette[2]) + 
   geom_vline(xintercept=0.3, 
              colour="black", 
              linetype="dashed", size=0.8) +
@@ -122,43 +159,57 @@ p_rmet_c_rice2 <- ggplot(rmet_rice2, aes(x=rmet, fill=species)) +
              colour="black", 
              linetype="dashed", size=0.8) +
   theme_bw() + 
-  theme(text=element_text(size=17, family = "serif"),
-        legend.position = "none", 
-        legend.title = element_blank(), 
-        legend.text = element_text(size=15, face = "italic"), 
-        legend.key.size = unit(0.35, "cm"), 
-        plot.title = element_text(size=38, face="bold", hjust = -0.1)) + 
-  scale_fill_manual(values=cbPalette, 
-                    breaks = c("O. sativa"), 
-                    labels = c("O. sativa")) +
+  theme(text=element_text(size=15, family = "Arial"),
+        plot.title = element_text(size=18, hjust = 0.5), 
+        axis.title = element_text(size=15, family = "Arial"),
+        axis.text = element_text(size=15, family = "Arial")) + 
   scale_x_continuous(limits=c(0, 1), 
                      breaks = seq(0, 1, 0.1)) +
   scale_y_continuous(limits = c(0, 8), 
                      breaks = seq(0, 8, 1)) + 
   labs(x="Methylation frequency", 
-       y="Density", title = "")
+       y="Density", title = expression(paste(italic("O. sativa"),  " (sample2)", sep = "")))
 
 p_rmet_c_rice2
 
-# combine with venn rice rep2 and rmet rice rep2 (compare_detected_cytosines.plot.R)
+# # combine with venn rice rep2 and rmet rice rep2 (compare_detected_cytosines.plot.R)
+# ppi= 300
+# png("stats_nanopore_only_cytosines_profiling/fig_nanopore_only_cs.rice1-1.ab.notitle.png", 
+#     width = 20, 
+#     height = 8, units = "cm", res=ppi)
+# grid.arrange(p_rice_c2, 
+#              grid.rect(gp=gpar(col="white")), p_rmet_c_rice2,
+#              widths = c(12, 1, 13))
+# dev.off()
+# svg("stats_nanopore_only_cytosines_profiling/fig_nanopore_only_cs.rice1-1.ab.notitle.svg", 
+#     width = 20/2.54, 
+#     height = 8/2.54)
+# grid.arrange(p_rice_c2, 
+#              grid.rect(gp=gpar(col="white")), p_rmet_c_rice2,
+#              widths = c(12, 1, 13))
+# dev.off()
+
+
+# methy freq distribution arab + rice1, rice2
 ppi= 300
-png("stats_nanopore_only_cytosines_profiling/fig_nanopore_only_cs.rice1-1.ab.notitle.png", 
-    width = 20, 
+png("stats_nanopore_only_cytosines_profiling/generate_nanopore_only_cytosines_info.methyfreq.c.raw.png", 
+    width = 36, 
     height = 8, units = "cm", res=ppi)
-grid.arrange(p_rice_c2, 
-             grid.rect(gp=gpar(col="white")), p_rmet_c_rice2,
-             widths = c(12, 1, 13))
+grid.arrange(p_rmet_c_a, grid.rect(gp=gpar(col="white")), 
+             p_rmet_c_rice, 
+             grid.rect(gp=gpar(col="white")), 
+             p_rmet_c_rice2,
+             widths = c(11.3, 1, 11.3, 1, 11.3))
 dev.off()
-svg("stats_nanopore_only_cytosines_profiling/fig_nanopore_only_cs.rice1-1.ab.notitle.svg", 
-    width = 20/2.54, 
+svg("stats_nanopore_only_cytosines_profiling/generate_nanopore_only_cytosines_info.methyfreq.c.raw.svg", 
+    width = 36/2.54, 
     height = 8/2.54)
-grid.arrange(p_rice_c2, 
-             grid.rect(gp=gpar(col="white")), p_rmet_c_rice2,
-             widths = c(12, 1, 13))
+grid.arrange(p_rmet_c_a, grid.rect(gp=gpar(col="white")), 
+             p_rmet_c_rice, 
+             grid.rect(gp=gpar(col="white")), 
+             p_rmet_c_rice2,
+             widths = c(11.3, 1, 11.3, 1, 11.3))
 dev.off()
-
-
-
 
 
 
@@ -182,7 +233,7 @@ print_highlow_methy <- function(rmetdf){
 # arab =
 print_highlow_methy(rmet_arab)
 
-cbPalette <- c("#66c2a5")
+cbPalette <- c("#1f78b4")
 p_arab_cg <- ggplot(rmet_arab[rmet_arab$motif == "CG", ], 
                     aes(x=rmet, fill=motif)) + 
   geom_histogram(binwidth=.01, position="dodge", 
@@ -190,8 +241,8 @@ p_arab_cg <- ggplot(rmet_arab[rmet_arab$motif == "CG", ],
   theme_bw() +
   theme(legend.position = "None", 
         legend.title = element_blank(), 
-        text = element_text(size=15, family = "serif"), 
-        plot.title = element_text(size=32, family = "serif", face="bold", 
+        text = element_text(size=15, family = "Arial"), 
+        plot.title = element_text(size=28, family = "Arial", face="bold", 
                                   hjust = -0.3)) + 
   scale_fill_manual(values=cbPalette) + 
   scale_x_continuous(breaks=seq(0, 1, 0.1)) +
@@ -199,9 +250,9 @@ p_arab_cg <- ggplot(rmet_arab[rmet_arab$motif == "CG", ],
   labs(title="a", 
        x="Methylation frequency", 
        y="Count") + 
-  annotation_custom(grobTree(textGrob("CG", 
+  annotation_custom(grobTree(textGrob("CpG", 
                                       x=0.4,  y=0.55, hjust=0, 
-                                      gp=gpar(col="black", fontsize=24, fontfamily="serif"))))
+                                      gp=gpar(col="black", fontsize=24, fontfamily="Arial"))))
 # p_arab_cg
 
 p_arab_chg <- ggplot(rmet_arab[rmet_arab$motif == "CHG", ], 
@@ -211,9 +262,9 @@ p_arab_chg <- ggplot(rmet_arab[rmet_arab$motif == "CHG", ],
   theme_bw() +
   theme(legend.position = "None", 
         legend.title = element_blank(), 
-        text = element_text(size=15, family = "serif"), 
-        plot.title = element_text(size=32, 
-                                  family = "serif", face="bold",
+        text = element_text(size=15, family = "Arial"), 
+        plot.title = element_text(size=28, 
+                                  family = "Arial", face="bold",
                                   hjust = -0.26)) + 
   scale_fill_manual(values=cbPalette) + 
   scale_x_continuous(breaks=seq(0, 1, 0.1)) +
@@ -223,7 +274,7 @@ p_arab_chg <- ggplot(rmet_arab[rmet_arab$motif == "CHG", ],
        y="Count")+ 
   annotation_custom(grobTree(textGrob("CHG", 
                                       x=0.4,  y=0.55, hjust=0,
-                                      gp=gpar(col="black", fontsize=24, fontfamily="serif"))))
+                                      gp=gpar(col="black", fontsize=24, fontfamily="Arial"))))
 # p_arab_chg
 
 p_arab_chh <- ggplot(rmet_arab[rmet_arab$motif == "CHH", ], 
@@ -234,9 +285,9 @@ p_arab_chh <- ggplot(rmet_arab[rmet_arab$motif == "CHH", ],
   theme(legend.position = "None", 
         legend.title = element_blank(), 
         text = element_text(size=15, 
-                            family = "serif"), 
-        plot.title = element_text(size=32,
-                                  family = "serif", face="bold",
+                            family = "Arial"), 
+        plot.title = element_text(size=28,
+                                  family = "Arial", face="bold",
                                   hjust = -0.26)) + 
   scale_fill_manual(values=cbPalette) + 
   scale_x_continuous(breaks=seq(0, 1, 0.1)) +
@@ -246,7 +297,7 @@ p_arab_chh <- ggplot(rmet_arab[rmet_arab$motif == "CHH", ],
        y="Count")+ 
   annotation_custom(grobTree(textGrob("CHH", 
                                       x=0.4,  y=0.55, hjust=0,
-                                      gp=gpar(col="black", fontsize=24, fontfamily="serif"))))
+                                      gp=gpar(col="black", fontsize=24, fontfamily="Arial"))))
 # p_arab_chh
 
 
@@ -263,7 +314,7 @@ fancy_scientific <- function(l) {
   # return this as an expression
   parse(text=l)
 }
-cbPalette <- c("#fc8d62")
+cbPalette <- c("#33a02c")
 p_rice_cg <- ggplot(rmet_rice[rmet_rice$motif == "CG", ], 
                     aes(x=rmet, fill=motif)) + 
   geom_histogram(binwidth=.01, position="dodge", 
@@ -271,9 +322,9 @@ p_rice_cg <- ggplot(rmet_rice[rmet_rice$motif == "CG", ],
   theme_bw() +
   theme(legend.position = "None", 
         legend.title = element_blank(), 
-        text = element_text(size=15, family = "serif"), 
-        plot.title = element_text(size=32, 
-                                  family = "serif", face="bold",
+        text = element_text(size=15, family = "Arial"), 
+        plot.title = element_text(size=28, 
+                                  family = "Arial", face="bold",
                                   hjust = -0.22)) + 
   scale_fill_manual(values=cbPalette) + 
   scale_x_continuous(breaks=seq(0, 1, 0.1)) +
@@ -281,9 +332,9 @@ p_rice_cg <- ggplot(rmet_rice[rmet_rice$motif == "CG", ],
   labs(title="d", 
        x="Methylation frequency", 
        y="Count")+ 
-  annotation_custom(grobTree(textGrob("CG", 
+  annotation_custom(grobTree(textGrob("CpG", 
                                       x=0.4,  y=0.55, hjust=0,
-                                      gp=gpar(col="black", fontsize=24, fontfamily="serif"))))
+                                      gp=gpar(col="black", fontsize=24, fontfamily="Arial"))))
 # p_rice_cg
 
 p_rice_chg <- ggplot(rmet_rice[rmet_rice$motif == "CHG", ], 
@@ -293,9 +344,9 @@ p_rice_chg <- ggplot(rmet_rice[rmet_rice$motif == "CHG", ],
   theme_bw() +
   theme(legend.position = "None", 
         legend.title = element_blank(), 
-        text = element_text(size=15, family = "serif"), 
-        plot.title = element_text(size=32, 
-                                  family = "serif", face="bold",
+        text = element_text(size=15, family = "Arial"), 
+        plot.title = element_text(size=28, 
+                                  family = "Arial", face="bold",
                                   hjust = -0.24)) + 
   scale_fill_manual(values=cbPalette) + 
   scale_x_continuous(breaks=seq(0, 1, 0.1)) +
@@ -305,7 +356,7 @@ p_rice_chg <- ggplot(rmet_rice[rmet_rice$motif == "CHG", ],
        y="Count")+ 
   annotation_custom(grobTree(textGrob("CHG", 
                                       x=0.4,  y=0.55, hjust=0,
-                                      gp=gpar(col="black", fontsize=24, fontfamily="serif"))))
+                                      gp=gpar(col="black", fontsize=24, fontfamily="Arial"))))
 # p_rice_chg
 
 p_rice_chh <- ggplot(rmet_rice[rmet_rice$motif == "CHH", ], 
@@ -315,9 +366,9 @@ p_rice_chh <- ggplot(rmet_rice[rmet_rice$motif == "CHH", ],
   theme_bw() +
   theme(legend.position = "None", 
         legend.title = element_blank(), 
-        text = element_text(size=15, family = "serif"), 
-        plot.title = element_text(size=32, 
-                                  family = "serif", face="bold",
+        text = element_text(size=15, family = "Arial"), 
+        plot.title = element_text(size=28, 
+                                  family = "Arial", face="bold",
                                   hjust = -0.21)) + 
   scale_fill_manual(values=cbPalette) + 
   scale_x_continuous(breaks=seq(0, 1, 0.1)) +
@@ -327,12 +378,12 @@ p_rice_chh <- ggplot(rmet_rice[rmet_rice$motif == "CHH", ],
        y="Count")+ 
   annotation_custom(grobTree(textGrob("CHH", 
                                       x=0.4,  y=0.55, hjust=0,
-                                      gp=gpar(col="black", fontsize=24, fontfamily="serif"))))
+                                      gp=gpar(col="black", fontsize=24, fontfamily="Arial"))))
 # p_rice_chh
 
 
 # rice rep2 (shuidao1-1)
-cbPalette <- c("#fc8d62")
+cbPalette <- c("#33a02c")
 p_rice_cg2 <- ggplot(rmet_rice2[rmet_rice2$motif == "CG", ], 
                     aes(x=rmet, fill=motif)) + 
   geom_histogram(binwidth=.01, position="dodge", 
@@ -340,9 +391,9 @@ p_rice_cg2 <- ggplot(rmet_rice2[rmet_rice2$motif == "CG", ],
   theme_bw() +
   theme(legend.position = "None", 
         legend.title = element_blank(), 
-        text = element_text(size=15, family = "serif"), 
-        plot.title = element_text(size=32, 
-                                  family = "serif", face="bold",
+        text = element_text(size=15, family = "Arial"), 
+        plot.title = element_text(size=28, 
+                                  family = "Arial", face="bold",
                                   hjust = -0.21)) + 
   scale_fill_manual(values=cbPalette) + 
   scale_x_continuous(breaks=seq(0, 1, 0.1)) +
@@ -350,9 +401,9 @@ p_rice_cg2 <- ggplot(rmet_rice2[rmet_rice2$motif == "CG", ],
   labs(title="g", 
        x="Methylation frequency", 
        y="Count")+ 
-  annotation_custom(grobTree(textGrob("CG", 
+  annotation_custom(grobTree(textGrob("CpG", 
                                       x=0.4,  y=0.55, hjust=0,
-                                      gp=gpar(col="black", fontsize=24, fontfamily="serif"))))
+                                      gp=gpar(col="black", fontsize=24, fontfamily="Arial"))))
 # p_rice_cg2
 
 p_rice_chg2 <- ggplot(rmet_rice2[rmet_rice2$motif == "CHG", ], 
@@ -362,9 +413,9 @@ p_rice_chg2 <- ggplot(rmet_rice2[rmet_rice2$motif == "CHG", ],
   theme_bw() +
   theme(legend.position = "None", 
         legend.title = element_blank(), 
-        text = element_text(size=15, family = "serif"), 
-        plot.title = element_text(size=32, 
-                                  family = "serif", face="bold",
+        text = element_text(size=15, family = "Arial"), 
+        plot.title = element_text(size=28, 
+                                  family = "Arial", face="bold",
                                   hjust = -0.25)) + 
   scale_fill_manual(values=cbPalette) + 
   scale_x_continuous(breaks=seq(0, 1, 0.1)) +
@@ -374,7 +425,7 @@ p_rice_chg2 <- ggplot(rmet_rice2[rmet_rice2$motif == "CHG", ],
        y="Count")+ 
   annotation_custom(grobTree(textGrob("CHG", 
                                       x=0.4,  y=0.55, hjust=0,
-                                      gp=gpar(col="black", fontsize=24, fontfamily="serif"))))
+                                      gp=gpar(col="black", fontsize=24, fontfamily="Arial"))))
 # p_rice_chg2
 
 p_rice_chh2 <- ggplot(rmet_rice2[rmet_rice2$motif == "CHH", ], 
@@ -384,9 +435,9 @@ p_rice_chh2 <- ggplot(rmet_rice2[rmet_rice2$motif == "CHH", ],
   theme_bw() +
   theme(legend.position = "None", 
         legend.title = element_blank(), 
-        text = element_text(size=15, family = "serif"), 
-        plot.title = element_text(size=32, 
-                                  family = "serif", face="bold",
+        text = element_text(size=15, family = "Arial"), 
+        plot.title = element_text(size=28, 
+                                  family = "Arial", face="bold",
                                   hjust = -0.2)) + 
   scale_fill_manual(values=cbPalette) + 
   scale_x_continuous(breaks=seq(0, 1, 0.1)) +
@@ -396,7 +447,7 @@ p_rice_chh2 <- ggplot(rmet_rice2[rmet_rice2$motif == "CHH", ],
        y="Count")+ 
   annotation_custom(grobTree(textGrob("CHH", 
                                       x=0.4,  y=0.55, hjust=0,
-                                      gp=gpar(col="black", fontsize=24, fontfamily="serif"))))
+                                      gp=gpar(col="black", fontsize=24, fontfamily="Arial"))))
 # p_rice_chh2
 
 

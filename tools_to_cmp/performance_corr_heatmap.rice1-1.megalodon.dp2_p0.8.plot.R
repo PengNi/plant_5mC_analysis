@@ -1,12 +1,14 @@
 ## geom_bin2d() may be a better way ##
 # https://stackoverflow.com/questions/50331320/how-to-move-tick-marks-and-labels-at-right-left-end-of-tiles-in-geom-tile-ggplot
-# https://stackoverflow.com/questions/10710463/how-to-force-the-x-axis-tick-marks-to-appear-at-the-end-of-bar-in-heatmap-graph
 library(gridExtra)
 library(grid)
 library(ggplot2)
 library(reshape2)
 library(RColorBrewer)
 library(scales)
+library(ggthemes)
+library(extrafont)
+library(plyr)
 
 ############
 # rice1-1; deepsignal2, megalodon bs_cov_15
@@ -90,12 +92,12 @@ plot_rmet_heatmap <- function(rmet_df_file, hunit=40,
                          labels=comma) + 
     scale_x_continuous(breaks = seq(0, 1, 0.2)) +
     scale_y_continuous(breaks = seq(0, 1, 0.2)) +
-    theme(text=element_text(size=17, family = "serif"), 
-          axis.title.x = element_text(size = 15, family = "serif"), 
-          axis.title.y = element_text(size = title_y_size, family = "serif"),
-          axis.text=element_text(size=15, family = "serif"), 
-          legend.text = element_text(size=12, family = "serif"), 
-          legend.title = element_text(size=15, family = "serif"), 
+    theme(text=element_text(size=17, family = "Arial"), 
+          axis.title.x = element_text(size = 15, family = "Arial"), 
+          axis.title.y = element_text(size = title_y_size, family = "Arial"),
+          axis.text=element_text(size=15, family = "Arial"), 
+          legend.text = element_text(size=12, family = "Arial"), 
+          legend.title = element_text(size=15, family = "Arial"), 
           plot.title = element_text(hjust = titlehjust)) +
     xlab(name_bs) + ylab(name_nano) + 
     ggtitle(bquote(paste(.(data_label), ",  ", italic("r"), " = ", .(pearcor_fmt))))
@@ -105,7 +107,7 @@ plot_rmet_heatmap <- function(rmet_df_file, hunit=40,
 
 p_dp2_cg <- plot_rmet_heatmap("stats_correlation_with_bisulfite/shuidao1-1.guppy.pass.part2.CG.bn13_sn16.arabnrice2-1.balance.both_bilstm.50x_12345.p0.8.freq.vs_bs1-2.rmet.tsv", 
                                hunit = 50,
-                               data_label = "CG", 
+                               data_label = "CpG", 
                                name_bs = "Bisulfite methylation frequency", 
                                name_nano = "DeepSignal-plant methylation frequency", 
                                titlehjust = -0.0, 
@@ -139,7 +141,7 @@ p_dp2_chh
 
 p_meg_cg <- plot_rmet_heatmap("tools_to_cmp/megalodon_results.rice1-1.pass2_guppy.50x_12345.CG_retrain_comb.bs_cov_15.vs_bs1-2.rmet.tsv", 
                               hunit = 50,
-                              data_label = "CG", 
+                              data_label = "CpG", 
                               name_bs = "Bisulfite methylation frequency", 
                               name_nano = "Megalodon methylation frequency", 
                               titlehjust = -0.0, 

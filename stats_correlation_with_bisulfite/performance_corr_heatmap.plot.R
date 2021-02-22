@@ -7,10 +7,16 @@ library(ggplot2)
 library(reshape2)
 library(RColorBrewer)
 library(scales)
+library(ggthemes)
+library(extrafont)
+library(plyr)
 
 ############
 # arab, rice2-1; deepsignal2_p0.8
 ############
+
+# font_import()
+fonts()
 
 
 classify_one_type <- function(rmet, sranges){
@@ -89,12 +95,12 @@ plot_rmet_heatmap <- function(rmet_df_file, hunit=40,
                          labels=comma) + 
     scale_x_continuous(breaks = seq(0, 1, 0.2)) +
     scale_y_continuous(breaks = seq(0, 1, 0.2)) +
-    theme(text=element_text(size=17, family = "serif"), 
-          axis.title.x = element_text(size = 15, family = "serif"),
-          axis.title.y = element_text(size = 13, family = "serif"), 
-          axis.text=element_text(size=15, family = "serif"), 
-          legend.text = element_text(size=12, family = "serif"), 
-          legend.title = element_text(size=15, family = "serif"), 
+    theme(text=element_text(size=17, family = "Arial"), 
+          axis.title.x = element_text(size = 15),
+          axis.title.y = element_text(size = 13), 
+          axis.text=element_text(size=15), 
+          legend.text = element_text(size=12), 
+          legend.title = element_text(size=15), 
           plot.title = element_text(hjust = titlehjust)) +
     xlab(name_bs) + ylab(name_nano) + 
     ggtitle(bquote(paste(.(data_label), ",  ", italic("r"), " = ", .(pearcor_fmt))))
@@ -103,7 +109,7 @@ plot_rmet_heatmap <- function(rmet_df_file, hunit=40,
 
 p_arab_cg <- plot_rmet_heatmap("stats_correlation_with_bisulfite/athaliana.guppy.pass.part2.CG.bn13_sn16.arabnrice2-1.balance.both_bilstm.50x_12345.p0.8.freq.vs_bsrep123.rmet.tsv", 
                                hunit = 50,
-                               data_label = "CG", 
+                               data_label = "CpG", 
                   name_bs = "Bisulfite methylation frequency", 
                   name_nano = "DeepSignal-plant methylation frequency", 
                   titlehjust = -0.0, 
@@ -130,7 +136,7 @@ p_arab_chh
 
 p_rice_cg <- plot_rmet_heatmap("stats_correlation_with_bisulfite/shuidao2-1.guppy.pass.part2.CG.bn13_sn16.arabnrice2-1.balance.both_bilstm.50x_12345.p0.8.freq.vs_bs2-1.rmet.tsv",
                                hunit = 50,
-                               data_label = "CG",
+                               data_label = "CpG",
                                name_bs = "Bisulfite methylation frequency",
                                name_nano = "DeepSignal-plant methylation frequency",
                                titlehjust = -0.0,
@@ -156,34 +162,8 @@ p_rice_chh <- plot_rmet_heatmap("stats_correlation_with_bisulfite/shuidao2-1.gup
 p_rice_chh
 
 # multiple 
-# ppi= 300
-# jpeg("stats_correlation_with_bisulfite/performance_corr_heatmap.raw.jpg", 
-#      width = 44, 
-#      height = 23, units = "cm", res=ppi)
-# grid.arrange(arrangeGrob(grid.rect(gp=gpar(col="white")), 
-#                          nrow = 1), 
-#              arrangeGrob(p_arab_cg,
-#                          grid.rect(gp=gpar(col="white")),
-#                          p_arab_chg,
-#                          grid.rect(gp=gpar(col="white")),
-#                          p_arab_chh,
-#                          nrow=1, 
-#                          widths = c(12, 1, 12, 1, 12)), 
-#              arrangeGrob(grid.rect(gp=gpar(col="white")), 
-#                          nrow = 1), 
-#              arrangeGrob(p_rice_cg,
-#                          grid.rect(gp=gpar(col="white")),
-#                          p_rice_chg,
-#                          grid.rect(gp=gpar(col="white")),
-#                          p_rice_chh,
-#                          nrow=1, 
-#                          widths = c(12, 1, 12, 1, 12)), 
-#              heights = c(1, 12, 2, 12))
-# dev.off()
-
-
-svg("stats_correlation_with_bisulfite/performance_corr_heatmap.raw.svg", 
-     width = 44/2.54, 
+svg("stats_correlation_with_bisulfite/performance_corr_heatmap.raw.svg",
+     width = 44/2.54,
      height = 23/2.54)
 grid.arrange(arrangeGrob(grid.rect(gp=gpar(col="white")),
                          nrow = 1),

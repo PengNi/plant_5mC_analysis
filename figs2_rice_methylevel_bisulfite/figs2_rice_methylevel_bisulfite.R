@@ -43,10 +43,12 @@ g_legend<-function(a.gplot){
 
 
 
-cbPalette <- c("#e41a1c", "#377eb8", "#4daf4a")
+cbPalette <- c("#1b9e77", "#d95f02", "#7570b3")
 # fig a
 s1a <- read.table("figs2_rice_methylevel_bisulfite/bisulfite_methy_genome_level_2reps.txt", 
                   header = T, sep = "\t", stringsAsFactors = F, row.names = NULL)
+s1a[s1a$motif=="CG", ]$motif <- "CpG"
+s1a$motif <- factor(s1a$motif, levels = c("CpG", "CHG", "CHH"))
 pa <- ggplot(data=s1a, aes(x=motif, y=methylevel, fill=replicate)) +
   geom_bar(stat="identity", position=position_dodge(), colour="black") + 
   theme_bw() + 
@@ -54,13 +56,13 @@ pa <- ggplot(data=s1a, aes(x=motif, y=methylevel, fill=replicate)) +
         legend.title = element_blank(),
         legend.key.size = unit(0.35, "cm"), 
         legend.margin=margin(-3, 0, 0, 0),
-        text = element_text(size = 12, family="serif"), 
-        plot.title = element_text(size = 20, hjust = -0.13, vjust=-0.13, face = "bold"), 
+        text = element_text(size = 12, family="Arial"), 
+        plot.title = element_text(size = 18, hjust = -0.13, vjust=-0.13, face = "bold"), 
         axis.title.y = element_text(size=10)) + 
   scale_y_continuous(limits = c(0, 64), breaks = seq(0, 64, 10)) +
   scale_fill_manual(values=cbPalette, 
                     breaks = c("replicate1", "replicate2"), 
-                    labels = c("rep1   ", "rep2")) + 
+                    labels = c(" sample1    ", " sample2")) + 
   labs(x="", y="Average methylation level (%)", title="a")
 pa
 
@@ -73,19 +75,19 @@ s1b <- rbind(s1b_1, s1b_2)
 s1b$ratio <- s1b$ratio * 100
 pb <- ggplot(data=s1b, aes(x=ranges, y=ratio, fill=replicate)) +
   geom_bar(stat="identity", position=position_dodge(), colour="black") + 
-  annotate("text",x="0.4-0.5",y=26,hjust=0,vjust=0,label="CG", size = 6, family="serif") +
+  annotate("text",x="0.4-0.5",y=26,hjust=0,vjust=0,label="CpG", size = 6, family="Arial") +
   theme_bw() + 
   theme(legend.position = "bottom", 
         legend.title = element_blank(),
         legend.key.size = unit(0.35, "cm"), 
         legend.margin=margin(-3, 0, 0, 0),
-        text = element_text(size = 12, family="serif"), 
+        text = element_text(size = 12, family="Arial"), 
         axis.text.x = element_text(size=7),
-        plot.title = element_text(size = 20, hjust = -0.13, vjust=-0.13, face = "bold")) + 
+        plot.title = element_text(size = 18, hjust = -0.13, vjust=-0.13, face = "bold")) + 
   scale_y_continuous(limits = c(0, 50), breaks = seq(0, 50, 10)) +
   scale_fill_manual(values=cbPalette, 
                     breaks = c("replicate1", "replicate2"), 
-                    labels = c("rep1   ", "rep2")) + 
+                    labels = c(" sample1    ", " sample2")) + 
   labs(x="Methylation frequency", y="Percent of counts (%)", title="b")
 pb
 
@@ -98,19 +100,19 @@ s1c <- rbind(s1c_1, s1c_2)
 s1c$ratio <- s1c$ratio * 100
 pc <- ggplot(data=s1c, aes(x=ranges, y=ratio, fill=replicate)) +
   geom_bar(stat="identity", position=position_dodge(), colour="black") + 
-  annotate("text",x="0.4-0.5",y=31,hjust=0,vjust=0,label="CHG", size = 6, family="serif") +
+  annotate("text",x="0.4-0.5",y=31,hjust=0,vjust=0,label="CHG", size = 6, family="Arial") +
   theme_bw() + 
   theme(legend.position = "bottom", 
         legend.title = element_blank(),
         legend.key.size = unit(0.35, "cm"), 
         legend.margin=margin(-3, 0, 0, 0),
-        text = element_text(size = 12, family="serif"), 
+        text = element_text(size = 12, family="Arial"), 
         axis.text.x = element_text(size = 7),
-        plot.title = element_text(size = 20, hjust = -0.13, vjust=-0.13, face = "bold")) + 
+        plot.title = element_text(size = 18, hjust = -0.13, vjust=-0.13, face = "bold")) + 
   scale_y_continuous(limits = c(0, 60), breaks = seq(0, 60, 10)) +
   scale_fill_manual(values=cbPalette, 
                     breaks = c("replicate1", "replicate2"), 
-                    labels = c("rep1   ", "rep2")) + 
+                    labels = c(" sample1    ", " sample2")) + 
   labs(x="Methylation frequency", y="Percent of counts (%)", title="c")
 pc
 
@@ -123,19 +125,19 @@ s1d <- rbind(s1d_1, s1d_2)
 s1d$ratio <- s1d$ratio * 100
 pd <- ggplot(data=s1d, aes(x=ranges, y=ratio, fill=replicate)) +
   geom_bar(stat="identity", position=position_dodge(), colour="black") + 
-  annotate("text",x="0.4-0.5",y=46,hjust=0,vjust=0,label="CHH", size = 6, family="serif") +
+  annotate("text",x="0.4-0.5",y=46,hjust=0,vjust=0,label="CHH", size = 6, family="Arial") +
   theme_bw() + 
   theme(legend.position = "bottom", 
         legend.title = element_blank(),
         legend.key.size = unit(0.35, "cm"), 
         legend.margin=margin(-3, 0, 0, 0),
-        text = element_text(size = 12, family="serif"), 
+        text = element_text(size = 12, family="Arial"), 
         axis.text.x = element_text(size = 7),
-        plot.title = element_text(size = 20, hjust = -0.13, vjust=-0.13, face = "bold")) + 
+        plot.title = element_text(size = 18, hjust = -0.13, vjust=-0.13, face = "bold")) + 
   scale_y_continuous(limits = c(0, 91), breaks = seq(0, 91, 10)) +
   scale_fill_manual(values=cbPalette, 
                     breaks = c("replicate1", "replicate2"), 
-                    labels = c("rep1   ", "rep2")) + 
+                    labels = c(" sample1    ", " sample2")) + 
   labs(x="Methylation frequency", y="Percent of counts (%)", title="d")
 pd
 

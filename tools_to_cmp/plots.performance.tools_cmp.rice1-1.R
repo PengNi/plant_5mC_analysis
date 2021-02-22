@@ -7,7 +7,7 @@ library(scales)
 library(gridExtra)
 library(grid)
 
-font_import()
+# font_import()
 # loadfonts(device = "win")
 
 # cmp deepsignal2 and megalodon in rice1-1
@@ -15,6 +15,8 @@ font_import()
 df <- read.table("tools_to_cmp/eval.tools_cmp.10-50x.rice1-1_rep1-2.dp0.8.txt", 
                  header = T, sep = "\t", stringsAsFactors = F)
 
+df[df$motif == "CG", ]$motif <- "CpG"
+df$motif <- factor(df$motif, levels = c("CpG", "CHG", "CHH"))
 df$coverage <- paste(substr(df$coverage, 1, 2), "\U00D7", sep = "")
 df$method <- factor(df$method, levels = c("DeepSignal2", "Megalodon"))
 
@@ -28,7 +30,7 @@ p <- ggplot(data = df, aes(x=coverage)) +
                 group=method),
             position = position_dodge(0.9),
             size=8, angle=90, hjust=1.2,
-            family="serif") + 
+            family="Arial") + 
   facet_grid(. ~ motif, scales = "free") + 
   coord_cartesian(ylim=c(0.3, 1)) +
   scale_y_continuous(limits=c(0, 1), breaks = seq(0, 1, 0.1), expand = c(0, 0)) + 
@@ -38,17 +40,17 @@ p <- ggplot(data = df, aes(x=coverage)) +
   theme_bw() + 
   theme(legend.position = "bottom", 
         legend.title = element_blank(), 
-        legend.text = element_text(size=15, family = "serif"), 
+        legend.text = element_text(size=15, family = "Arial"), 
         # legend.key.size = unit(0.4, "cm"), 
         legend.margin=margin(-5, 0, 0, 0),
         strip.background = element_rect(colour="white", fill="white", 
                                         size=1, linetype="solid"),
         strip.text.x = element_text(size = 20),
         panel.border = element_blank(), 
-        text=element_text(size=17,  family="serif"), 
-        axis.title = element_text(size = 15, family = "serif"), 
-        axis.text=element_text(size=15, family = "serif"), 
-        plot.title = element_text(hjust = -0, family="serif")) + 
+        text=element_text(size=17,  family="Arial"), 
+        axis.title = element_text(size = 15, family = "Arial"), 
+        axis.text=element_text(size=15, family = "Arial"), 
+        plot.title = element_text(hjust = -0, family="Arial")) + 
   labs(x="Coverage", y="Pearson correlation", title = "")
 p
 

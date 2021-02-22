@@ -31,6 +31,9 @@ signal_text = data.frame(xaxis=as.factor(positions),
                          kmer=unlist(strsplit(kmer,split = "")), 
                          face=c(rep("plain", 6), rep("bold", 3), rep("plain", 4)))
 text_face=c(rep("plain", 6), rep("bold", 3), rep("plain", 4))
+bcolor = c(rep("red", 3), "yellow", rep("red", 2), 
+           "blue", rep("green",2), "red", "blue", 
+           rep("green", 2))
 
 cbPaletteb <- c("#d7191c", "#fdae61", "#abdda4")
 min_y = -2.2
@@ -40,12 +43,12 @@ pb <- ggplot(df_signalinfo_one_m, aes(x=variable, y=value)) +
   theme(legend.position = "bottom", 
         legend.title = element_blank(), 
         legend.margin=margin(-5, 0, 0, 0),
-        legend.key.size = unit(0.35, "cm"),
-        legend.text = element_text(size=10, family = "serif"), # 10
-        text = element_text(size=12, family="serif"), # 12
-        plot.title = element_text(size=10, family="serif")) + # 10
+        legend.key.size = unit(0.3, "cm"),
+        legend.text = element_text(size=9, family = "Arial"), # 10
+        text = element_text(size=9, family="Arial"), # 12
+        plot.title = element_text(size=9, family="Arial")) + # 10
   scale_fill_manual(values=cbPaletteb, breaks=c(1, -1, 0), 
-                    labels=c("positive_kept  ", "positive_removed  ", "negative")) +
+                    labels=c(" positive_kept   ", " positive_removed   ", " negative")) +
   scale_x_discrete(labels=x_breaks, 
                    breaks=positions, 
                    limits=as.factor(positions)) +
@@ -56,7 +59,8 @@ pb <- ggplot(df_signalinfo_one_m, aes(x=variable, y=value)) +
             hjust=0.5, size=3.5, # 3
             show.legend=FALSE, vjust=0, angle=0,
             fontface=text_face, 
-            family="serif") +
+            family="mono") +
+  scale_color_manual(values = c("green", "blue", "yellow", "red")) +
   ylab("Signal") + 
   xlab("Position") + 
   ggtitle(sprintf("Denoise training samples (positive_kept: %d, positive_removed: %d, negative: %d)", 
@@ -65,14 +69,14 @@ pb
 
 ppi= 300
 png("fig_pipeline_testing/effect_of_denoise.plot.png", 
-     width = 16, 
-     height = 7.5, units = "cm", res=ppi) # 15/7
+     width = 14.5, 
+     height = 9, units = "cm", res=ppi) # 16/7.5
 pb
 dev.off()
 
 svg("fig_pipeline_testing/effect_of_denoise.plot.svg", 
-    width = 16/2.54, 
-    height = 7.5/2.54)
+    width = 14.5/2.54, 
+    height = 9/2.54)
 pb
 dev.off()
 

@@ -8,28 +8,28 @@ library(ggthemes)
 library(extrafont)
 library(plyr)
 
-# rice1-1
+# arab
 
-# === cg rice
-# df_cg_o <- read.table("tools_to_cmp/rice1-1.methyfreq_bins.CG.comb.tsv", 
-#                       header = F, sep = "\t", stringsAsFactors = F)
-df_cg_o <- read.table("tools_to_cmp/rice1-1.methyfreq_bins.CG.comb.dp2p0.8_megbscov15.tsv", 
+# === cg
+# df_cg_a <- read.table("tools_to_cmp/athaliana.methyfreq_bins.CG.comb.tsv", 
+#                     header = F, sep = "\t", stringsAsFactors = F)
+df_cg_a <- read.table("tools_to_cmp/athaliana.methyfreq_bins.CG.comb.dp2p0.8_megbscov15.tsv", 
                       header = F, sep = "\t", stringsAsFactors = F)
-colnames(df_cg_o) <- c("key", "rmet", "bins", "method")
-df_cg_o <- df_cg_o[, c("rmet", "bins", "method")]
-df_cg_o$binname <- "low methylation"
-df_cg_o[df_cg_o$bins=="mediate",]$binname <- "intermediate methylation"
-df_cg_o[df_cg_o$bins=="high",]$binname <- "high methylation"
-df_cg_o <- df_cg_o[, c("rmet", "binname", "method")]
+colnames(df_cg_a) <- c("key", "rmet", "bins", "method")
+df_cg_a <- df_cg_a[, c("rmet", "bins", "method")]
+df_cg_a$binname <- "low methylation"
+df_cg_a[df_cg_a$bins=="mediate",]$binname <- "intermediate methylation"
+df_cg_a[df_cg_a$bins=="high",]$binname <- "high methylation"
+df_cg_a <- df_cg_a[, c("rmet", "binname", "method")]
 
 
-df_cg_o$binname <- factor(df_cg_o$binname, levels=c("low methylation", "intermediate methylation", 
+df_cg_a$binname <- factor(df_cg_a$binname, levels=c("low methylation", "intermediate methylation", 
                                                     "high methylation"))
-df_cg_o$method <- factor(df_cg_o$method, levels=c("bisulfite", "deepsignal2", "megalodon"))
+df_cg_a$method <- factor(df_cg_a$method, levels=c("bisulfite", "deepsignal2", "megalodon"))
 
 # ggplot(df_high, aes(x=method, y=rmet, fill=method)) + geom_violin()
 cbPalette <- c("#bababa", "#2b83ba", "#fdae61")
-p_cg_o <- ggplot(df_cg_o, aes(x=binname, y=rmet, fill=method)) + 
+p_cg_a <- ggplot(df_cg_a, aes(x=binname, y=rmet, fill=method)) + 
   geom_boxplot(position=position_dodge(0.9),
                lwd=0.5, outlier.size=-1, fatten=2) + 
   theme_bw() + 
@@ -55,29 +55,29 @@ p_cg_o <- ggplot(df_cg_o, aes(x=binname, y=rmet, fill=method)) +
                     labels=c("bisulfite   ", "DeepSignal-plant   ", "Megalodon")) +
   xlab("Bisulfite methylation frequency") + 
   ylab("Methylation frequency") + 
-  ggtitle(expression(paste(italic("O. sativa"), " (sample2)    CpG", sep = "")))
+  ggtitle(expression(paste(italic("A. thaliana"), "     CpG", sep = "")))
 
 
 # CHG
-# df_chg_o <- read.table("tools_to_cmp/rice1-1.methyfreq_bins.CHG.comb.tsv", 
+# df_chg_a <- read.table("tools_to_cmp/athaliana.methyfreq_bins.CHG.comb.tsv", 
 #                       header = F, sep = "\t", stringsAsFactors = F)
-df_chg_o <- read.table("tools_to_cmp/rice1-1.methyfreq_bins.CHG.comb.dp2p0.8_megbscov15.tsv", 
+df_chg_a <- read.table("tools_to_cmp/athaliana.methyfreq_bins.CHG.comb.dp2p0.8_megbscov15.tsv", 
                        header = F, sep = "\t", stringsAsFactors = F)
-colnames(df_chg_o) <- c("key", "rmet", "bins", "method")
-df_chg_o <- df_chg_o[, c("rmet", "bins", "method")]
-df_chg_o$binname <- "low methylation"
-df_chg_o[df_chg_o$bins=="mediate",]$binname <- "intermediate methylation"
-df_chg_o[df_chg_o$bins=="high",]$binname <- "high methylation"
-df_chg_o <- df_chg_o[, c("rmet", "binname", "method")]
+colnames(df_chg_a) <- c("key", "rmet", "bins", "method")
+df_chg_a <- df_chg_a[, c("rmet", "bins", "method")]
+df_chg_a$binname <- "low methylation"
+df_chg_a[df_chg_a$bins=="mediate",]$binname <- "intermediate methylation"
+df_chg_a[df_chg_a$bins=="high",]$binname <- "high methylation"
+df_chg_a <- df_chg_a[, c("rmet", "binname", "method")]
 
 
-df_chg_o$binname <- factor(df_chg_o$binname, levels=c("low methylation", "intermediate methylation", 
+df_chg_a$binname <- factor(df_chg_a$binname, levels=c("low methylation", "intermediate methylation", 
                                                       "high methylation"))
-df_chg_o$method <- factor(df_chg_o$method, levels=c("bisulfite", "deepsignal2", "megalodon"))
+df_chg_a$method <- factor(df_chg_a$method, levels=c("bisulfite", "deepsignal2", "megalodon"))
 
 # ggplot(df_high, aes(x=method, y=rmet, fill=method)) + geom_violin()
 cbPalette <- c("#bababa", "#2b83ba", "#fdae61")
-p_chg_o <- ggplot(df_chg_o, aes(x=binname, y=rmet, fill=method)) + 
+p_chg_a <- ggplot(df_chg_a, aes(x=binname, y=rmet, fill=method)) + 
   geom_boxplot(position=position_dodge(0.9),
                lwd=0.5, outlier.size=-1, fatten=2) + 
   theme_bw() + 
@@ -103,29 +103,29 @@ p_chg_o <- ggplot(df_chg_o, aes(x=binname, y=rmet, fill=method)) +
                     labels=c("bisulfite   ", "DeepSignal-plant   ", "Megalodon")) +
   xlab("Bisulfite methylation frequency") + 
   ylab("Methylation frequency") + 
-  ggtitle(expression(paste(italic("O. sativa"), " (sample2)    CHG", sep = "")))
+  ggtitle(expression(paste(italic("A. thaliana"), "     CHG", sep = "")))
 
 
 # CHH
-# df_chh_o <- read.table("tools_to_cmp/rice1-1.methyfreq_bins.CHH.comb.tsv", 
+# df_chh_a <- read.table("tools_to_cmp/athaliana.methyfreq_bins.CHH.comb.tsv", 
 #                        header = F, sep = "\t", stringsAsFactors = F)
-df_chh_o <- read.table("tools_to_cmp/rice1-1.methyfreq_bins.CHH.comb.dp2p0.8_megbscov15.tsv", 
+df_chh_a <- read.table("tools_to_cmp/athaliana.methyfreq_bins.CHH.comb.dp2p0.8_megbscov15.tsv", 
                        header = F, sep = "\t", stringsAsFactors = F)
-colnames(df_chh_o) <- c("key", "rmet", "bins", "method")
-df_chh_o <- df_chh_o[, c("rmet", "bins", "method")]
-df_chh_o$binname <- "low methylation"
-df_chh_o[df_chh_o$bins=="mediate",]$binname <- "intermediate methylation"
-df_chh_o[df_chh_o$bins=="high",]$binname <- "high methylation"
-df_chh_o <- df_chh_o[, c("rmet", "binname", "method")]
+colnames(df_chh_a) <- c("key", "rmet", "bins", "method")
+df_chh_a <- df_chh_a[, c("rmet", "bins", "method")]
+df_chh_a$binname <- "low methylation"
+df_chh_a[df_chh_a$bins=="mediate",]$binname <- "intermediate methylation"
+df_chh_a[df_chh_a$bins=="high",]$binname <- "high methylation"
+df_chh_a <- df_chh_a[, c("rmet", "binname", "method")]
 
 
-df_chh_o$binname <- factor(df_chh_o$binname, levels=c("low methylation", "intermediate methylation", 
+df_chh_a$binname <- factor(df_chh_a$binname, levels=c("low methylation", "intermediate methylation", 
                                                       "high methylation"))
-df_chh_o$method <- factor(df_chh_o$method, levels=c("bisulfite", "deepsignal2", "megalodon"))
+df_chh_a$method <- factor(df_chh_a$method, levels=c("bisulfite", "deepsignal2", "megalodon"))
 
 # ggplot(df_high, aes(x=method, y=rmet, fill=method)) + geom_violin()
 cbPalette <- c("#bababa", "#2b83ba", "#fdae61")
-p_chh_o <- ggplot(df_chh_o, aes(x=binname, y=rmet, fill=method)) + 
+p_chh_a <- ggplot(df_chh_a, aes(x=binname, y=rmet, fill=method)) + 
   geom_boxplot(position=position_dodge(0.9),
                lwd=0.5, outlier.size=-1, fatten=2) + 
   theme_bw() + 
@@ -151,21 +151,24 @@ p_chh_o <- ggplot(df_chh_o, aes(x=binname, y=rmet, fill=method)) +
                     labels=c("bisulfite   ", "DeepSignal-plant   ", "Megalodon")) +
   xlab("Bisulfite methylation frequency") + 
   ylab("Methylation frequency") + 
-  ggtitle(expression(paste(italic("O. sativa"), " (sample2)    CHH", sep = "")))
+  ggtitle(expression(paste(italic("A. thaliana"), "     CHH", sep = "")))
+
+
+
 
 
 
 
 ppi= 300
-png("tools_to_cmp/comparison_highly_lowly_methylated_sites2.boxplot.rice1-1.raw.png", 
+png("tools_to_cmp/comparison_highly_lowly_methylated_sites2.boxplot.arab.raw.png", 
     width = 39, 
     height = 24, units = "cm", res=ppi)
-grid.arrange(arrangeGrob(p_cg_o, grid.rect(gp=gpar(col="white")), p_chg_o,
+grid.arrange(arrangeGrob(p_cg_a, grid.rect(gp=gpar(col="white")), p_chg_a,
                          nrow=1,
                          ncol=3,
                          widths=c(19, 1, 19)), 
              grid.rect(gp=gpar(col="white")),
-             arrangeGrob(p_chh_o, grid.rect(gp=gpar(col="white")), 
+             arrangeGrob(p_chh_a, grid.rect(gp=gpar(col="white")), 
                          grid.rect(gp=gpar(col="white")),
                          nrow=1,
                          ncol=3,
@@ -173,21 +176,24 @@ grid.arrange(arrangeGrob(p_cg_o, grid.rect(gp=gpar(col="white")), p_chg_o,
              heights=c(12, 1, 12))
 dev.off()
 
-svg("tools_to_cmp/comparison_highly_lowly_methylated_sites2.boxplot.rice1-1.raw.svg", 
+svg("tools_to_cmp/comparison_highly_lowly_methylated_sites2.boxplot.arab.raw.svg", 
     width = 39/2.54, 
     height = 24/2.54)
-grid.arrange(arrangeGrob(p_cg_o, grid.rect(gp=gpar(col="white")), p_chg_o,
+grid.arrange(arrangeGrob(p_cg_a, grid.rect(gp=gpar(col="white")), p_chg_a,
                          nrow=1,
                          ncol=3,
                          widths=c(19, 1, 19)), 
              grid.rect(gp=gpar(col="white")),
-             arrangeGrob(p_chh_o, grid.rect(gp=gpar(col="white")), 
+             arrangeGrob(p_chh_a, grid.rect(gp=gpar(col="white")), 
                          grid.rect(gp=gpar(col="white")),
                          nrow=1,
                          ncol=3,
                          widths=c(19, 1, 19)),
              heights=c(12, 1, 12))
 dev.off()
+
+
+
 
 
 
