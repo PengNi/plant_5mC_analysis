@@ -186,6 +186,10 @@ if (ncol(bisulfite_data)==5){
 } else if(substr(name_sample1, 1, 10)=='nanopolish'){
   colnames(bisulfite_data) <- c("chromosome", "pos", "pos_in_strand", "num_motifs_in_group", 
                                 "coverage", "met", "Rmet", "group_sequence")
+} else if(substr(name_sample1, 1, 14)=='deepsignal_bed'){
+  colnames(bisulfite_data) <- c("chromosome", "pos", "pend", "na1", "na2", "strand", "na3",
+                                "na4", "na5", "coverage", "rpercent")
+  bisulfite_data$Rmet <- bisulfite_data$rpercent / 100
 } else if(substr(name_sample1, 1, 10)=='deepsignal' & ncol(bisulfite_data)==11){
   colnames(bisulfite_data) <- c("chromosome", "pos", "strand", "pos_in_strand", 
                                 "prob0", "prob1", "met", "unmet", "coverage", 
@@ -212,6 +216,10 @@ if (ncol(nanopore_data)==5){
 } else if(substr(name_sample2, 1, 10)=='nanopolish'){
   colnames(nanopore_data) <- c("chromosome", "pos", "pos_in_strand", "num_motifs_in_group", 
                                "coverage", "met", "Rmet", "group_sequence")
+} else if(substr(name_sample2, 1, 14)=='deepsignal_bed'){
+  colnames(nanopore_data) <- c("chromosome", "pos", "pend", "na1", "na2", "strand", "na3",
+                                "na4", "na5", "coverage", "rpercent")
+  nanopore_data$Rmet <- nanopore_data$rpercent / 100
 } else if(substr(name_sample2, 1, 10)=='deepsignal' & ncol(nanopore_data)==11){
   colnames(nanopore_data) <- c("chromosome", "pos", "strand", "pos_in_strand", 
                                 "prob0", "prob1", "met", "unmet", "coverage", 
