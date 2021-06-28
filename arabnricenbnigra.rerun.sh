@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # deepsignal2 rerun arab part2 254.2 ============
 python /homeb/nipeng/tools/deepsignal2/scripts/call_modification_frequency.py --input_path athaliana.guppy.pass.part2.CHH.bn13_sn16.arabnrice2-1.denoise_signal_bilstm.both_bilstm.10x_1.tsv --result_file athaliana.guppy.pass.part2.CHH.bn13_sn16.arabnrice2-1.denoise_signal_bilstm.both_bilstm.10x_1.freq.p0.8.tsv --prob_cf 0.8  > athaliana.guppy.pass.part2.CHH.bn13_sn16.arabnrice2-1.denoise_signal_bilstm.both_bilstm.10x_1.freq.p0.8.log &
 python /homeb/nipeng/tools/deepsignal2/scripts/call_modification_frequency.py --input_path athaliana.guppy.pass.part2.CHH.bn13_sn16.arabnrice2-1.denoise_signal_bilstm.both_bilstm.10x_2.tsv --result_file athaliana.guppy.pass.part2.CHH.bn13_sn16.arabnrice2-1.denoise_signal_bilstm.both_bilstm.10x_2.freq.p0.8.tsv --prob_cf 0.8  > athaliana.guppy.pass.part2.CHH.bn13_sn16.arabnrice2-1.denoise_signal_bilstm.both_bilstm.10x_2.freq.p0.8.log &

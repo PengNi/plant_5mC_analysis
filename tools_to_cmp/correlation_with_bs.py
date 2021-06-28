@@ -11,7 +11,35 @@ import math
 sep = "||"
 
 
-def read_nanopolish_freqfile(nanopolish_file, contig_prefix, contig_names, cov_cf):
+def get_intersected_keys(nano_files, cov_cf=5):
+    keys = set()
+    for nano_file in nano_files:
+        keystmp = set()
+        with open(nano_file, "r") as rf:
+            for line in rf:
+                words = line.strip().split("\t")
+                try:
+                    chrom, pos = words[0], words[1]
+                    if "nanopolish" in str(nano_file):
+                        cov = int(words[4])
+                    elif str(nano_file).endswith(".bed"):
+                        cov = int(words[9])
+                    elif str(nano_file).endswith(".freq.tsv"):
+                        cov = int(words[8])
+                    else:
+                        continue
+                except Exception:
+                    continue
+                if cov >= cov_cf:
+                    keystmp.add(sep.join([chrom, pos]))
+        if len(keys) == 0:
+            keys.update(keystmp)
+        else:
+            keys = keys.intersection(keystmp)
+    return keys
+
+
+def read_nanopolish_freqfile(nanopolish_file, contig_prefix, contig_names, cov_cf, keys=None):
     rmet_nano = pd.read_csv(nanopolish_file, sep="\t", header=0,
                             dtype={"chromosome": str})
     rmet_nano = rmet_nano.rename(columns={"start": "pos", "called_sites": "coverage",
@@ -28,10 +56,12 @@ def read_nanopolish_freqfile(nanopolish_file, contig_prefix, contig_names, cov_c
 
     meancov = rmet_nano["coverage"].mean()
     rmet_nano = rmet_nano[rmet_nano["coverage"] >= cov_cf]
+    if keys is not None:
+        rmet_nano = rmet_nano[rmet_nano["key"].isin(keys)]
     return meancov, rmet_nano.sort_values(by=['chromosome', 'pos'])
 
 
-def read_methylbed(bed_file, contig_prefix, contig_names, cov_cf):
+def read_methylbed(bed_file, contig_prefix, contig_names, cov_cf, keys=None):
     rmet_bed = pd.read_csv(bed_file, sep="\t", header=None,
                            names=["chromosome", "pos", "end", "na1", "na2", "strand",
                                   "na3", "na4", "na5", "coverage", "rpercent"],
@@ -49,10 +79,12 @@ def read_methylbed(bed_file, contig_prefix, contig_names, cov_cf):
 
     meancov = rmet_bed["coverage"].mean()
     rmet_bed = rmet_bed[rmet_bed["coverage"] >= cov_cf]
+    if keys is not None:
+        rmet_bed = rmet_bed[rmet_bed["key"].isin(keys)]
     return meancov, rmet_bed.sort_values(by=['chromosome', 'pos'])
 
 
-def read_methylbed_fb(bed_file, contig_prefix, contig_names, cov_cf):
+def read_methylbed_fb(bed_file, contig_prefix, contig_names, cov_cf, keys=None):
     rmet_bed = pd.read_csv(bed_file, sep="\t", header=0,
                            dtype={"chromosome": str})
     if contig_prefix is not None:
@@ -67,10 +99,12 @@ def read_methylbed_fb(bed_file, contig_prefix, contig_names, cov_cf):
 
     meancov = rmet_bed["coverage"].mean()
     rmet_bed = rmet_bed[rmet_bed["coverage"] >= cov_cf]
+    if keys is not None:
+        rmet_bed = rmet_bed[rmet_bed["key"].isin(keys)]
     return meancov, rmet_bed.sort_values(by=['chromosome', 'pos'])
 
 
-def read_rmetfile_of_dp2(dp2_file, contig_prefix, contig_names, cov_cf):
+def read_rmetfile_of_dp2(dp2_file, contig_prefix, contig_names, cov_cf, keys=None):
     rmet_dp2 = pd.read_csv(dp2_file, sep="\t", header=None,
                            names=["chromosome", "pos", "strand", "pos_in_strand", "prob0", "prob1", "met", "unmet",
                                   "coverage", "Rmet", "kmer"],
@@ -88,7 +122,8 @@ def read_rmetfile_of_dp2(dp2_file, contig_prefix, contig_names, cov_cf):
 
     meancov = rmet_dp2["coverage"].mean()
     rmet_dp2 = rmet_dp2[rmet_dp2["coverage"] >= cov_cf]
-
+    if keys is not None:
+        rmet_dp2 = rmet_dp2[rmet_dp2["key"].isin(keys)]
     return meancov, rmet_dp2.sort_values(by=['chromosome', 'pos'])
 
 
@@ -146,21 +181,29 @@ def correlation_with_bs_rmets(args):
                                                                                        args.contig_names,
                                                                                        args.cov_cf_bs)
         print("bsfile: {}, mean_covarge: {}".format(bs_file, bsmean_cov))
+    keys = None
+    if args.inter:
+        keys = get_intersected_keys(nano_files, args.cov_cf)
     for dp2_file in nano_files:
         print("====== {}".format(dp2_file))
         if str(dp2_file).endswith("fb_combined.bed"):
-            mean_cov, dp2rmetinfo = read_methylbed_fb(dp2_file, args.contig_prefix, args.contig_names, args.cov_cf)
+            mean_cov, dp2rmetinfo = read_methylbed_fb(dp2_file, args.contig_prefix, args.contig_names, args.cov_cf,
+                                                      keys)
         elif str(dp2_file).endswith(".bed"):
-            mean_cov, dp2rmetinfo = read_methylbed(dp2_file, args.contig_prefix, args.contig_names, args.cov_cf)
+            mean_cov, dp2rmetinfo = read_methylbed(dp2_file, args.contig_prefix, args.contig_names, args.cov_cf,
+                                                   keys)
         elif "nanopolish" in str(dp2_file):
             mean_cov, dp2rmetinfo = read_nanopolish_freqfile(dp2_file, args.contig_prefix, args.contig_names,
-                                                             args.cov_cf)
+                                                             args.cov_cf, keys)
         elif str(dp2_file).endswith("freq.tsv") or str(dp2_file).endswith("freq.fb_combined.tsv"):
             mean_cov, dp2rmetinfo = read_rmetfile_of_dp2(dp2_file, args.contig_prefix,
-                                                         args.contig_names, args.cov_cf)
+                                                         args.contig_names, args.cov_cf,
+                                                         keys)
+        else:
+            continue
         print("mean_covarge: {}".format(mean_cov))
         print("{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format("bs_file", "bsnum", "nanonum", "internum", "pearson",
-                                                      "spearman", "rsquare", "RMSE"))
+                                                      "rsquare", "spearman", "RMSE"))
         sitenums_inter = []
         sitenums_nano = []
         sitenums_bs = []
@@ -180,8 +223,8 @@ def correlation_with_bs_rmets(args):
             corrs_rsquare.append(r_square)
             corrs_rmse.append(rmse)
             print("{}\t{}\t{}\t{}\t{:.4f}\t{:.4f}\t{:.4f}\t{:.4f}".format(bs_fname, bsnum, nanonum,
-                                                                          internum, pcorr, scorr,
-                                                                          r_square, rmse))
+                                                                          internum, pcorr, r_square,
+                                                                          scorr, rmse))
         print("{}\t{:.2f}\t{:.2f}\t{:.2f}\t{:.4f}\t{:.4f}\t{:.4f}\t{:.4f}".format("average",
                                                                                   sum(sitenums_bs)/len(sitenums_bs),
                                                                                   sum(sitenums_nano) / len(
@@ -190,10 +233,10 @@ def correlation_with_bs_rmets(args):
                                                                                       sitenums_inter),
                                                                                   sum(corrs_pearson) / len(
                                                                                       corrs_pearson),
-                                                                                  sum(corrs_spearman) / len(
-                                                                                      corrs_spearman),
                                                                                   sum(corrs_rsquare) / len(
                                                                                       corrs_rsquare),
+                                                                                  sum(corrs_spearman) / len(
+                                                                                      corrs_spearman),
                                                                                   sum(corrs_rmse) / len(
                                                                                       corrs_rmse)
                                                                                   ))
@@ -209,6 +252,8 @@ def main():
     parser.add_argument("--contig_names", type=str, required=False, default=None)  # 1,2,3,4,5,6,7,8,9,10,11,12
     parser.add_argument("--cov_cf", type=int, required=False, default=5, help="")
     parser.add_argument("--cov_cf_bs", type=int, required=False, default=5, help="")
+    parser.add_argument("--inter", action="store_true", required=False, default=False,
+                        help="if using intersected keys of nano_files")
 
     args = parser.parse_args()
     correlation_with_bs_rmets(args)
