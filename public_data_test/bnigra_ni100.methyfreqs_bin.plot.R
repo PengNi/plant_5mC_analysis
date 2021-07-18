@@ -10,18 +10,18 @@ library(plyr)
 
 # 254.6 bnigra
 # === cg
-df_cg <- read.table("public_data_test/bnigra_ni100.methyfreq_bins.CG.comb.dp2p0.8_megbscov15.tsv", 
+df_cg <- read.table("public_data_test/bnigra_ni100.methyfreq_bins.CG.comb_dp2p0.8_meg_CNN.tsv", 
                  header = F, sep = "\t", stringsAsFactors = F)
 colnames(df_cg) <- c("key", "rmet", "bins", "method")
 df_cg <- df_cg[, c("rmet", "bins", "method")]
-df_cg$binname <- "low methylation"
-df_cg[df_cg$bins=="mediate",]$binname <- "intermediate methylation"
-df_cg[df_cg$bins=="high",]$binname <- "high methylation"
+df_cg$binname <- "low frequency"
+df_cg[df_cg$bins=="mediate",]$binname <- "intermediate frequency"
+df_cg[df_cg$bins=="high",]$binname <- "high frequency"
 df_cg <- df_cg[, c("rmet", "binname", "method")]
 
 
-df_cg$binname <- factor(df_cg$binname, levels=c("low methylation", "intermediate methylation", 
-                                                "high methylation"))
+df_cg$binname <- factor(df_cg$binname, levels=c("low frequency", "intermediate frequency", 
+                                                "high frequency"))
 df_cg$method <- factor(df_cg$method, levels=c("bisulfite",  
                                               "deepsignal2.arab", 
                                               "deepsignal2.rice", "deepsignal2", 
@@ -55,8 +55,8 @@ p_cg <- ggplot(df_cg, aes(x=binname, y=rmet, fill=method)) +
                                   family="Arial")) +
   scale_y_continuous(limits = c(0, 1), 
                      breaks = seq(0, 1, 0.2)) + 
-  scale_x_discrete(breaks=c("low methylation", "intermediate methylation", 
-                            "high methylation"), 
+  scale_x_discrete(breaks=c("low frequency", "intermediate frequency", 
+                            "high frequency"), 
                    labels=c("0.0-0.3", "0.3-0.7", "0.7-1.0")) +
   scale_fill_manual(values=cbPalette, 
                     breaks=c("bisulfite",  
@@ -74,18 +74,18 @@ p_cg <- ggplot(df_cg, aes(x=binname, y=rmet, fill=method)) +
 
 
 # === chg
-df_chg <- read.table("public_data_test/bnigra_ni100.methyfreq_bins.CHG.comb.dp2p0.8_megbscov15.tsv",
+df_chg <- read.table("public_data_test/bnigra_ni100.methyfreq_bins.CHG.comb_dp2p0.0_meg_CNN.tsv",
                     header = F, sep = "\t", stringsAsFactors = F)
 colnames(df_chg) <- c("key", "rmet", "bins", "method")
 df_chg <- df_chg[, c("rmet", "bins", "method")]
-df_chg$binname <- "low methylation"
-df_chg[df_chg$bins=="mediate",]$binname <- "intermediate methylation"
-df_chg[df_chg$bins=="high",]$binname <- "high methylation"
+df_chg$binname <- "low frequency"
+df_chg[df_chg$bins=="mediate",]$binname <- "intermediate frequency"
+df_chg[df_chg$bins=="high",]$binname <- "high frequency"
 df_chg <- df_chg[, c("rmet", "binname", "method")]
 
 
-df_chg$binname <- factor(df_chg$binname, levels=c("low methylation", "intermediate methylation",
-                                                "high methylation"))
+df_chg$binname <- factor(df_chg$binname, levels=c("low frequency", "intermediate frequency",
+                                                "high frequency"))
 df_chg$method <- factor(df_chg$method, levels=c("bisulfite",  
                                                 "deepsignal2.arab", 
                                                 "deepsignal2.rice", "deepsignal2", 
@@ -119,8 +119,8 @@ p_chg <- ggplot(df_chg, aes(x=binname, y=rmet, fill=method)) +
                                   family="Arial")) +
   scale_y_continuous(limits = c(0, 1),
                      breaks = seq(0, 1, 0.2)) +
-  scale_x_discrete(breaks=c("low methylation", "intermediate methylation",
-                            "high methylation"),
+  scale_x_discrete(breaks=c("low frequency", "intermediate frequency",
+                            "high frequency"),
                    labels=c("0.0-0.3", "0.3-0.7", "0.7-1.0")) +
   scale_fill_manual(values=cbPalette,
                     breaks=c("bisulfite",  
@@ -138,18 +138,18 @@ p_chg <- ggplot(df_chg, aes(x=binname, y=rmet, fill=method)) +
 
 
 # === chh
-df_chh <- read.table("public_data_test/bnigra_ni100.methyfreq_bins.CHH.comb.dp2p0.8_megbscov15.tsv",
+df_chh <- read.table("public_data_test/bnigra_ni100.methyfreq_bins.CHH.comb_dp2p0.8_meg_CNN.tsv",
                      header = F, sep = "\t", stringsAsFactors = F)
 colnames(df_chh) <- c("key", "rmet", "bins", "method")
 df_chh <- df_chh[, c("rmet", "bins", "method")]
-df_chh$binname <- "low methylation"
-df_chh[df_chh$bins=="mediate",]$binname <- "intermediate methylation"
-df_chh[df_chh$bins=="high",]$binname <- "high methylation"
+df_chh$binname <- "low frequency"
+df_chh[df_chh$bins=="mediate",]$binname <- "intermediate frequency"
+df_chh[df_chh$bins=="high",]$binname <- "high frequency"
 df_chh <- df_chh[, c("rmet", "binname", "method")]
 
 
-df_chh$binname <- factor(df_chh$binname, levels=c("low methylation", "intermediate methylation",
-                                                  "high methylation"))
+df_chh$binname <- factor(df_chh$binname, levels=c("low frequency", "intermediate frequency",
+                                                  "high frequency"))
 df_chh$method <- factor(df_chh$method, levels=c("bisulfite",  
                                                 "deepsignal2.arab", 
                                                 "deepsignal2.rice", "deepsignal2", 
@@ -183,8 +183,8 @@ p_chh <- ggplot(df_chh, aes(x=binname, y=rmet, fill=method)) +
                                   family="Arial")) +
   scale_y_continuous(limits = c(0, 1),
                      breaks = seq(0, 1, 0.2)) +
-  scale_x_discrete(breaks=c("low methylation", "intermediate methylation",
-                            "high methylation"),
+  scale_x_discrete(breaks=c("low frequency", "intermediate frequency",
+                            "high frequency"),
                    labels=c("0.0-0.3", "0.3-0.7", "0.7-1.0")) +
   scale_fill_manual(values=cbPalette,
                     breaks=c("bisulfite", "deepsignal2", 

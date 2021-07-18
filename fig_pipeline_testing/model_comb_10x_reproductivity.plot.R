@@ -154,16 +154,15 @@ p_a_cg <- ggplot(pearson_corrs, aes(y=pearson_corr, x=xaxis, fill=xaxis)) +
   annotation_custom(grobTree(textGrob(paste("mean: ", 
                                             round(mean(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.92, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial")))) + 
+                                      gp=gpar(col="black", fontsize=10, fontfamily="Arial")))) + 
   annotation_custom(grobTree(textGrob(paste("   s.d.: ", 
                                             round(sd(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.87, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial"))))
+                                      gp=gpar(col="black", fontsize=10, fontfamily="Arial"))))
 p_a_cg
 
-# df_a_cg_heat <- read.table("fig_pipeline_testing/model_comb_10x_self_corr.arab.part2.CG.txt", 
-#                            header = T, sep = "\t", stringsAsFactors = F)
-df_a_cg_heat <- read.table("fig_pipeline_testing/model_comb_p0.8_10x_self_corr.arab.part2.CG.txt", 
+
+df_a_cg_heat <- read.table("fig_pipeline_testing/model_cnn_comb_p0.8_10x_self_corr.arab.part2.CG.txt", 
                            header = T, sep = "\t", stringsAsFactors = F)
 df_a_cg_heat.mat <- make_matrix(df_a_cg_heat)
 p_a_cg_heat <- heatplot(df_a_cg_heat.mat, digits = 4)
@@ -195,16 +194,15 @@ p_a_chg <- ggplot(pearson_corrs, aes(y=pearson_corr, x=xaxis, fill=xaxis)) +
                                             format(round(mean(pearson_corrs$pearson_corr), 4),
                                                    nsmall = 4)), 
                                       x=0.51,  y=0.92, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial")))) + 
+                                      gp=gpar(col="black", fontsize=10, fontfamily="Arial")))) + 
   annotation_custom(grobTree(textGrob(paste("   s.d.: ", 
                                             round(sd(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.87, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial"))))
+                                      gp=gpar(col="black", fontsize=10, fontfamily="Arial"))))
 p_a_chg
 
-# df_a_chg_heat <- read.table("fig_pipeline_testing/model_comb_10x_self_corr.arab.part2.CHG.txt", 
-#                            header = T, sep = "\t", stringsAsFactors = F)
-df_a_chg_heat <- read.table("fig_pipeline_testing/model_comb_p0.8_10x_self_corr.arab.part2.CHG.txt", 
+
+df_a_chg_heat <- read.table("fig_pipeline_testing/model_cnn_comb_p0.8_10x_self_corr.arab.part2.CHG.txt", 
                             header = T, sep = "\t", stringsAsFactors = F)
 df_a_chg_heat.mat <- make_matrix(df_a_chg_heat)
 p_a_chg_heat <- heatplot(df_a_chg_heat.mat, digits = 4)
@@ -235,16 +233,14 @@ p_a_chh <- ggplot(pearson_corrs, aes(y=pearson_corr, x=xaxis, fill=xaxis)) +
   annotation_custom(grobTree(textGrob(paste("mean: ", 
                                             round(mean(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.92, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial")))) + 
+                                      gp=gpar(col="black", fontsize=10, fontfamily="Arial")))) + 
   annotation_custom(grobTree(textGrob(paste("   s.d.: ", 
                                             round(sd(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.87, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial"))))
+                                      gp=gpar(col="black", fontsize=10, fontfamily="Arial"))))
 p_a_chh
 
-# df_a_chh_heat <- read.table("fig_pipeline_testing/model_comb_10x_self_corr.arab.part2.CHH.txt", 
-#                             header = T, sep = "\t", stringsAsFactors = F)
-df_a_chh_heat <- read.table("fig_pipeline_testing/model_comb_p0.8_10x_self_corr.arab.part2.CHH.txt", 
+df_a_chh_heat <- read.table("fig_pipeline_testing/model_cnn_comb_p0.8_10x_self_corr.arab.part2.CHH.txt", 
                             header = T, sep = "\t", stringsAsFactors = F)
 df_a_chh_heat.mat <- make_matrix(df_a_chh_heat)
 p_a_chh_heat <- heatplot(df_a_chh_heat.mat, digits = 4)
@@ -278,16 +274,14 @@ p_o_cg <- ggplot(pearson_corrs, aes(y=pearson_corr, x=xaxis, fill=xaxis)) +
   annotation_custom(grobTree(textGrob(paste("mean: ", 
                                             round(mean(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.92, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial")))) + 
+                                      gp=gpar(col="black", fontsize=9.5, fontfamily="Arial")))) + 
   annotation_custom(grobTree(textGrob(paste("   s.d.: ", 
                                             round(sd(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.87, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial"))))
+                                      gp=gpar(col="black", fontsize=10, fontfamily="Arial"))))
 p_o_cg
 
-# df_o_cg_heat <- read.table("fig_pipeline_testing/model_comb_10x_self_corr.rice1-1.part2.CG.txt", 
-#                            header = T, sep = "\t", stringsAsFactors = F)
-df_o_cg_heat <- read.table("fig_pipeline_testing/model_comb_p0.8_10x_self_corr.rice2-1.part2.CG.txt", 
+df_o_cg_heat <- read.table("fig_pipeline_testing/model_cnn_comb_p0.8_10x_self_corr.rice2-1.part2.CG.txt", 
                            header = T, sep = "\t", stringsAsFactors = F)
 df_o_cg_heat.mat <- make_matrix(df_o_cg_heat)
 p_o_cg_heat <- heatplot(df_o_cg_heat.mat, digits = 4)
@@ -318,16 +312,15 @@ p_o_chg <- ggplot(pearson_corrs, aes(y=pearson_corr, x=xaxis, fill=xaxis)) +
   annotation_custom(grobTree(textGrob(paste("mean: ", 
                                             round(mean(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.92, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial")))) + 
+                                      gp=gpar(col="black", fontsize=10, fontfamily="Arial")))) + 
   annotation_custom(grobTree(textGrob(paste("   s.d.: ", 
                                             round(sd(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.87, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial"))))
+                                      gp=gpar(col="black", fontsize=10, fontfamily="Arial"))))
 p_o_chg
 
-# df_o_chg_heat <- read.table("fig_pipeline_testing/model_comb_10x_self_corr.rice1-1.part2.CHG.txt", 
-#                            header = T, sep = "\t", stringsAsFactors = F)
-df_o_chg_heat <- read.table("fig_pipeline_testing/model_comb_p0.8_10x_self_corr.rice2-1.part2.CHG.txt", 
+
+df_o_chg_heat <- read.table("fig_pipeline_testing/model_cnn_comb_p0.8_10x_self_corr.rice2-1.part2.CHG.txt", 
                             header = T, sep = "\t", stringsAsFactors = F)
 df_o_chg_heat.mat <- make_matrix(df_o_chg_heat)
 p_o_chg_heat <- heatplot(df_o_chg_heat.mat, digits = 4)
@@ -358,16 +351,15 @@ p_o_chh <- ggplot(pearson_corrs, aes(y=pearson_corr, x=xaxis, fill=xaxis)) +
   annotation_custom(grobTree(textGrob(paste("mean: ", 
                                             round(mean(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.92, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial")))) + 
+                                      gp=gpar(col="black", fontsize=10, fontfamily="Arial")))) + 
   annotation_custom(grobTree(textGrob(paste("   s.d.: ", 
                                             round(sd(pearson_corrs$pearson_corr), 4)), 
                                       x=0.51,  y=0.87, hjust=0, 
-                                      gp=gpar(col="black", fontsize=11, fontfamily="Arial"))))
+                                      gp=gpar(col="black", fontsize=10, fontfamily="Arial"))))
 p_o_chh
 
-# df_o_chh_heat <- read.table("fig_pipeline_testing/model_comb_10x_self_corr.rice1-1.part2.CHH.txt", 
-#                             header = T, sep = "\t", stringsAsFactors = F)
-df_o_chh_heat <- read.table("fig_pipeline_testing/model_comb_p0.8_10x_self_corr.rice2-1.part2.CHH.txt", 
+
+df_o_chh_heat <- read.table("fig_pipeline_testing/model_cnn_comb_p0.8_10x_self_corr.rice2-1.part2.CHH.txt", 
                             header = T, sep = "\t", stringsAsFactors = F)
 df_o_chh_heat.mat <- make_matrix(df_o_chh_heat)
 p_o_chh_heat <- heatplot(df_o_chh_heat.mat, digits = 4)
@@ -394,7 +386,7 @@ grid.arrange(arrangeGrob(grid.rect(gp=gpar(col="white")),
                          p_a_chh,
                          p_a_chh_heat,
                          nrow=1, 
-                         widths = c(7, 14, 1, 7, 14, 1, 7, 14)), 
+                         widths = c(7.2, 14, 0.9, 7.2, 14, 0.9, 7.2, 14)), 
              arrangeGrob(grid.rect(gp=gpar(col="white")), 
                          nrow = 1), 
              arrangeGrob(p_o_cg,
@@ -406,7 +398,7 @@ grid.arrange(arrangeGrob(grid.rect(gp=gpar(col="white")),
                          p_o_chh,
                          p_o_chh_heat,
                          nrow=1, 
-                         widths = c(7, 14, 1, 7, 14, 1, 7, 14)), 
+                         widths = c(7.2, 14, 0.9, 7.2, 14, 0.9, 7.2, 14)), 
              heights = c(1, 12, 1, 12))
 dev.off()
 
@@ -424,7 +416,7 @@ grid.arrange(arrangeGrob(grid.rect(gp=gpar(col="white")),
                          p_a_chh,
                          p_a_chh_heat,
                          nrow=1, 
-                         widths = c(7, 14, 1, 7, 14, 1, 7, 14)), 
+                         widths = c(7.2, 14, 0.9, 7.2, 14, 0.9, 7.2, 14)), 
              arrangeGrob(grid.rect(gp=gpar(col="white")), 
                          nrow = 1), 
              arrangeGrob(p_o_cg,
@@ -436,7 +428,7 @@ grid.arrange(arrangeGrob(grid.rect(gp=gpar(col="white")),
                          p_o_chh,
                          p_o_chh_heat,
                          nrow=1, 
-                         widths = c(7, 14, 1, 7, 14, 1, 7, 14)), 
+                         widths = c(7.2, 14, 0.9, 7.2, 14, 0.9, 7.2, 14)), 
              heights = c(1, 12, 1, 12))
 dev.off()
 

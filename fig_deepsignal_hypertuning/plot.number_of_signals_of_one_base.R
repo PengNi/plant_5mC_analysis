@@ -16,7 +16,7 @@ signalnum.mean + signalnum.std
 signalnum.mean + 2*signalnum.std
 
 signalnumdf_30 <- signalnumdf[signalnumdf$signalnum<=30,]
-p <- ggplot(signalnumdf_30, 
+p_count <- ggplot(signalnumdf_30, 
             aes(x=signalnum)) + 
   geom_histogram(binwidth = 1, position = "dodge", colour="black", size=0.5, fill="red") + 
   geom_vline(xintercept = ceiling(signalnum.mean) + ceiling(signalnum.std), 
@@ -32,13 +32,13 @@ p <- ggplot(signalnumdf_30,
 ppi=300
 png("fig_deepsignal_hypertuning/plot.number_of_signals_of_one_base.png", 
      width = 12, height = 9, units = "cm", res=ppi)
-p
+p_count
 dev.off()
 
 
 # svg
 svg("fig_deepsignal_hypertuning/plot.number_of_signals_of_one_base.svg", 
      width = 12/2.54, height = 9/2.54)
-p
+p_count
 dev.off()
 

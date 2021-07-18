@@ -68,32 +68,6 @@ df.csv[df.csv$motif=="CG", ]$motif = "CpG"
 df.csv$motif <- factor(df.csv$motif, levels = c("CpG", "CHG", "CHH"))
 df.csv$model <- factor(df.csv$model, levels = c("m_arab", "m_rice", "m_comb"))
 
-# charts.data <- read.csv("data/copper-data-for-tutorial.csv")
-# cbPalettec <- c("#fc8d62", "#66c2a5")
-# p1 <- ggplot() + 
-#   geom_bar(data = df.csv, aes(y=Pearson_Correlation, x=model, fill = data),
-#            colour="black", stat="identity", width = 1) + 
-#   geom_text(data=df.csv, aes(x = model, y = pos, 
-#                              label=sprintf("%.4f", 
-#                                            round(Pearson_Correlation, digits = 4))), 
-#             size=7, angle=90, 
-#             family="serif") +
-#   facet_grid(. ~ motif) + 
-#   scale_x_discrete(limits=c("m_arab","m_rice","m_comb")) + 
-#   scale_y_continuous(breaks = seq(0, 2, 0.2)) + 
-#   scale_fill_manual(values=cbPalettec, 
-#                     breaks=c("arab.20x", "rice.20x"), 
-#                     labels=c("A. thaliana", "O. sativa")) +
-#   theme_bw() + 
-#   theme(legend.position = "bottom", 
-#         legend.title = element_blank(), 
-#         legend.text = element_text(size=30, face="italic", family = "serif"), 
-#         strip.background = element_rect(colour="white", fill="white", 
-#                                         size=2, linetype="solid"), 
-#         panel.border = element_blank(), 
-#         axis.text.x  = element_text(angle=45, vjust=1, hjust = 1),
-#         text=element_text(size=30,  family="serif")) + 
-#   labs(x="Model", y="Pearson correlation")
 
 cbPalettec <- c("#1f78b4", "#33a02c")
 df.csv_a <- df.csv[df.csv$data=="arab.20x", ]
@@ -149,7 +123,7 @@ pc_o <- ggplot() +
         axis.text.x = element_text(size=12,  family="Arial"), 
         plot.title = element_text(size=15, face = "italic", family = "Arial", 
                                   hjust = 0.5)) + 
-  labs(x="Model", y="Pearson correlation", title = "O.sativa")
+  labs(x="Model", y="Pearson correlation", title = "O. sativa")
 pc_o
 
 ppi= 300

@@ -13,18 +13,18 @@ library(plyr)
 # === cg
 # df_cg_a <- read.table("tools_to_cmp/athaliana.methyfreq_bins.CG.comb.tsv", 
 #                     header = F, sep = "\t", stringsAsFactors = F)
-df_cg_a <- read.table("tools_to_cmp/athaliana.methyfreq_bins.CG.comb.dp2p0.8_megbscov15.tsv", 
+df_cg_a <- read.table("tools_to_cmp/athaliana.methyfreq_bins.CG.comb_dp2p0.8_meg_CNN.tsv", 
                       header = F, sep = "\t", stringsAsFactors = F)
 colnames(df_cg_a) <- c("key", "rmet", "bins", "method")
 df_cg_a <- df_cg_a[, c("rmet", "bins", "method")]
-df_cg_a$binname <- "low methylation"
-df_cg_a[df_cg_a$bins=="mediate",]$binname <- "intermediate methylation"
-df_cg_a[df_cg_a$bins=="high",]$binname <- "high methylation"
+df_cg_a$binname <- "low frequency"
+df_cg_a[df_cg_a$bins=="mediate",]$binname <- "intermediate frequency"
+df_cg_a[df_cg_a$bins=="high",]$binname <- "high frequency"
 df_cg_a <- df_cg_a[, c("rmet", "binname", "method")]
 
 
-df_cg_a$binname <- factor(df_cg_a$binname, levels=c("low methylation", "intermediate methylation", 
-                                                    "high methylation"))
+df_cg_a$binname <- factor(df_cg_a$binname, levels=c("low frequency", "intermediate frequency", 
+                                                    "high frequency"))
 df_cg_a$method <- factor(df_cg_a$method, levels=c("bisulfite", "deepsignal2", "megalodon"))
 
 # ggplot(df_high, aes(x=method, y=rmet, fill=method)) + geom_violin()
@@ -47,8 +47,8 @@ p_cg_a <- ggplot(df_cg_a, aes(x=binname, y=rmet, fill=method)) +
                                   family="Arial", face="italic")) + 
   scale_y_continuous(limits = c(0, 1), 
                      breaks = seq(0, 1, 0.2)) + 
-  scale_x_discrete(breaks=c("low methylation", "intermediate methylation", 
-                            "high methylation"), 
+  scale_x_discrete(breaks=c("low frequency", "intermediate frequency", 
+                            "high frequency"), 
                    labels=c("0.0-0.3", "0.3-0.7", "0.7-1.0")) +
   scale_fill_manual(values=cbPalette, 
                     breaks=c("bisulfite", "deepsignal2", "megalodon"), 
@@ -61,18 +61,18 @@ p_cg_a <- ggplot(df_cg_a, aes(x=binname, y=rmet, fill=method)) +
 # CHG
 # df_chg_a <- read.table("tools_to_cmp/athaliana.methyfreq_bins.CHG.comb.tsv", 
 #                       header = F, sep = "\t", stringsAsFactors = F)
-df_chg_a <- read.table("tools_to_cmp/athaliana.methyfreq_bins.CHG.comb.dp2p0.8_megbscov15.tsv", 
+df_chg_a <- read.table("tools_to_cmp/athaliana.methyfreq_bins.CHG.comb_dp2p0.8_meg_CNN.tsv", 
                        header = F, sep = "\t", stringsAsFactors = F)
 colnames(df_chg_a) <- c("key", "rmet", "bins", "method")
 df_chg_a <- df_chg_a[, c("rmet", "bins", "method")]
-df_chg_a$binname <- "low methylation"
-df_chg_a[df_chg_a$bins=="mediate",]$binname <- "intermediate methylation"
-df_chg_a[df_chg_a$bins=="high",]$binname <- "high methylation"
+df_chg_a$binname <- "low frequency"
+df_chg_a[df_chg_a$bins=="mediate",]$binname <- "intermediate frequency"
+df_chg_a[df_chg_a$bins=="high",]$binname <- "high frequency"
 df_chg_a <- df_chg_a[, c("rmet", "binname", "method")]
 
 
-df_chg_a$binname <- factor(df_chg_a$binname, levels=c("low methylation", "intermediate methylation", 
-                                                      "high methylation"))
+df_chg_a$binname <- factor(df_chg_a$binname, levels=c("low frequency", "intermediate frequency", 
+                                                      "high frequency"))
 df_chg_a$method <- factor(df_chg_a$method, levels=c("bisulfite", "deepsignal2", "megalodon"))
 
 # ggplot(df_high, aes(x=method, y=rmet, fill=method)) + geom_violin()
@@ -95,8 +95,8 @@ p_chg_a <- ggplot(df_chg_a, aes(x=binname, y=rmet, fill=method)) +
                                   family="Arial", face="italic")) + 
   scale_y_continuous(limits = c(0, 1), 
                      breaks = seq(0, 1, 0.2)) + 
-  scale_x_discrete(breaks=c("low methylation", "intermediate methylation", 
-                            "high methylation"), 
+  scale_x_discrete(breaks=c("low frequency", "intermediate frequency", 
+                            "high frequency"), 
                    labels=c("0.0-0.3", "0.3-0.7", "0.7-1.0")) +
   scale_fill_manual(values=cbPalette, 
                     breaks=c("bisulfite", "deepsignal2", "megalodon"), 
@@ -109,18 +109,18 @@ p_chg_a <- ggplot(df_chg_a, aes(x=binname, y=rmet, fill=method)) +
 # CHH
 # df_chh_a <- read.table("tools_to_cmp/athaliana.methyfreq_bins.CHH.comb.tsv", 
 #                        header = F, sep = "\t", stringsAsFactors = F)
-df_chh_a <- read.table("tools_to_cmp/athaliana.methyfreq_bins.CHH.comb.dp2p0.8_megbscov15.tsv", 
+df_chh_a <- read.table("tools_to_cmp/athaliana.methyfreq_bins.CHH.comb_dp2p0.8_meg_CNN.tsv", 
                        header = F, sep = "\t", stringsAsFactors = F)
 colnames(df_chh_a) <- c("key", "rmet", "bins", "method")
 df_chh_a <- df_chh_a[, c("rmet", "bins", "method")]
-df_chh_a$binname <- "low methylation"
-df_chh_a[df_chh_a$bins=="mediate",]$binname <- "intermediate methylation"
-df_chh_a[df_chh_a$bins=="high",]$binname <- "high methylation"
+df_chh_a$binname <- "low frequency"
+df_chh_a[df_chh_a$bins=="mediate",]$binname <- "intermediate frequency"
+df_chh_a[df_chh_a$bins=="high",]$binname <- "high frequency"
 df_chh_a <- df_chh_a[, c("rmet", "binname", "method")]
 
 
-df_chh_a$binname <- factor(df_chh_a$binname, levels=c("low methylation", "intermediate methylation", 
-                                                      "high methylation"))
+df_chh_a$binname <- factor(df_chh_a$binname, levels=c("low frequency", "intermediate frequency", 
+                                                      "high frequency"))
 df_chh_a$method <- factor(df_chh_a$method, levels=c("bisulfite", "deepsignal2", "megalodon"))
 
 # ggplot(df_high, aes(x=method, y=rmet, fill=method)) + geom_violin()
@@ -143,8 +143,8 @@ p_chh_a <- ggplot(df_chh_a, aes(x=binname, y=rmet, fill=method)) +
                                   family="Arial", face="italic")) + 
   scale_y_continuous(limits = c(0, 1), 
                      breaks = seq(0, 1, 0.2)) + 
-  scale_x_discrete(breaks=c("low methylation", "intermediate methylation", 
-                            "high methylation"), 
+  scale_x_discrete(breaks=c("low frequency", "intermediate frequency", 
+                            "high frequency"), 
                    labels=c("0.0-0.3", "0.3-0.7", "0.7-1.0")) +
   scale_fill_manual(values=cbPalette, 
                     breaks=c("bisulfite", "deepsignal2", "megalodon"), 

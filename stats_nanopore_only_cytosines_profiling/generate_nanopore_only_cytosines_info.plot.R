@@ -10,15 +10,15 @@ library(gridExtra)
 
 
 
-rmet_diffnano_arab <- read.table("stats_nanopore_only_cytosines_profiling/ninanjie.c_count.bs_3reps_vs_nano50x_dp2_p0.8.only_nanopore_detected_Cs.freq.txt", 
+rmet_diffnano_arab <- read.table("stats_nanopore_only_cytosines_profiling/ninanjie.c_count.bs_3reps_vs_nano50x_dp2_cnn_p0.8.only_nanopore_detected_Cs.freq.txt", 
                                  header = F, sep = "\t", stringsAsFactors = F)
 colnames(rmet_diffnano_arab) <- c("chrom", "pos", "strand", "coverage", "rmet", "motif")
 
-rmet_diffnano_rice <- read.table("stats_nanopore_only_cytosines_profiling/shuidao2-1.c_count.bs_rep2-1_vs_nano50x_dp2_p0.8.only_nanopore_detected_Cs.freq.txt", 
+rmet_diffnano_rice <- read.table("stats_nanopore_only_cytosines_profiling/shuidao2-1.c_count.bs_rep2-1_vs_nano50x_dp2_cnn_p0.8.only_nanopore_detected_Cs.freq.txt", 
                                  header = F, sep = "\t", stringsAsFactors = F)
 colnames(rmet_diffnano_rice) <- c("chrom", "pos", "strand", "coverage", "rmet", "motif")
 
-rmet_diffnano_rice2 <- read.table("stats_nanopore_only_cytosines_profiling/shuidao1-1.c_count.bs_rep1-2_vs_nano50x_dp2_p0.8.only_nanopore_detected_Cs.freq.txt", 
+rmet_diffnano_rice2 <- read.table("stats_nanopore_only_cytosines_profiling/shuidao1-1.c_count.bs_rep1-2_vs_nano50x_dp2_cnn_p0.8.only_nanopore_detected_Cs.freq.txt", 
                                  header = F, sep = "\t", stringsAsFactors = F)
 colnames(rmet_diffnano_rice2) <- c("chrom", "pos", "strand", "coverage", "rmet", "motif")
 
@@ -416,7 +416,7 @@ p_rice_chg2 <- ggplot(rmet_rice2[rmet_rice2$motif == "CHG", ],
         text = element_text(size=15, family = "Arial"), 
         plot.title = element_text(size=28, 
                                   family = "Arial", face="bold",
-                                  hjust = -0.25)) + 
+                                  hjust = -0.23)) + 
   scale_fill_manual(values=cbPalette) + 
   scale_x_continuous(breaks=seq(0, 1, 0.1)) +
   scale_y_continuous(label=scientific_format()) +

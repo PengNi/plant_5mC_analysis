@@ -18,6 +18,4 @@
 
 - __tools_to_cmp__: code for comparison with other tools.
 
-- __arabnricenbnigra.rerun.sh__: example commands for analysis of the sequenced data.
-
 - __correlation_with_bs.cal_plot.general.R__: R script for comparison of Nanopore-based tools and bisulfite sequencing.
