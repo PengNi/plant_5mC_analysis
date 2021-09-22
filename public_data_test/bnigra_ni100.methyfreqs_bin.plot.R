@@ -19,6 +19,14 @@ df_cg[df_cg$bins=="mediate",]$binname <- "intermediate frequency"
 df_cg[df_cg$bins=="high",]$binname <- "high frequency"
 df_cg <- df_cg[, c("rmet", "binname", "method")]
 
+cg_n_bs_low <- sum(df_cg$binname=="low frequency" & df_cg$method=="bisulfite")
+cg_n_bs_int <- sum(df_cg$binname=="intermediate frequency" & df_cg$method=="bisulfite")
+cg_n_bs_hig <- sum(df_cg$binname=="high frequency" & df_cg$method=="bisulfite")
+df_cg$n_exp <- format(cg_n_bs_low, big.mark = ",", scientific = F)
+df_cg[df_cg$binname=="intermediate frequency",]$n_exp <- format(cg_n_bs_int, 
+                                                                    big.mark = ",", scientific = F)
+df_cg[df_cg$binname=="high frequency",]$n_exp <- format(cg_n_bs_hig, big.mark = ",", scientific = F)
+
 
 df_cg$binname <- factor(df_cg$binname, levels=c("low frequency", "intermediate frequency", 
                                                 "high frequency"))
@@ -36,10 +44,14 @@ df_cg <- df_cg[df_cg$method %in% c("bisulfite",
 # cbPalette <- c("#bababa", "#fdae61", "#ffffbf", "#2b83ba")
 cbPalette <- c("#bababa", "#2b83ba", "#fdae61")
 p_cg <- ggplot(df_cg, aes(x=binname, y=rmet, fill=method)) + 
-  geom_boxplot(position=position_dodge(0.9),
+  stat_boxplot(aes(group=interaction(binname, method)), geom = "errorbar", 
+               position=position_dodge(0.9)) +
+  geom_boxplot(aes(fill=method), 
+               position=position_dodge(0.9),
                lwd=0.5, outlier.size=-1, fatten=2) + 
   theme_bw() + 
-  facet_grid(. ~ binname, scales = "free") + 
+  facet_grid(. ~ binname + n_exp, scales = "free", 
+             labeller = label_bquote(cols = atop(.(as.character(binname)), (italic(n)==.(n_exp))))) + 
   theme(legend.position = "bottom", 
         legend.title = element_blank(), 
         legend.margin=margin(-2, 0, 0, 0),
@@ -83,6 +95,14 @@ df_chg[df_chg$bins=="mediate",]$binname <- "intermediate frequency"
 df_chg[df_chg$bins=="high",]$binname <- "high frequency"
 df_chg <- df_chg[, c("rmet", "binname", "method")]
 
+chg_n_bs_low <- sum(df_chg$binname=="low frequency" & df_chg$method=="bisulfite")
+chg_n_bs_int <- sum(df_chg$binname=="intermediate frequency" & df_chg$method=="bisulfite")
+chg_n_bs_hig <- sum(df_chg$binname=="high frequency" & df_chg$method=="bisulfite")
+df_chg$n_exp <- format(chg_n_bs_low, big.mark = ",", scientific = F)
+df_chg[df_chg$binname=="intermediate frequency",]$n_exp <- format(chg_n_bs_int, 
+                                                                big.mark = ",", scientific = F)
+df_chg[df_chg$binname=="high frequency",]$n_exp <- format(chg_n_bs_hig, big.mark = ",", scientific = F)
+
 
 df_chg$binname <- factor(df_chg$binname, levels=c("low frequency", "intermediate frequency",
                                                 "high frequency"))
@@ -100,10 +120,14 @@ df_chg <- df_chg[df_chg$method %in% c("bisulfite",
 # cbPalette <- c("#bababa", "#fdae61", "#ffffbf", "#2b83ba")
 cbPalette <- c("#bababa", "#2b83ba", "#fdae61")
 p_chg <- ggplot(df_chg, aes(x=binname, y=rmet, fill=method)) +
-  geom_boxplot(position=position_dodge(0.9),
+  stat_boxplot(aes(group=interaction(binname, method)), geom = "errorbar", 
+               position=position_dodge(0.9)) +
+  geom_boxplot(aes(fill=method), 
+               position=position_dodge(0.9),
                lwd=0.5, outlier.size=-1, fatten=2) + 
   theme_bw() + 
-  facet_grid(. ~ binname, scales = "free") + 
+  facet_grid(. ~ binname + n_exp, scales = "free", 
+             labeller = label_bquote(cols = atop(.(as.character(binname)), (italic(n)==.(n_exp))))) + 
   theme(legend.position = "bottom",
         legend.title = element_blank(),
         legend.margin=margin(-2, 0, 0, 0),
@@ -147,6 +171,14 @@ df_chh[df_chh$bins=="mediate",]$binname <- "intermediate frequency"
 df_chh[df_chh$bins=="high",]$binname <- "high frequency"
 df_chh <- df_chh[, c("rmet", "binname", "method")]
 
+chh_n_bs_low <- sum(df_chh$binname=="low frequency" & df_chh$method=="bisulfite")
+chh_n_bs_int <- sum(df_chh$binname=="intermediate frequency" & df_chh$method=="bisulfite")
+chh_n_bs_hig <- sum(df_chh$binname=="high frequency" & df_chh$method=="bisulfite")
+df_chh$n_exp <- format(chh_n_bs_low, big.mark = ",", scientific = F)
+df_chh[df_chh$binname=="intermediate frequency",]$n_exp <- format(chh_n_bs_int, 
+                                                                  big.mark = ",", scientific = F)
+df_chh[df_chh$binname=="high frequency",]$n_exp <- format(chh_n_bs_hig, big.mark = ",", scientific = F)
+
 
 df_chh$binname <- factor(df_chh$binname, levels=c("low frequency", "intermediate frequency",
                                                   "high frequency"))
@@ -164,10 +196,14 @@ df_chh <- df_chh[df_chh$method %in% c("bisulfite",
 # cbPalette <- c("#bababa", "#fdae61", "#ffffbf", "#2b83ba")
 cbPalette <- c("#bababa", "#2b83ba", "#fdae61")
 p_chh <- ggplot(df_chh, aes(x=binname, y=rmet, fill=method)) +
-  geom_boxplot(position=position_dodge(0.9),
+  stat_boxplot(aes(group=interaction(binname, method)), geom = "errorbar", 
+               position=position_dodge(0.9)) +
+  geom_boxplot(aes(fill=method), 
+               position=position_dodge(0.9),
                lwd=0.5, outlier.size=-1, fatten=2) + 
   theme_bw() + 
-  facet_grid(. ~ binname, scales = "free") + 
+  facet_grid(. ~ binname + n_exp, scales = "free", 
+             labeller = label_bquote(cols = atop(.(as.character(binname)), (italic(n)==.(n_exp))))) + 
   theme(legend.position = "bottom",
         legend.title = element_blank(),
         legend.margin=margin(-2, 0, 0, 0),
@@ -200,9 +236,9 @@ p_chh <- ggplot(df_chh, aes(x=binname, y=rmet, fill=method)) +
 
 
 ppi= 300
-png("public_data_test/bnigra_ni100.methyfreqs_bin.tools_cmp.raw.png", 
+png("public_data_test/bnigra_ni100.methyfreqs_bin.tools_cmp.raw2.png", 
     width = 39, 
-    height = 24, units = "cm", res=ppi) # 37, 38
+    height = 26, units = "cm", res=ppi) # 37, 38
 # grid.arrange(arrangeGrob(p_cg,
 #                          grid.rect(gp=gpar(col="white")),
 #                          p_chg,
@@ -224,9 +260,9 @@ grid.arrange(arrangeGrob(p_cg, grid.rect(gp=gpar(col="white")), p_chg,
              heights=c(12, 1, 12))
 dev.off()
 
-svg("public_data_test/bnigra_ni100.methyfreqs_bin.tools_cmp.raw.svg",
+svg("public_data_test/bnigra_ni100.methyfreqs_bin.tools_cmp.raw2.svg",
     width = 39/2.54,
-    height = 24/2.54)
+    height = 26/2.54)
 # grid.arrange(arrangeGrob(p_cg,
 #                          grid.rect(gp=gpar(col="white")),
 #                          p_chg,

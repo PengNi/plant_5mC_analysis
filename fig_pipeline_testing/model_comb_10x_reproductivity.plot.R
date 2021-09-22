@@ -136,6 +136,9 @@ pearson_corrs <- data.frame(pearson_corr = df_comb[df_comb$motif==motif &
                                                   ]$Pearson_correlation, 
                             xaxis = paste(species, motif, sep = " "))
 p_a_cg <- ggplot(pearson_corrs, aes(y=pearson_corr, x=xaxis, fill=xaxis)) +
+  stat_boxplot(aes(group=xaxis), geom = "errorbar", 
+                   size=0.5,
+                   position=position_dodge()) +
   geom_boxplot(position=position_dodge(),
                lwd=0.5, outlier.size=-1, fatten=2) + 
   theme_bw() + 
@@ -175,6 +178,9 @@ pearson_corrs <- data.frame(pearson_corr = df_comb[df_comb$motif==motif &
                                                    ]$Pearson_correlation, 
                             xaxis = paste(species, motif, sep = " "))
 p_a_chg <- ggplot(pearson_corrs, aes(y=pearson_corr, x=xaxis, fill=xaxis)) +
+  stat_boxplot(aes(group=xaxis), geom = "errorbar", 
+               size=0.5,
+               position=position_dodge()) +
   geom_boxplot(position=position_dodge(),
                lwd=0.5, outlier.size=-1, fatten=2) + 
   theme_bw() + 
@@ -215,6 +221,9 @@ pearson_corrs <- data.frame(pearson_corr = df_comb[df_comb$motif==motif &
                                                    ]$Pearson_correlation, 
                             xaxis = paste(species, motif, sep = " "))
 p_a_chh <- ggplot(pearson_corrs, aes(y=pearson_corr, x=xaxis, fill=xaxis)) +
+  stat_boxplot(aes(group=xaxis), geom = "errorbar", 
+               size=0.5,
+               position=position_dodge()) +
   geom_boxplot(position=position_dodge(),
                lwd=0.5, outlier.size=-1, fatten=2) + 
   theme_bw() + 
@@ -256,6 +265,9 @@ pearson_corrs <- data.frame(pearson_corr = df_comb[df_comb$motif==motif &
                                                    ]$Pearson_correlation, 
                             xaxis = paste(species, motif, sep = " "))
 p_o_cg <- ggplot(pearson_corrs, aes(y=pearson_corr, x=xaxis, fill=xaxis)) +
+  stat_boxplot(aes(group=xaxis), geom = "errorbar", 
+               size=0.5,
+               position=position_dodge()) +
   geom_boxplot(position=position_dodge(),
                lwd=0.5, outlier.size=-1, fatten=2) + 
   theme_bw() + 
@@ -294,6 +306,9 @@ pearson_corrs <- data.frame(pearson_corr = df_comb[df_comb$motif==motif &
                                                    ]$Pearson_correlation, 
                             xaxis = paste(species, motif, sep = " "))
 p_o_chg <- ggplot(pearson_corrs, aes(y=pearson_corr, x=xaxis, fill=xaxis)) +
+  stat_boxplot(aes(group=xaxis), geom = "errorbar", 
+               size=0.5,
+               position=position_dodge()) +
   geom_boxplot(position=position_dodge(),
                lwd=0.5, outlier.size=-1, fatten=2) + 
   theme_bw() + 
@@ -333,6 +348,9 @@ pearson_corrs <- data.frame(pearson_corr = df_comb[df_comb$motif==motif &
                                                    ]$Pearson_correlation, 
                             xaxis = paste(species, motif, sep = " "))
 p_o_chh <- ggplot(pearson_corrs, aes(y=pearson_corr, x=xaxis, fill=xaxis)) +
+  stat_boxplot(aes(group=xaxis), geom = "errorbar", 
+               size=0.5,
+               position=position_dodge()) +
   geom_boxplot(position=position_dodge(),
                lwd=0.5, outlier.size=-1, fatten=2) + 
   theme_bw() + 
@@ -372,7 +390,7 @@ p_o_chh_heat
 
 # save ===
 ppi= 300
-png("fig_pipeline_testing/model_comb_10x_reproductivity.raw.png",
+png("fig_pipeline_testing/model_comb_10x_reproductivity.raw2.png",
     width = 65,
     height = 26, units = "cm", res=ppi)
 grid.arrange(arrangeGrob(grid.rect(gp=gpar(col="white")), 
@@ -402,7 +420,7 @@ grid.arrange(arrangeGrob(grid.rect(gp=gpar(col="white")),
              heights = c(1, 12, 1, 12))
 dev.off()
 
-svg("fig_pipeline_testing/model_comb_10x_reproductivity.raw.svg",
+svg("fig_pipeline_testing/model_comb_10x_reproductivity.raw2.svg",
     width = 65/2.54,
     height = 26/2.54)
 grid.arrange(arrangeGrob(grid.rect(gp=gpar(col="white")), 

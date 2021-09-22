@@ -40,16 +40,18 @@ cbPaletteb <- c("#d7191c", "#fdae61", "#abdda4")
 min_y = -2.2
 pb <- ggplot(df_signalinfo_one_m, aes(x=variable, y=value)) + 
   stat_boxplot(aes(group=interaction(variable, tlabel)), geom = "errorbar", 
+               size=0.3, 
                position="dodge") +
-  geom_boxplot(aes(fill=tlabel), position="dodge", lwd=0.5, outlier.size=0.5, fatten=1) + # 0.5
+  geom_boxplot(aes(fill=tlabel), position="dodge", lwd=0.3, outlier.size=0.15, fatten=1) + # 0.5
   theme_bw() + 
   theme(legend.position = "bottom", 
         legend.title = element_blank(), 
         legend.margin=margin(-5, 0, 0, 0),
-        legend.key.size = unit(0.3, "cm"),
-        legend.text = element_text(size=9, family = "Arial"), # 10
-        text = element_text(size=9, family="Arial"), # 12
-        plot.title = element_text(size=9, family="Arial")) + # 10
+        legend.key.size = unit(0.25, "cm"),
+        legend.text = element_text(size=6, family = "Arial"), # 10
+        axis.text = element_text(size=6, family = "Arial"),
+        text = element_text(size=6, family="Arial"), # 12
+        plot.title = element_text(size=6, family="Arial")) + # 10
   scale_fill_manual(values=cbPaletteb, breaks=c(1, -1, 0), 
                     labels=c(bquote(paste(" positive_kept (", italic("n"), " = ", .(cnt_pos_kept), ")   ")),
                              bquote(paste(" positive_removed (", italic("n"), " = ", .(cnt_pos_removed), ")   ")), 
@@ -73,16 +75,22 @@ pb <- ggplot(df_signalinfo_one_m, aes(x=variable, y=value)) +
   ggtitle(sprintf("Denoise training samples"))
 pb
 
-ppi= 300
-png("fig_pipeline_testing/effect_of_denoise.plot.png", 
-     width = 14.5, 
-     height = 9, units = "cm", res=ppi) # 16/7.5
+ppi= 500
+png("fig_pipeline_testing/effect_of_denoise.plot2.png", 
+    width = 9.5, 
+    height = 5.9, units = "cm", res=ppi) # 16/7.5
 pb
 dev.off()
 
-svg("fig_pipeline_testing/effect_of_denoise.plot.svg", 
-    width = 14.5/2.54, 
-    height = 9/2.54)
+svg("fig_pipeline_testing/effect_of_denoise.plot2.svg", 
+    width = 9.5/2.54, 
+    height = 5.9/2.54)
+pb
+dev.off()
+
+pdf("fig_pipeline_testing/effect_of_denoise.plot2.pdf", 
+    width = 9.5/2.54, 
+    height = 5.9/2.54)
 pb
 dev.off()
 
